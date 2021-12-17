@@ -9,6 +9,8 @@ import {
 } from "@ui-kitten/components";
 import { Dimensions, Image, Pressable, StyleSheet } from "react-native";
 
+import * as Haptics from "expo-haptics";
+
 export default function Item() {
   const theme = useTheme();
 
@@ -89,7 +91,12 @@ export default function Item() {
           borderRadius: 4,
         }}
       >
-        <Pressable onPress={() => incrementInQuantity(props.id)}>
+        <Pressable
+          onPress={() => {
+            incrementInQuantity(props.id);
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          }}
+        >
           <Icon
             style={styles.icon}
             fill={theme["color-primary-600"]}
@@ -97,7 +104,12 @@ export default function Item() {
           />
         </Pressable>
         <Text>{props.quantity}</Text>
-        <Pressable onPress={() => decrementInQuantity(props.id)}>
+        <Pressable
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            decrementInQuantity(props.id);
+          }}
+        >
           <Icon style={styles.icon} fill="#8F9BB3" name="minus-outline" />
         </Pressable>
       </Layout>
@@ -139,7 +151,10 @@ export default function Item() {
               <Button
                 appearance={"outline"}
                 size={"small"}
-                onPress={() => incrementInQuantity(item.id)}
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  incrementInQuantity(item.id);
+                }}
                 style={{
                   width: Dimensions.get("window").width * 0.22,
                   height: 30,
