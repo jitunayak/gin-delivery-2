@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Appearance, SafeAreaView } from "react-native";
+import { StyleSheet, Appearance } from "react-native";
 import * as eva from "@eva-design/eva";
 import {
   ApplicationProvider,
@@ -13,6 +13,9 @@ import {
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import Item from "./components/Item";
 import Categories from "./components/Categories";
+import AppNavigator from "./screens/AppNavigator";
+import HomeScreen from "./screens/HomeScreen";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   const [systemTheme, setSystemTheme] = useState(eva.light);
@@ -27,25 +30,11 @@ export default function App() {
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={systemTheme}>
-        <Layout style={styles.container}>
-          <SafeAreaView style={styles.container}>
-            <StatusBar style="auto" />
-            <Text category="h3" style={{ margin: 10 }}>
-              Gin Delivery 2{" "}
-            </Text>
-            <Layout
-              style={{
-                flexDirection: "row",
-                justifyContent: "flex-start",
-              }}
-            >
-              <Categories />
-              <Item />
-            </Layout>
-          </SafeAreaView>
-        </Layout>
-      </ApplicationProvider>
+      <SafeAreaProvider>
+        <ApplicationProvider {...eva} theme={systemTheme}>
+          <AppNavigator />
+        </ApplicationProvider>
+      </SafeAreaProvider>
     </>
   );
 }

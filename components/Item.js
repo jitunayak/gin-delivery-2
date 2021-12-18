@@ -7,7 +7,13 @@ import {
   useTheme,
   Icon,
 } from "@ui-kitten/components";
-import { Dimensions, Image, Pressable, StyleSheet } from "react-native";
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 
 import * as Haptics from "expo-haptics";
 
@@ -116,57 +122,62 @@ export default function Item() {
     );
   };
   return (
-    <Layout style={{ flexWrap: "wrap", flexDirection: "row", flex: 2 }}>
-      {products.map((item, index) => {
-        return (
-          <Layout
-            style={{
-              padding: 16,
-              borderWidth: 1,
-              borderColor: theme["outline-color"],
-            }}
-            key={item.id}
-          >
-            <Image
-              source={{ uri: item.image }}
+    <ScrollView showsVerticalScrollIndicator={true}>
+      <Layout style={{ flexWrap: "wrap", flexDirection: "row" }}>
+        {products.map((item, index) => {
+          return (
+            <Layout
               style={{
-                width: 100,
-                height: 100,
-                backgroundColor: "transparent",
+                padding: 20,
+                borderWidth: 1,
+                borderColor: theme["outline-color"],
               }}
-            />
-            <Text category="p1" style={{ paddingVertical: 6 }}>
-              {item.name}
-            </Text>
-            <Text category="p1">₹{item.price}</Text>
-            <Text
-              category="c1"
-              style={{ color: theme["text-hint-color"], marginVertical: 6 }}
+              key={item.id}
             >
-              {item.weight}
-            </Text>
-            {item.quantity > 0 ? (
-              <QuantityManipulationView id={item.id} quantity={item.quantity} />
-            ) : (
-              <Button
-                appearance={"outline"}
-                size={"small"}
-                onPress={() => {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  incrementInQuantity(item.id);
-                }}
+              <Image
+                source={{ uri: item.image }}
                 style={{
-                  width: Dimensions.get("window").width * 0.22,
-                  height: 30,
+                  width: 100,
+                  height: 100,
+                  backgroundColor: "transparent",
                 }}
+              />
+              <Text category="p1" style={{ paddingVertical: 6 }}>
+                {item.name}
+              </Text>
+              <Text category="p1">₹{item.price}</Text>
+              <Text
+                category="c1"
+                style={{ color: theme["text-hint-color"], marginVertical: 6 }}
               >
-                ADD
-              </Button>
-            )}
-          </Layout>
-        );
-      })}
-    </Layout>
+                {item.weight}
+              </Text>
+              {item.quantity > 0 ? (
+                <QuantityManipulationView
+                  id={item.id}
+                  quantity={item.quantity}
+                />
+              ) : (
+                <Button
+                  appearance={"outline"}
+                  size={"small"}
+                  onPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    incrementInQuantity(item.id);
+                  }}
+                  style={{
+                    width: Dimensions.get("window").width * 0.22,
+                    height: 30,
+                  }}
+                >
+                  ADD
+                </Button>
+              )}
+            </Layout>
+          );
+        })}
+      </Layout>
+    </ScrollView>
   );
 }
 

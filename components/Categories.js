@@ -8,7 +8,7 @@ const Categories = () => {
   const [categories, setCategories] = useState([
     {
       id: "189sdjnsd",
-      name: "Dairy & Eggs",
+      name: "Dairy",
       category: "Dairy & Eggs",
       image: "https://cdn-icons-png.flaticon.com/512/3500/3500270.png",
     },
@@ -29,7 +29,7 @@ const Categories = () => {
       name: "Snacks",
       category: "Milk",
       image:
-        "https://cdn-icons.flaticon.com/png/512/859/premium/859354.png?token=exp=1639763241~hmac=1227a6da836f76a905a8c5fdeaee9596",
+        "https://cdn-icons.flaticon.com/png/512/2137/premium/2137769.png?token=exp=1639798922~hmac=c9b6f1f8def9a56cb93241f85d06f04e",
     },
   ]);
 
@@ -43,10 +43,11 @@ const Categories = () => {
       style={{
         alignItems: "center",
         backgroundColor:
-          currentCategory === category.id ? theme["color-primary-hover"] : "",
-        height: Dimensions.get("window").width / 4,
-        width: Dimensions.get("window").width / 4,
-        margin: 1,
+          currentCategory === category.id ? theme["color-primary-200"] : "",
+        height: Dimensions.get("window").width / 5,
+        width: Dimensions.get("window").width / 5,
+        margin: 2,
+        borderRadius: 4,
         justifyContent: "center",
       }}
     >
@@ -54,8 +55,13 @@ const Categories = () => {
         source={{ uri: category.image }}
         style={{ width: 50, height: 50 }}
       />
-      <Text category="c2" style={{ fontSize: 14 }}>
-        {" "}
+      <Text
+        category="c1"
+        style={{
+          fontSize: 14,
+          color: currentCategory === category.id ? "black" : "black",
+        }}
+      >
         {category.name}
       </Text>
     </TouchableOpacity>
@@ -67,7 +73,6 @@ const Categories = () => {
     <Layout
       style={{
         flexDirection: "column",
-        backgroundColor: theme["color-primary-50"],
         padding: 10,
         justifyContent: "flex-end",
       }}
