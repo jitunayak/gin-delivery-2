@@ -1,6 +1,7 @@
 import { Layout, Text, useTheme } from "@ui-kitten/components";
 import React, { useEffect, useState } from "react";
 import { Dimensions, FlatList, Image, TouchableOpacity } from "react-native";
+import { COLORS } from "../utilities/Constants";
 
 const Categories = () => {
   const theme = useTheme();
@@ -43,7 +44,7 @@ const Categories = () => {
       style={{
         alignItems: "center",
         backgroundColor:
-          currentCategory === category.id ? theme["color-primary-200"] : "",
+          currentCategory === category.id ? COLORS.ACCENT_LIGHT : "",
         height: Dimensions.get("window").width / 5,
         width: Dimensions.get("window").width / 5,
         margin: 2,
@@ -72,7 +73,6 @@ const Categories = () => {
   return (
     <Layout
       style={{
-        flexDirection: "column",
         padding: 10,
         justifyContent: "flex-end",
       }}

@@ -1,4 +1,3 @@
-import { Button, Icon, Layout, Text, useTheme } from "@ui-kitten/components";
 import * as Haptics from "expo-haptics";
 import React, { useState } from "react";
 import {
@@ -7,12 +6,12 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import { useDispatch } from "react-redux";
-
+import { COLORS, FONTS } from "../utilities/Constants";
+import { Layout, Text } from "@ui-kitten/components";
 export default function Item({ navigation }) {
-  const theme = useTheme();
-
   const dispatch = useDispatch();
   // const { items } = useSelector((state) => state.cartReducer.selectedItems);
 
@@ -113,11 +112,10 @@ export default function Item({ navigation }) {
     dispatch({ type: "REMOVE_FROM_CART", payload: props.item });
 
     return (
-      <Button
-        appearance={"outline"}
+      <TouchableOpacity
         size={"small"}
         onPress={() => {
-          //Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           dispatch({
             type: "ADD_TO_CART",
             payload: props.item,
@@ -126,11 +124,16 @@ export default function Item({ navigation }) {
         }}
         style={{
           width: Dimensions.get("window").width * 0.22,
-          height: 30,
+          height: 40,
+          borderColor: COLORS.PRIMARY,
+          borderWidth: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 2,
         }}
       >
-        ADD
-      </Button>
+        <Text style={{ color: COLORS.PRIMARY, fontWeight: "bold" }}>ADD</Text>
+      </TouchableOpacity>
     );
   }
   function QuantityManipulationView(props) {
@@ -139,12 +142,12 @@ export default function Item({ navigation }) {
       <Layout
         style={{
           flexDirection: "row-reverse",
-          justifyContent: "space-between",
+          justifyContent: "space-around",
           alignItems: "center",
           width: Dimensions.get("window").width * 0.22,
-          height: 30,
-          borderColor: theme["outline-color"],
-          borderWidth: 1,
+          height: 40,
+          borderColor: COLORS.LIGHT_GREY,
+          borderWidth: 2,
           borderRadius: 4,
         }}
       >
@@ -154,34 +157,55 @@ export default function Item({ navigation }) {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           }}
         >
-          <Icon
-            style={styles.icon}
-            fill={theme["color-primary-600"]}
-            name="plus-outline"
-          />
+          <Text
+            category={"c1"}
+            style={{
+              fontSize: FONTS.H1,
+              fontWeight: "bold",
+              color: COLORS.PRIMARY,
+            }}
+          >
+            +
+          </Text>
         </Pressable>
-        <Text>{props.item.quantity}</Text>
+        <Text style={{ color: COLORS.PRIMARY, fontWeight: "bold" }}>
+          {props.item.quantity}
+        </Text>
         <Pressable
           onPress={() => {
             decrementInQuantity(props);
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           }}
         >
-          <Icon style={styles.icon} fill="#8F9BB3" name="minus-outline" />
+          <Text
+            style={{
+              fontSize: FONTS.H1,
+              fontWeight: "500",
+              color: COLORS.PRIMARY,
+            }}
+          >
+            -
+          </Text>
         </Pressable>
       </Layout>
     );
   }
   return (
     <ScrollView showsVerticalScrollIndicator={true}>
-      <Layout style={{ flexWrap: "wrap", flexDirection: "row" }}>
+      <Layout
+        style={{
+          flexWrap: "wrap",
+          flexDirection: "row",
+          backgroundColor: COLORS.WHITE,
+        }}
+      >
         {products.map((item, index) => {
           return (
             <Layout
               style={{
-                padding: 20,
+                padding: 18,
                 borderWidth: 1,
-                borderColor: theme["outline-color"],
+                borderColor: COLORS.LIGHT_GREY,
               }}
               key={item.id}
             >
@@ -193,16 +217,23 @@ export default function Item({ navigation }) {
                   backgroundColor: "transparent",
                 }}
               />
-              <Text category="p1" style={{ paddingVertical: 6 }}>
+              <Text
+                category={"p1"}
+                style={{
+                  paddingVertical: 6,
+                  fontSize: FONTS.H4,
+                }}
+              >
                 {item.name}
               </Text>
-              <Text category="p1">₹{item.price}</Text>
+              <Text>₹{item.price}</Text>
               <Text
-                category="c1"
-                style={{ color: theme["text-hint-color"], marginVertical: 6 }}
+                category={"p2"}
+                style={{ color: COLORS.GREY, marginVertical: 6 }}
               >
                 {item.weight}
               </Text>
+
               {item.quantity > 0 ? (
                 <QuantityManipulationView item={item} />
               ) : (

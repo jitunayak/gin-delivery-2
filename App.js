@@ -13,6 +13,7 @@ import { Provider as ReduxProvider } from "react-redux";
 
 import configureStore from "./redux/store";
 import AppNavigator from "./screens/AppNavigator";
+import { COLORS } from "./utilities/Constants";
 
 const store = configureStore();
 
@@ -46,5 +47,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     marginTop: StatusBar.currentHeight || 0,
+    backgroundColor: COLORS.WHITE,
   },
 });

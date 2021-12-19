@@ -1,3 +1,47 @@
 export const SYMBOLS = {
   INR: "₹",
 };
+
+export const COLORS = {
+  PRIMARY: "#84cc16",
+  SECONDARY: "#ecfccb",
+  ACCENT: "#9d174d",
+  ACCENT_LIGHT: "#fce7f3",
+  WHITE: "#FFFFFF",
+  BLACK: "#000000",
+  GREY: "#979797",
+  LIGHT_GREY: "#F5F5F5",
+  DARK_GREY: "#4A4A4A",
+  RED: "#FF0000",
+  GREEN: "#00FF00",
+  BLUE: "#0000FF",
+  YELLOW: "#FFFF00",
+  ORANGE: "#FFA500",
+  PURPLE: "#800080",
+  PINK: "#FFC0CB",
+  LIGHT_BLUE: "#ADD8E6",
+  LIGHT_GREEN: "#90EE90",
+  LIGHT_RED: "#FF6347",
+  LIGHT_ORANGE: "#FFA07A",
+  LIGHT_PURPLE: "#EE82EE",
+  LIGHT_PINK: "#FFB6C1",
+  LIGHT_YELLOW: "#FFFFE0",
+  LIGHT_GREY: "#F5F5F5",
+  DARK_BLUE: "#00008B",
+  DARK_GREEN: "#006400",
+  DARK_RED: "#B22222",
+  DARK_ORANGE: "#FF8C00",
+  DARK_PURPLE: "#800080",
+  DARK_PINK: "#FF1493",
+  DARK_YELLOW: "#FFD700",
+  DARK_GREY: "#4A4A4A",
+};
+
+export const FONTS = {
+  LABEL: 26,
+  H1: 20,
+  H2: 18,
+  H3: 16,
+  H4: 14,
+  H5: 12,
+};

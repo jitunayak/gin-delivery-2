@@ -2,12 +2,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Layout, Text } from "@ui-kitten/components";
 import React from "react";
-
+import { Layout, Text } from "@ui-kitten/components";
 import CartScreen from "./CartScreen";
 import HomeScreen from "./HomeScreen";
 import OrdersScreen from "./OrdersScreen";
+import { SYMBOLS, COLORS } from "../utilities/Constants";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -21,13 +21,16 @@ const UsersScreen = () => (
 const TabNavigator = ({ navigation }) => (
   <Tab.Navigator
     screenOptions={({ route }) => ({
+      // tabBarInactiveTintColor: "rgba(255, 255, 255, 0.5)",
+      // tabBarActiveTintColor: "#fff",
       headerShown: false,
+      headerTitleStyle: { color: COLORS.ACCENT, fontSize: 20 },
       tabBarLabel: ({ focused, color }) => {
         return (
           <Text
+            category={"c1"}
             style={{
-              color,
-              fontSize: 12,
+              color: focused ? COLORS.ACCENT : COLORS.GREY,
               paddingBottom: 4,
             }}
           >
@@ -38,7 +41,7 @@ const TabNavigator = ({ navigation }) => (
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
         if (route.name === "Home") {
-          iconName = focused ? "ios-home" : "ios-home-outline";
+          iconName = focused ? "cart" : "cart-outline";
         } else if (route.name === "Subscription") {
           iconName = focused ? "ios-wallet" : "ios-wallet-outline";
         } else if (route.name === "Orders") {
@@ -46,9 +49,11 @@ const TabNavigator = ({ navigation }) => (
         }
         // You can return any component that you like here!
         return (
-          <Layout style={{ padding: 0 }}>
-            <Ionicons name={iconName} size={26} color={color} />
-          </Layout>
+          <Ionicons
+            name={iconName}
+            size={26}
+            color={focused ? COLORS.ACCENT : COLORS.GREY}
+          />
         );
       },
     })}
@@ -65,7 +70,7 @@ export default function AppNavigator() {
       <Stack.Navigator
         initialRouteName="HomeStack"
         screenOptions={{
-          headerShown: true,
+          headerShown: false,
         }}
       >
         <Stack.Screen name="HomeStack" component={TabNavigator} />
