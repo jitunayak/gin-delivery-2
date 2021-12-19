@@ -16,6 +16,10 @@ import Categories from "./components/Categories";
 import AppNavigator from "./screens/AppNavigator";
 import HomeScreen from "./screens/HomeScreen";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import configureStore from "./redux/store";
+import { Provider as ReduxProvider } from "react-redux";
+
+const store = configureStore();
 
 export default function App() {
   const [systemTheme, setSystemTheme] = useState(eva.light);
@@ -31,8 +35,10 @@ export default function App() {
     <>
       <IconRegistry icons={EvaIconsPack} />
       <SafeAreaProvider>
-        <ApplicationProvider {...eva} theme={systemTheme}>
-          <AppNavigator />
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <ReduxProvider store={store}>
+            <AppNavigator />
+          </ReduxProvider>
         </ApplicationProvider>
       </SafeAreaProvider>
     </>
