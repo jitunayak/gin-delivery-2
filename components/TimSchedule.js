@@ -4,7 +4,7 @@ import { TouchableOpacity, View } from "react-native";
 import { COLORS } from "../utilities/Constants";
 
 export default function TimSchedule() {
-  const todayTime = new Date().getHours() - 6;
+  const todayTime = new Date().getHours();
   const times = [
     { time: "08:00 AM", hour: "8" },
     { time: "10:00 AM", hour: "10" },
@@ -35,8 +35,9 @@ export default function TimSchedule() {
                   ? COLORS.ACCENT_LIGHT
                   : COLORS.LIGHT_GREY,
               padding: 16,
+              borderRadius: 4,
             }}
-            disabled={todayTime > time.hour}
+            disabled={todayTime >= time.hour}
             onPress={() => {
               setScheduledDeliveryTime(time.time);
             }}
@@ -55,6 +56,7 @@ export default function TimSchedule() {
               {time.time}
             </Text>
             <Text
+              category={"c2"}
               style={{
                 textAlign: "right",
                 color:
@@ -65,7 +67,7 @@ export default function TimSchedule() {
                     : COLORS.GREY,
               }}
             >
-              {todayTime <= time.hour ? "Available" : "Unavailable"}
+              {todayTime < time.hour ? "Available" : "Unavailable"}
             </Text>
           </TouchableOpacity>
         );

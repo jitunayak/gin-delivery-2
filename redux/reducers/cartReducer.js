@@ -27,7 +27,7 @@ let cartReducer = (state = defaultState, action) => {
           ),
         ],
       };
-      console.log(newState.selectedItems.items, "👉");
+      //console.log(newState.selectedItems.items, "👉");
       return newState;
     }
 
