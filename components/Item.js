@@ -16,10 +16,15 @@ import {
 } from "react-native";
 
 import * as Haptics from "expo-haptics";
+import { useSelector, useDispatch } from "react-redux";
 
-export default function Item() {
+export default function Item({ navigation }) {
   const theme = useTheme();
 
+  const dispatch = useDispatch();
+  // const { items } = useSelector((state) => state.cartReducer.selectedItems);
+
+  //console.log(items);
   const [products, setProducts] = useState([
     {
       id: "12asbhej",
@@ -58,7 +63,16 @@ export default function Item() {
         "https://www.kmfnandini.coop/sites/default/files/styles/product_popup_600x500/public/products/Nandini-Double-Toned-Milk-b.png?itok=vdjKgE_l",
     },
     {
-      id: "12asbhejpk",
+      id: "1we23klpd",
+      name: "Panner",
+      price: "30",
+      weight: "1ltr",
+      quantity: 0,
+      image:
+        "https://www.kmfnandini.coop/sites/default/files/styles/product_popup_600x500/public/products/Nandini-Double-Toned-Milk-b.png?itok=vdjKgE_l",
+    },
+    {
+      id: "12asbhevjpk",
       name: "Nandini Milk",
       price: "22",
       weight: "500ml",
@@ -68,22 +82,67 @@ export default function Item() {
     },
   ]);
 
-  function incrementInQuantity(id) {
+  function incrementInQuantity(props) {
+    //console.log({ increment: props.item });
     const copyOfProducts = [...products];
-    const index = copyOfProducts.map((product) => product.id).indexOf(id);
-    if (copyOfProducts[index].quantity >= 0)
-      copyOfProducts[index].quantity = copyOfProducts[index].quantity + 1;
+    copyOfProducts.map((product) => {
+      product.id === props.item.id && (product.quantity = product.quantity + 1);
+    });
+    const data = copyOfProducts.filter(
+      (product) => product.id === props.item.id
+    );
+    dispatch({
+      type: "UPDATE_QUANTITY",
+      payload: data,
+    });
+
+    setProducts(copyOfProducts);
+    navigation.navigate("Order");
+  }
+  function decrementInQuantity(props) {
+    const copyOfProducts = [...products];
+    copyOfProducts.map((product) => {
+      product.id === props.item.id && (product.quantity = product.quantity - 1);
+    });
+
+    const data = copyOfProducts.filter(
+      (product) => product.id === props.item.id
+    );
+    dispatch({
+      type: "UPDATE_QUANTITY",
+      payload: data,
+    });
+
     setProducts(copyOfProducts);
   }
-  function decrementInQuantity(id) {
-    const copyOfProducts = [...products];
-    const index = copyOfProducts.map((product) => product.id).indexOf(id);
-    if (copyOfProducts[index].quantity != 0)
-      copyOfProducts[index].quantity = copyOfProducts[index].quantity - 1;
-    setProducts(copyOfProducts);
+  function AddButton(props) {
+    // console.log({ "add button pressed": props });
+
+    dispatch({ type: "REMOVE_FROM_CART", payload: props.item });
+
+    return (
+      <Button
+        appearance={"outline"}
+        size={"small"}
+        onPress={() => {
+          //Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          dispatch({
+            type: "ADD_TO_CART",
+            payload: props.item,
+          });
+          incrementInQuantity(props);
+        }}
+        style={{
+          width: Dimensions.get("window").width * 0.22,
+          height: 30,
+        }}
+      >
+        ADD
+      </Button>
+    );
   }
-  const QuantityManipulationView = (props) => {
-    console.log(props.quantity);
+  function QuantityManipulationView(props) {
+    // console.log({ "quantity view": props });
     return (
       <Layout
         style={{
@@ -99,7 +158,7 @@ export default function Item() {
       >
         <Pressable
           onPress={() => {
-            incrementInQuantity(props.id);
+            incrementInQuantity(props);
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           }}
         >
@@ -109,18 +168,18 @@ export default function Item() {
             name="plus-outline"
           />
         </Pressable>
-        <Text>{props.quantity}</Text>
+        <Text>{props.item.quantity}</Text>
         <Pressable
           onPress={() => {
+            decrementInQuantity(props);
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            decrementInQuantity(props.id);
           }}
         >
           <Icon style={styles.icon} fill="#8F9BB3" name="minus-outline" />
         </Pressable>
       </Layout>
     );
-  };
+  }
   return (
     <ScrollView showsVerticalScrollIndicator={true}>
       <Layout style={{ flexWrap: "wrap", flexDirection: "row" }}>
@@ -153,25 +212,11 @@ export default function Item() {
                 {item.weight}
               </Text>
               {item.quantity > 0 ? (
-                <QuantityManipulationView
-                  id={item.id}
-                  quantity={item.quantity}
-                />
+                <QuantityManipulationView item={item} />
               ) : (
-                <Button
-                  appearance={"outline"}
-                  size={"small"}
-                  onPress={() => {
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                    incrementInQuantity(item.id);
-                  }}
-                  style={{
-                    width: Dimensions.get("window").width * 0.22,
-                    height: 30,
-                  }}
-                >
-                  ADD
-                </Button>
+                <>
+                  <AddButton item={item} />
+                </>
               )}
             </Layout>
           );

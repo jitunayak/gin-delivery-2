@@ -1,17 +1,17 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  BottomNavigation,
-  BottomNavigationTab,
-  Layout,
-  Text,
-  Icon,
-} from "@ui-kitten/components";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import { Layout, Text, Icon, Divider } from "@ui-kitten/components";
 import HomeScreen from "./HomeScreen";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import CartScreen from "./CartScreen";
+import OrdersScreen from "./OrdersScreen";
 
-const { Navigator, Screen } = createBottomTabNavigator();
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const PersonIcon = (props) => <Icon {...props} name="person-outline" />;
 
@@ -25,37 +25,45 @@ const UsersScreen = () => (
   </Layout>
 );
 
-const OrdersScreen = () => (
-  <Layout style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    <Text category="h1">ORDERS</Text>
-  </Layout>
-);
-
 const BottomTabBar = ({ navigation, state }) => (
-  <SafeAreaView>
-    <BottomNavigation
-      selectedIndex={state.index}
-      onSelect={(index) => navigation.navigate(state.routeNames[index])}
-    >
-      <BottomNavigationTab title="USERS" icon={PersonIcon} />
-      <BottomNavigationTab title="ORDERS" icon={BellIcon} />
-      <BottomNavigationTab title="SUBSCRIPTION" icon={EmailIcon} />
-    </BottomNavigation>
-  </SafeAreaView>
+  <>
+    <SafeAreaView edges={["bottom"]}>
+      <BottomNavigation
+        selectedIndex={state.index}
+        onSelect={(index) => navigation.navigate(state.routeNames[index])}
+      >
+        <BottomNavigationTab title="USERS" icon={PersonIcon} />
+        <BottomNavigationTab title="ORDERS" icon={BellIcon} />
+        <BottomNavigationTab title="SUBSCRIPTION" icon={EmailIcon} />
+      </BottomNavigation>
+    </SafeAreaView>
+  </>
 );
 
-const TabNavigator = () => (
-  <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
-    <Screen name="Gin Delivery 2" component={HomeScreen} />
-    <Screen name="Orders" component={OrdersScreen} />
-    <Screen name="Subscription" component={UsersScreen} />
-  </Navigator>
+const TabNavigator = ({ navigation }) => (
+  <Tab.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}
+  >
+    <Tab.Screen name="Gin Delivery 2" component={HomeScreen} />
+    <Tab.Screen name="Orders" component={OrdersScreen} />
+    <Tab.Screen name="Subscription" component={UsersScreen} />
+  </Tab.Navigator>
 );
 
 export default function AppNavigator() {
   return (
     <NavigationContainer>
-      <TabNavigator />
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: true,
+        }}
+      >
+        <Stack.Screen name="Home" component={TabNavigator} />
+        <Stack.Screen name="Order" component={CartScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

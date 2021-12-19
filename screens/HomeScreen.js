@@ -1,9 +1,10 @@
 import { Layout } from "@ui-kitten/components";
 import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Categories from "../components/Categories";
 import Item from "../components/Item";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   return (
     <Layout
       style={{
@@ -14,7 +15,7 @@ export default function HomeScreen() {
       }}
     >
       <Categories />
-      <Item />
+      <Item navigation={navigation} />
     </Layout>
   );
 }
