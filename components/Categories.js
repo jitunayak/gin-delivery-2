@@ -1,5 +1,5 @@
 import { Layout, Text, useTheme } from "@ui-kitten/components";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, FlatList, Image, TouchableOpacity } from "react-native";
 
 const Categories = () => {

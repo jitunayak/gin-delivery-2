@@ -1,6 +1,5 @@
 import { Layout } from "@ui-kitten/components";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Categories from "../components/Categories";
 import Item from "../components/Item";
 

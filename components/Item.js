@@ -1,22 +1,14 @@
+import { Button, Icon, Layout, Text, useTheme } from "@ui-kitten/components";
+import * as Haptics from "expo-haptics";
 import React, { useState } from "react";
-import {
-  Text,
-  Layout,
-  Card,
-  Button,
-  useTheme,
-  Icon,
-} from "@ui-kitten/components";
 import {
   Dimensions,
   Image,
   Pressable,
-  StyleSheet,
   ScrollView,
+  StyleSheet,
 } from "react-native";
-
-import * as Haptics from "expo-haptics";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function Item({ navigation }) {
   const theme = useTheme();

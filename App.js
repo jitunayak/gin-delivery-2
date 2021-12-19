@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Appearance } from "react-native";
 import * as eva from "@eva-design/eva";
 import {
   ApplicationProvider,
-  Layout,
-  Text,
   IconRegistry,
-  Button,
   useTheme,
 } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
-import Item from "./components/Item";
-import Categories from "./components/Categories";
-import AppNavigator from "./screens/AppNavigator";
-import HomeScreen from "./screens/HomeScreen";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import configureStore from "./redux/store";
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect, useState } from "react";
+import { Appearance, StyleSheet } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider as ReduxProvider } from "react-redux";
+
+import configureStore from "./redux/store";
+import AppNavigator from "./screens/AppNavigator";
 
 const store = configureStore();
 

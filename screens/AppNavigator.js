@@ -1,14 +1,13 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "./HomeScreen";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { StatusBar } from "expo-status-bar";
-import CartScreen from "./CartScreen";
-import OrdersScreen from "./OrdersScreen";
-import { Layout, Text, Divider } from "@ui-kitten/components";
 import { Ionicons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Layout, Text } from "@ui-kitten/components";
+import React from "react";
+
+import CartScreen from "./CartScreen";
+import HomeScreen from "./HomeScreen";
+import OrdersScreen from "./OrdersScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
