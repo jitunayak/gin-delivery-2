@@ -33,6 +33,7 @@ export default function App() {
       <SafeAreaProvider>
         <ApplicationProvider {...eva} theme={eva.light}>
           <ReduxProvider store={store}>
+            <StatusBar style="dark" />
             <AppNavigator />
           </ReduxProvider>
         </ApplicationProvider>

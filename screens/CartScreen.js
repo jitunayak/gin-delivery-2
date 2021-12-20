@@ -1,27 +1,27 @@
 import { Layout, Button } from "@ui-kitten/components";
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Alert } from "react-native";
+import AddressModal from "../components/AddressModal";
 
 import CartItems from "../components/CartItems";
 import TimSchedule from "../components/TimSchedule";
 import { COLORS, SYMBOLS } from "../utilities/Constants";
 
-export default class CartScreen extends Component {
-  render() {
-    return (
-      <Layout style={styles.container}>
-        <CartItems />
-        <Button
-          onPress={() => Alert.alert("Order Placed")}
-          style={styles.button}
-          size={"large"}
-        >
-          PLACE ORDER
-        </Button>
-        <TimSchedule />
-      </Layout>
-    );
-  }
+export default function CartScreen({ navigation }) {
+  const [modalVisible, setModalVisible] = useState(false);
+  return (
+    <Layout style={styles.container}>
+      <CartItems />
+      <Button
+        onPress={() => navigation.navigate("Address")}
+        style={styles.button}
+        size={"large"}
+      >
+        PLACE ORDER
+      </Button>
+      <TimSchedule />
+    </Layout>
+  );
 }
 
 const styles = StyleSheet.create({

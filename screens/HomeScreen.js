@@ -98,36 +98,38 @@ export default function HomeScreen({ navigation }) {
         <Text category={"p2"} style={{ color: COLORS.ACCENT }}>
           {SYMBOLS.POWERED_BY_GIN}
         </Text>
-      </Layout>
-      <Layout style={styles.subcontainer}>
-        <Categories setSelectedCategory={setSelectedCategory} />
-        <Item
-          navigation={navigation}
-          selectedCategory={selectedCategory}
-          products={products}
-          setProducts={setProducts}
-          setIsCartEmpty={setIsCartEmpty}
-        />
-      </Layout>
-      {isCartEmpty > 0 ? (
-        <TouchableOpacity
-          style={{
-            backgroundColor: COLORS.PRIMARY,
-            paddingVertical: 16,
-          }}
-          onPress={() => navigation.navigate("Order")}
-        >
-          <Text
+        <Layout style={styles.subcontainer}>
+          <Categories setSelectedCategory={setSelectedCategory} />
+          <Item
+            navigation={navigation}
+            selectedCategory={selectedCategory}
+            products={products}
+            setProducts={setProducts}
+            setIsCartEmpty={setIsCartEmpty}
+          />
+        </Layout>
+        {isCartEmpty > 0 ? (
+          <TouchableOpacity
             style={{
-              color: COLORS.WHITE,
-              fontWeight: "bold",
-              alignSelf: "center",
+              backgroundColor: COLORS.ACCENT,
+              paddingVertical: 16,
+              margin: 10,
+              borderRadius: 4,
             }}
+            onPress={() => navigation.navigate("Order")}
           >
-            {isCartEmpty} {isCartEmpty === 1 ? "ITEM" : " ITEMS"} IN CART ➤
-          </Text>
-        </TouchableOpacity>
-      ) : null}
+            <Text
+              style={{
+                color: COLORS.WHITE,
+                fontWeight: "bold",
+                alignSelf: "center",
+              }}
+            >
+              ({isCartEmpty}) {isCartEmpty === 1 ? "ITEM" : " ITEMS"} IN CART
+            </Text>
+          </TouchableOpacity>
+        ) : null}
+      </Layout>
     </>
   );
 }
@@ -138,6 +140,7 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight || 50,
     backgroundColor: COLORS.WHITE,
     paddingBottom: 10,
+    flex: 1,
   },
   subcontainer: {
     flex: 1,

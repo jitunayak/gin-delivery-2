@@ -130,7 +130,7 @@ export default function Item({
           <Text
             style={{
               fontSize: FONTS.H1,
-              fontWeight: "500",
+              fontWeight: "bold",
               color: COLORS.PRIMARY,
             }}
           >

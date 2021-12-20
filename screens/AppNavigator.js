@@ -8,6 +8,7 @@ import CartScreen from "./CartScreen";
 import HomeScreen from "./HomeScreen";
 import OrdersScreen from "./OrdersScreen";
 import { SYMBOLS, COLORS } from "../utilities/Constants";
+import AddressModal from "../components/AddressModal";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -68,13 +69,14 @@ export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="HomeStack"
+        initialRouteName="HomeScreen"
         screenOptions={{
           headerShown: false,
         }}
       >
-        <Stack.Screen name="HomeStack" component={TabNavigator} />
+        <Stack.Screen name="HomeScreen" component={TabNavigator} />
         <Stack.Screen name="Order" component={CartScreen} />
+        <Stack.Screen name="Address" component={AddressModal} />
       </Stack.Navigator>
     </NavigationContainer>
   );
