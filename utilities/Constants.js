@@ -1,7 +1,7 @@
 export const SYMBOLS = {
   INR: "₹",
   APP_NAME: "Ginmart",
-  POWERED_BY_GIN: "Powered by Gin",
+  POWERED_BY_GIN: "POWERED BY GIN",
 };
 
 export const COLORS = {

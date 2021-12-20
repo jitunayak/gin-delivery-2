@@ -3,34 +3,34 @@ import React, { useEffect, useState } from "react";
 import { Dimensions, FlatList, Image, TouchableOpacity } from "react-native";
 import { COLORS } from "../utilities/Constants";
 
-const Categories = () => {
+const Categories = ({ setSelectedCategory }) => {
   const theme = useTheme();
-
+  //setCategories("Vegetables");
+  // console.log(props);
   const [categories, setCategories] = useState([
     {
       id: "189sdjnsd",
       name: "Dairy",
-      category: "Dairy & Eggs",
+      category: "Milk",
       image: "https://cdn-icons-png.flaticon.com/512/3500/3500270.png",
     },
     {
       id: "189sdjnsdp",
       name: "vegetables",
-      category: "vegetables",
+      category: "Vegetables",
       image: "https://cdn-icons-png.flaticon.com/512/2329/2329865.png",
     },
     {
       id: "189sdjnsd1",
       name: "Breakfast",
-      category: "Milk",
+      category: "Breakfast",
       image: "https://cdn-icons-png.flaticon.com/512/3480/3480823.png",
     },
     {
       id: "189sdjnsdp1",
       name: "Snacks",
-      category: "Milk",
-      image:
-        "https://cdn-icons.flaticon.com/png/512/2137/premium/2137769.png?token=exp=1639798922~hmac=c9b6f1f8def9a56cb93241f85d06f04e",
+      category: "Snacks",
+      image: "https://cdn-icons-png.flaticon.com/512/3014/3014403.png",
     },
   ]);
 
@@ -40,6 +40,7 @@ const Categories = () => {
     <TouchableOpacity
       onPress={() => {
         setCurrentCategory(category.id);
+        setSelectedCategory(category.category);
       }}
       style={{
         alignItems: "center",

@@ -9,13 +9,22 @@ export default function CartItems({ navigation }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.cartReducer.selectedItems);
+  // items.size === 0 ? setIsCartEmpty(true) : setIsCartEmpty(false);
 
-  useEffect(() => {
-    const totalPrice1 = items.reduce((total, item) => {
+  const calculateTotalPrice = () => {
+    items.reduce((total, item) => {
       total += item.price * item.quantity;
       return total;
     }, 0);
-    setTotalPrice(totalPrice1);
+  };
+
+  useEffect(() => {
+    setTotalPrice(
+      items.reduce((total, item) => {
+        total += item.price * item.quantity;
+        return total;
+      }, 0)
+    );
     return () => {};
   }, [items]);
 
@@ -46,7 +55,7 @@ export default function CartItems({ navigation }) {
           );
         })
       ) : (
-        <Text>Empty cart</Text>
+        <Text category={"h1"}>Empty cart</Text>
       )}
       <Divider />
       <Layout>

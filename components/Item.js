@@ -8,70 +8,20 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { useDispatch } from "react-redux";
 import { COLORS, FONTS } from "../utilities/Constants";
 import { Layout, Text } from "@ui-kitten/components";
-export default function Item({ navigation }) {
+import { useDispatch, useSelector } from "react-redux";
+
+export default function Item({
+  navigation,
+  selectedCategory,
+  products,
+  setProducts,
+  setIsCartEmpty,
+}) {
   const dispatch = useDispatch();
   // const { items } = useSelector((state) => state.cartReducer.selectedItems);
-
-  //console.log(items);
-  const [products, setProducts] = useState([
-    {
-      id: "12asbhej",
-      name: "Nandini Milk",
-      price: "22",
-      weight: "500ml",
-      quantity: 0,
-      image:
-        "https://www.kmfnandini.coop/sites/default/files/styles/product_popup_600x500/public/products/Pasteurised-Toned-Milk-b.png?itok=x64Sfsmk",
-    },
-    {
-      id: "1we23kl",
-      name: "Toned milk",
-      price: "30",
-      weight: "500ml",
-      quantity: 0,
-      image:
-        "https://www.kmfnandini.coop/sites/default/files/styles/product_popup_600x500/public/products/Nandini-Double-Toned-Milk-b.png?itok=vdjKgE_l",
-    },
-    {
-      id: "12asbhejp",
-      name: "Nandini Milk",
-      price: "22",
-      weight: "500ml",
-      quantity: 0,
-      image:
-        "https://www.kmfnandini.coop/sites/default/files/styles/product_popup_600x500/public/products/Pasteurised-Toned-Milk-b.png?itok=x64Sfsmk",
-    },
-    {
-      id: "1we23klp",
-      name: "Toned milk",
-      price: "30",
-      weight: "500ml",
-      quantity: 0,
-      image:
-        "https://www.kmfnandini.coop/sites/default/files/styles/product_popup_600x500/public/products/Nandini-Double-Toned-Milk-b.png?itok=vdjKgE_l",
-    },
-    {
-      id: "1we23klpd",
-      name: "Panner",
-      price: "30",
-      weight: "1ltr",
-      quantity: 0,
-      image:
-        "https://www.kmfnandini.coop/sites/default/files/styles/product_popup_600x500/public/products/Nandini-Double-Toned-Milk-b.png?itok=vdjKgE_l",
-    },
-    {
-      id: "12asbhevjpk",
-      name: "Nandini Milk",
-      price: "22",
-      weight: "500ml",
-      quantity: 0,
-      image:
-        "https://www.kmfnandini.coop/sites/default/files/styles/product_popup_600x500/public/products/Pasteurised-Toned-Milk-b.png?itok=x64Sfsmk",
-    },
-  ]);
+  // items.size === 0 ? setIsCartEmpty(true) : setIsCartEmpty(false);
 
   function incrementInQuantity(props) {
     //console.log({ increment: props.item });
@@ -88,7 +38,7 @@ export default function Item({ navigation }) {
     });
 
     setProducts(copyOfProducts);
-    navigation.navigate("Order");
+    //navigation.navigate("Order");
   }
   function decrementInQuantity(props) {
     const copyOfProducts = [...products];
@@ -115,7 +65,7 @@ export default function Item({ navigation }) {
       <TouchableOpacity
         size={"small"}
         onPress={() => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          //Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           dispatch({
             type: "ADD_TO_CART",
             payload: props.item,
@@ -154,7 +104,7 @@ export default function Item({ navigation }) {
         <Pressable
           onPress={() => {
             incrementInQuantity(props);
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            //Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           }}
         >
           <Text
@@ -174,7 +124,7 @@ export default function Item({ navigation }) {
         <Pressable
           onPress={() => {
             decrementInQuantity(props);
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            //Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           }}
         >
           <Text
@@ -201,47 +151,49 @@ export default function Item({ navigation }) {
       >
         {products.map((item, index) => {
           return (
-            <Layout
-              style={{
-                padding: 18,
-                borderWidth: 1,
-                borderColor: COLORS.LIGHT_GREY,
-              }}
-              key={item.id}
-            >
-              <Image
-                source={{ uri: item.image }}
+            item.category == selectedCategory && (
+              <Layout
                 style={{
-                  width: 100,
-                  height: 100,
-                  backgroundColor: "transparent",
+                  padding: 18,
+                  borderWidth: 1,
+                  borderColor: COLORS.LIGHT_GREY,
                 }}
-              />
-              <Text
-                category={"p1"}
-                style={{
-                  paddingVertical: 6,
-                  fontSize: FONTS.H4,
-                }}
+                key={item.id}
               >
-                {item.name}
-              </Text>
-              <Text>₹{item.price}</Text>
-              <Text
-                category={"p2"}
-                style={{ color: COLORS.GREY, marginVertical: 6 }}
-              >
-                {item.weight}
-              </Text>
+                <Image
+                  source={{ uri: item.image }}
+                  style={{
+                    width: 100,
+                    height: 100,
+                    backgroundColor: "transparent",
+                  }}
+                />
+                <Text
+                  category={"p1"}
+                  style={{
+                    paddingVertical: 6,
+                    fontSize: FONTS.H4,
+                  }}
+                >
+                  {item.name}
+                </Text>
+                <Text>₹{item.price}</Text>
+                <Text
+                  category={"p2"}
+                  style={{ color: COLORS.GREY, marginVertical: 6 }}
+                >
+                  {item.weight}
+                </Text>
 
-              {item.quantity > 0 ? (
-                <QuantityManipulationView item={item} />
-              ) : (
-                <>
-                  <AddButton item={item} />
-                </>
-              )}
-            </Layout>
+                {item.quantity > 0 ? (
+                  <QuantityManipulationView item={item} />
+                ) : (
+                  <>
+                    <AddButton item={item} />
+                  </>
+                )}
+              </Layout>
+            )
           );
         })}
       </Layout>

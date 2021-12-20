@@ -4,6 +4,7 @@ import { TouchableOpacity, View } from "react-native";
 import { COLORS } from "../utilities/Constants";
 
 export default function TimSchedule() {
+  const [scheduledDeliveryTime, setScheduledDeliveryTime] = useState(null);
   const todayTime = new Date().getHours();
   const times = [
     { time: "08:00 AM", hour: "8" },
@@ -12,8 +13,6 @@ export default function TimSchedule() {
     { time: "05:00 PM", hour: "17" },
     { time: "06:00 PM", hour: "18" },
   ];
-
-  const [scheduledDeliveryTime, setScheduledDeliveryTime] = useState(null);
 
   return (
     <Layout>
