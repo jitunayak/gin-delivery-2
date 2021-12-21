@@ -11,7 +11,7 @@ export default function CartScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <Layout style={styles.container}>
-      <CartItems />
+      <CartItems navigation={navigation} />
       <Button
         onPress={() => navigation.navigate("Address")}
         style={styles.button}

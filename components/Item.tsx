@@ -22,7 +22,6 @@ export default function Item({
   const dispatch = useDispatch();
   // const { items } = useSelector((state) => state.cartReducer.selectedItems);
   // items.size === 0 ? setIsCartEmpty(true) : setIsCartEmpty(false);
-
   function incrementInQuantity(props) {
     //console.log({ increment: props.item });
     const copyOfProducts = [...products];
@@ -63,7 +62,6 @@ export default function Item({
 
     return (
       <TouchableOpacity
-        size={"small"}
         onPress={() => {
           //Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           dispatch({

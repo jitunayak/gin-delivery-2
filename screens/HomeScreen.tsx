@@ -7,6 +7,8 @@ import { COLORS, SYMBOLS } from "../utilities/Constants";
 import { StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
+import { Product } from "../models/Product";
+import Constants from "expo-constants";
 
 export default function HomeScreen({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState("Milk");
@@ -14,21 +16,23 @@ export default function HomeScreen({ navigation }) {
 
   //const { items } = useSelector((state) => state.cartReducer.selectedItems);
 
-  const [products, setProducts] = useState([
+  const [products, setProducts] = useState<Product[]>([
     {
       id: "12asbhej",
       name: "Nandini Milk",
-      price: "22",
+      price: 22,
       weight: "500ml",
       quantity: 0,
       image:
         "https://www.kmfnandini.coop/sites/default/files/styles/product_popup_600x500/public/products/Pasteurised-Toned-Milk-b.png?itok=x64Sfsmk",
       category: "Milk",
+      isAvailable: true,
     },
     {
       id: "1we23kl",
       name: "Toned milk",
-      price: "34",
+      price: 34,
+      isAvailable: true,
       weight: "500ml",
       quantity: 0,
       image:
@@ -38,7 +42,8 @@ export default function HomeScreen({ navigation }) {
     {
       id: "12asbhejp",
       name: "Onions",
-      price: "65",
+      price: 65,
+      isAvailable: true,
       weight: "1kg",
       quantity: 0,
       image:
@@ -48,7 +53,8 @@ export default function HomeScreen({ navigation }) {
     {
       id: "1we23klp",
       name: "Potatoes",
-      price: "20",
+      price: 20,
+      isAvailable: true,
       weight: "1kg",
       quantity: 0,
       image:
@@ -58,7 +64,8 @@ export default function HomeScreen({ navigation }) {
     {
       id: "1we23klpd",
       name: "Panner",
-      price: "30",
+      price: 30,
+      isAvailable: true,
       weight: "1ltr",
       quantity: 0,
       image:
@@ -68,7 +75,8 @@ export default function HomeScreen({ navigation }) {
     {
       id: "12asbhevjpk",
       name: "Dosa with \nChutney",
-      price: "55",
+      price: 55,
+      isAvailable: true,
       weight: "1 Dosa",
       quantity: 0,
       image:
@@ -137,7 +145,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    paddingTop: StatusBar.currentHeight || 50,
+    paddingTop: Constants.statusBarHeight || 50,
     backgroundColor: COLORS.WHITE,
     paddingBottom: 10,
     flex: 1,
