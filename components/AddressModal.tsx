@@ -67,7 +67,7 @@ export default function AddressModal() {
           style={{ marginVertical: 10 }}
         />
         <Input
-          value={newAddress.newAddress1}
+          value={newAddress.address1}
           label="House No, Street, Locality"
           placeholder="1/2, Times Square, Locality"
           //   caption={renderCaption}
@@ -77,7 +77,7 @@ export default function AddressModal() {
           style={{ marginVertical: 10 }}
         />
         <Input
-          value={newAddress.newAddress2}
+          value={newAddress.address2}
           label="Area / City"
           placeholder="Bapuji Nagar"
           textContentType="addressCityAndState"
