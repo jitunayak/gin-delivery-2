@@ -2,18 +2,24 @@ import { Layout, Text } from "@ui-kitten/components";
 import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { COLORS } from "../utilities/Constants";
+import moment from "moment";
 
 export default function TimSchedule() {
   const [scheduledDeliveryTime, setScheduledDeliveryTime] = useState(null);
-  const todayTime = new Date().getHours();
+
+  const currenttime = new Date();
+
   const times = [
-    { time: "08:00 AM", hour: "8" },
-    { time: "10:00 AM", hour: "10" },
-    { time: "04:00 PM", hour: "16" },
-    { time: "05:00 PM", hour: "17" },
-    { time: "06:00 PM", hour: "18" },
+    { time: "08:00 AM", hour: 8 },
+    { time: "10:00 AM", hour: 10 },
+    { time: "04:00 PM", hour: 16 },
+    { time: "05:00 PM", hour: 17 },
+    { time: "06:00 PM", hour: 18 },
   ];
 
+  const checkAvailability = (time) => {
+    return currenttime.getHours() + 2 < time ? true : false;
+  };
   return (
     <Layout>
       <Text category={"h6"} style={{ marginVertical: 6 }}>
@@ -30,13 +36,13 @@ export default function TimSchedule() {
               backgroundColor:
                 scheduledDeliveryTime === time.time
                   ? COLORS.ACCENT
-                  : todayTime < time.hour
+                  : checkAvailability(time.hour)
                   ? COLORS.ACCENT_LIGHT
                   : COLORS.LIGHT_GREY,
               padding: 16,
               borderRadius: 4,
             }}
-            disabled={todayTime >= time.hour}
+            disabled={!checkAvailability(time.hour)}
             onPress={() => {
               setScheduledDeliveryTime(time.time);
             }}
@@ -47,7 +53,7 @@ export default function TimSchedule() {
                 color:
                   scheduledDeliveryTime === time.time
                     ? COLORS.WHITE
-                    : todayTime < time.hour
+                    : checkAvailability(time.hour)
                     ? COLORS.ACCENT
                     : COLORS.GREY,
               }}
@@ -61,12 +67,12 @@ export default function TimSchedule() {
                 color:
                   scheduledDeliveryTime === time.time
                     ? COLORS.WHITE
-                    : todayTime < time.hour
+                    : checkAvailability(time.hour)
                     ? COLORS.ACCENT
                     : COLORS.GREY,
               }}
             >
-              {todayTime < time.hour ? "Available" : "Unavailable"}
+              {checkAvailability(time.hour) ? "Available" : "Unavailable"}
             </Text>
           </TouchableOpacity>
         );

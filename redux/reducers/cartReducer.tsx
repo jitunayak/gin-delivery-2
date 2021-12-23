@@ -1,4 +1,6 @@
-let defaultState = {
+import { ProductReducer } from "../../models/Product";
+
+let defaultState: ProductReducer = {
   selectedItems: { items: [] },
 };
 

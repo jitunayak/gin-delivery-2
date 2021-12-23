@@ -8,3 +8,7 @@ export interface Product {
   isAvailable?: boolean;
   category: string;
 }
+
+export interface ProductReducer {
+  selectedItems: { items: Product[] };
+}

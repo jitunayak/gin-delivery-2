@@ -14,8 +14,8 @@ import { Provider as ReduxProvider } from "react-redux";
 import configureStore from "./redux/store";
 import AppNavigator from "./screens/AppNavigator";
 import { COLORS } from "./utilities/Constants";
-
-const store = configureStore();
+import Constants from "expo-constants";
+const store: any = configureStore();
 
 export default function App() {
   const [systemTheme, setSystemTheme] = useState(eva.light);
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: StatusBar.currentHeight || 0,
+    marginTop: Constants.statusBarHeight || 10,
     backgroundColor: COLORS.WHITE,
   },
 });

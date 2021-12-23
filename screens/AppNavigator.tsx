@@ -9,6 +9,7 @@ import HomeScreen from "./HomeScreen";
 import OrdersScreen from "./OrdersScreen";
 import { SYMBOLS, COLORS } from "../utilities/Constants";
 import AddressModal from "../components/AddressModal";
+import SubscriptionScreen from "./SubscriptionScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -61,7 +62,7 @@ const TabNavigator = ({ navigation }) => (
   >
     <Tab.Screen name="Home" component={HomeScreen} />
     <Tab.Screen name="Orders" component={OrdersScreen} />
-    <Tab.Screen name="Subscription" component={UsersScreen} />
+    <Tab.Screen name="Subscription" component={SubscriptionScreen} />
   </Tab.Navigator>
 );
 

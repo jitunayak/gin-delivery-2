@@ -9,6 +9,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import { Product } from "../models/Product";
 import Constants from "expo-constants";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function HomeScreen({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState("Milk");
@@ -85,6 +86,51 @@ export default function HomeScreen({ navigation }) {
     },
   ]);
 
+  const CartButton = () => {
+    return (
+      <TouchableOpacity
+        style={{
+          backgroundColor: COLORS.ACCENT,
+          paddingVertical: 16,
+          margin: 10,
+          borderRadius: 4,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingHorizontal: 10,
+          alignItems: "center",
+        }}
+        onPress={() => navigation.navigate("Order")}
+      >
+        <Text
+          category={"s2"}
+          style={{
+            color: COLORS.WHITE,
+            textAlign: "center",
+          }}
+        >
+          {isCartEmpty} {isCartEmpty === 1 ? "item" : "items"} in cart
+        </Text>
+        <Layout
+          style={{
+            flexDirection: "row",
+            backgroundColor: COLORS.ACCENT,
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              color: COLORS.WHITE,
+              fontWeight: "bold",
+              paddingHorizontal: 6,
+            }}
+          >
+            VIEW CART
+          </Text>
+          <FontAwesome name="shopping-basket" size={20} color="white" />
+        </Layout>
+      </TouchableOpacity>
+    );
+  };
   useEffect(() => {
     const copyOfProducts = [...products];
     const totalInCart = copyOfProducts.reduce((sum, curr) => {
@@ -116,27 +162,7 @@ export default function HomeScreen({ navigation }) {
             setIsCartEmpty={setIsCartEmpty}
           />
         </Layout>
-        {isCartEmpty > 0 ? (
-          <TouchableOpacity
-            style={{
-              backgroundColor: COLORS.ACCENT,
-              paddingVertical: 16,
-              margin: 10,
-              borderRadius: 4,
-            }}
-            onPress={() => navigation.navigate("Order")}
-          >
-            <Text
-              style={{
-                color: COLORS.WHITE,
-                fontWeight: "bold",
-                alignSelf: "center",
-              }}
-            >
-              ({isCartEmpty}) {isCartEmpty === 1 ? "ITEM" : " ITEMS"} IN CART
-            </Text>
-          </TouchableOpacity>
-        ) : null}
+        {isCartEmpty > 0 ? <CartButton /> : null}
       </Layout>
     </>
   );
