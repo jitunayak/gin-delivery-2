@@ -18,7 +18,7 @@ export default function AddressModal({ navigation }) {
   const { address } = useSelector(
     (state) => state.addressReducer.selectedAddress
   );
-  console.log({ store: address });
+  //console.log({ store: address });
 
   const [newAddress, setnewAddress] = useState({
     name: address.name || "",

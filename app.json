@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "gin-delivery",
+    "name": "Gin Delivery",
     "slug": "gin-delivery",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.jitu715.gindelivery"
@@ -30,6 +28,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "userInterfaceStyle": "automatic"
+    "userInterfaceStyle": "automatic",
+    "jsEngine": "hermes"
   }
 }

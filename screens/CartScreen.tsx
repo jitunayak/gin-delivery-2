@@ -2,11 +2,9 @@ import { Layout, Button, Text } from "@ui-kitten/components";
 import React, { useState } from "react";
 import { StyleSheet, Alert, Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import AddressModal from "../components/AddressModal";
 
 import CartItems from "../components/CartItems";
 import TimSchedule from "../components/TimSchedule";
-import { COLORS, SYMBOLS } from "../utilities/Constants";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 
@@ -15,6 +13,7 @@ export default function CartScreen({ navigation }) {
   const { address } = useSelector(
     (state) => state.addressReducer.selectedAddress
   );
+  console.log(address);
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={true}>
@@ -24,11 +23,11 @@ export default function CartScreen({ navigation }) {
           appearance={"outline"}
           onPress={() => navigation.navigate("Address")}
         >
-          {address === null ? "Add Address" : "Change Address"}
+          {address.name === "" ? "Add Address" : "Change Address"}
         </Button>
-        {address !== null ? (
+        {address.name !== "" ? (
           <Button category={"s1"} status={"control"}>
-            Choosen address is for {address.name}, {address.address1}
+            Choosen address is for {address.name} {`,${address.address1}`}
           </Button>
         ) : null}
         <TimSchedule />
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     borderColor: "black",
     position: "absolute",
-    bottom: 1,
+    bottom: 16,
     width: Dimensions.get("screen").width * 0.95,
     margin: 10,
   },

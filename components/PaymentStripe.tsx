@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert, TextInput } from "react-native";
+import { View, StyleSheet, Alert, TextInput, Image } from "react-native";
 import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import { Button, Text } from "@ui-kitten/components";
+import { COLORS } from "../utilities/Constants";
 //ADD localhost address of your server
 const API_URL = "https://stripe-gin.herokuapp.com";
 
@@ -59,6 +60,17 @@ const PaymentStripe = ({ navigation }) => {
   return (
     <StripeProvider publishableKey="pk_test_51J5aVYSBhy92HuL3Qwn9pVoRyOuWzayePWJAPBT5Rs00wYdy1c6Z5N1nEFqAK36zMm40U9TA7pb4DxU0dHM9uOcn00UmL2PnhB">
       <View style={styles.container}>
+        <Image
+          source={{
+            uri: "https://cdn-icons-png.flaticon.com/512/1086/1086741.png",
+          }}
+          style={{
+            width: 150,
+            height: 150,
+            alignSelf: "center",
+            marginBottom: 50,
+          }}
+        />
         <Text category={"h4"} style={{ alignSelf: "center", padding: 10 }}>
           Make your secure payment
         </Text>
@@ -91,9 +103,10 @@ export default PaymentStripe;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "center",
-    margin: 20,
+    padding: 20,
+    backgroundColor: COLORS.WHITE,
+    paddingTop: 100,
   },
   input: {
     backgroundColor: "#efefefef",
