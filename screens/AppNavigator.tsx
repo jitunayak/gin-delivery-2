@@ -10,6 +10,7 @@ import OrdersScreen from "./OrdersScreen";
 import { SYMBOLS, COLORS } from "../utilities/Constants";
 import AddressModal from "../components/AddressModal";
 import SubscriptionScreen from "./SubscriptionScreen";
+import PaymentStripe from "../components/PaymentStripe";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -78,6 +79,7 @@ export default function AppNavigator() {
         <Stack.Screen name="HomeScreen" component={TabNavigator} />
         <Stack.Screen name="Order" component={CartScreen} />
         <Stack.Screen name="Address" component={AddressModal} />
+        <Stack.Screen name="Payment" component={PaymentStripe} />
       </Stack.Navigator>
     </NavigationContainer>
   );

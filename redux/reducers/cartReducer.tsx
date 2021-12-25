@@ -10,7 +10,7 @@ let cartReducer = (state = defaultState, action) => {
       let newState = { ...state };
 
       if (action.payload) {
-        console.log("ADD TO CART");
+        //console.log("ADD TO CART");
 
         newState.selectedItems = {
           items: [...newState.selectedItems.items, action.payload],
@@ -19,7 +19,7 @@ let cartReducer = (state = defaultState, action) => {
       }
     }
     case "REMOVE_FROM_CART": {
-      console.log("REMOVE FROM CART");
+      //console.log("REMOVE FROM CART");
       let newState = { ...state };
 
       newState.selectedItems = {
@@ -34,7 +34,7 @@ let cartReducer = (state = defaultState, action) => {
     }
 
     case "UPDATE_QUANTITY": {
-      console.log("ADD QUANTITY");
+      //console.log("ADD QUANTITY");
       let newState = { ...state };
 
       if (action.payload.item != null) {

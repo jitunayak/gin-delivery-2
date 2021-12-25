@@ -1,39 +1,51 @@
 import { Layout, Button } from "@ui-kitten/components";
 import React, { useState } from "react";
-import { StyleSheet, Alert } from "react-native";
+import { StyleSheet, Alert, Dimensions } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import AddressModal from "../components/AddressModal";
 
 import CartItems from "../components/CartItems";
 import TimSchedule from "../components/TimSchedule";
 import { COLORS, SYMBOLS } from "../utilities/Constants";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function CartScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <Layout style={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      shouldCancelWhenOutside={false}
+    >
       <CartItems navigation={navigation} />
+
+      <TimSchedule />
+
       <Button
-        onPress={() => navigation.navigate("Address")}
+        accessoryRight={() => (
+          <MaterialIcons name="payment" size={24} color="white" />
+        )}
+        onPress={() => navigation.navigate("Payment")}
         style={styles.button}
         size={"large"}
       >
-        PLACE ORDER
+        MAKE PAYMENT
       </Button>
-      <TimSchedule />
-    </Layout>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 30,
+    paddingVertical: 40,
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-between",
   },
 
   button: {
     backgroundColor: "black",
     borderColor: "black",
+    position: "absolute",
+    bottom: 1,
+    width: Dimensions.get("screen").width * 0.95,
+    margin: 10,
   },
 });

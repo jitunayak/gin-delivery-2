@@ -10,18 +10,18 @@ export default function TimSchedule() {
   const currenttime = new Date();
 
   const times = [
-    { time: "08:00 AM", hour: 8 },
-    { time: "10:00 AM", hour: 10 },
-    { time: "04:00 PM", hour: 16 },
-    { time: "05:00 PM", hour: 17 },
-    { time: "06:00 PM", hour: 18 },
+    { time: "08:00 AM (Morning)", hour: 8 },
+    { time: "10:00 AM (Morning)", hour: 10 },
+    { time: "04:00 PM (Afternoon)", hour: 16 },
+    { time: "05:00 PM (Afternoon)", hour: 17 },
+    { time: "06:00 PM (Afternoon)", hour: 18 },
   ];
 
   const checkAvailability = (time) => {
     return currenttime.getHours() + 2 < time ? true : false;
   };
   return (
-    <Layout>
+    <Layout style={{ marginVertical: 10, padding: 10 }}>
       <Text category={"h6"} style={{ marginVertical: 6 }}>
         Choose your Schedule
       </Text>

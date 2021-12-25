@@ -9,10 +9,11 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import { Product } from "../models/Product";
 import Constants from "expo-constants";
-import { FontAwesome } from "@expo/vector-icons";
+import { SimpleLineIcons } from "@expo/vector-icons";
 
 export default function HomeScreen({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState("Milk");
+  const [totalCost, setTotalCost] = useState(0);
   const [isCartEmpty, setIsCartEmpty] = useState(0);
 
   //const { items } = useSelector((state) => state.cartReducer.selectedItems);
@@ -91,7 +92,7 @@ export default function HomeScreen({ navigation }) {
       <TouchableOpacity
         style={{
           backgroundColor: COLORS.ACCENT,
-          paddingVertical: 16,
+          paddingVertical: 8,
           margin: 10,
           borderRadius: 4,
           flexDirection: "row",
@@ -101,15 +102,38 @@ export default function HomeScreen({ navigation }) {
         }}
         onPress={() => navigation.navigate("Order")}
       >
-        <Text
-          category={"s2"}
-          style={{
-            color: COLORS.WHITE,
-            textAlign: "center",
-          }}
+        <Layout
+          style={{ flexDirection: "column", backgroundColor: COLORS.ACCENT }}
         >
-          {isCartEmpty} {isCartEmpty === 1 ? "item" : "items"} in cart
-        </Text>
+          <Layout
+            style={{
+              backgroundColor: COLORS.ACCENT,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              category={"s2"}
+              style={{
+                color: COLORS.WHITE,
+              }}
+            >
+              {isCartEmpty} {isCartEmpty === 1 ? "item" : "items"} |
+            </Text>
+            <Text
+              category={"c2"}
+              style={{
+                color: COLORS.WHITE,
+                paddingHorizontal: 10,
+              }}
+            >
+              {SYMBOLS.INR} {totalCost}
+            </Text>
+          </Layout>
+          <Text category={"c1"} style={{ color: COLORS.WHITE }}>
+            Extra charges may apply
+          </Text>
+        </Layout>
         <Layout
           style={{
             flexDirection: "row",
@@ -118,15 +142,15 @@ export default function HomeScreen({ navigation }) {
           }}
         >
           <Text
+            category={"s1"}
             style={{
               color: COLORS.WHITE,
-              fontWeight: "bold",
               paddingHorizontal: 6,
             }}
           >
             VIEW CART
           </Text>
-          <FontAwesome name="shopping-basket" size={20} color="white" />
+          <SimpleLineIcons name="handbag" size={20} color="white" />
         </Layout>
       </TouchableOpacity>
     );
@@ -137,7 +161,13 @@ export default function HomeScreen({ navigation }) {
       sum += curr.quantity;
       return sum;
     }, 0);
-    console.log(totalInCart);
+
+    const totalCost = copyOfProducts.reduce((totalCost, item) => {
+      totalCost += item.price * item.quantity;
+      return totalCost;
+    }, 0);
+    //console.log(totalInCart);
+    setTotalCost(totalCost);
     setIsCartEmpty(totalInCart);
 
     return () => {};
@@ -146,10 +176,10 @@ export default function HomeScreen({ navigation }) {
   return (
     <>
       <Layout style={styles.container}>
-        <Text category={"h2"} style={{ color: COLORS.ACCENT }}>
+        <Text category={"h2"} style={{ color: COLORS.ACCENT, marginLeft: 10 }}>
           {SYMBOLS.APP_NAME}
         </Text>
-        <Text category={"p2"} style={{ color: COLORS.ACCENT }}>
+        <Text category={"p2"} style={{ color: COLORS.ACCENT, marginLeft: 10 }}>
           {SYMBOLS.POWERED_BY_GIN}
         </Text>
         <Layout style={styles.subcontainer}>
@@ -170,7 +200,7 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 2,
     paddingTop: Constants.statusBarHeight || 50,
     backgroundColor: COLORS.WHITE,
     paddingBottom: 10,

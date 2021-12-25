@@ -29,10 +29,11 @@ export default function CartItems({ navigation }) {
   }, [items]);
 
   return (
-    <Layout style={{ margin: 6 }}>
+    <Layout style={{ marginVertical: 10, padding: 10 }}>
       <Text category="h3" style={{ marginVertical: 16 }}>
-        Orders
+        In cart
       </Text>
+
       {items != null || undefined ? (
         items.map((item, index) => {
           return (
