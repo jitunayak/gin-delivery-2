@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
+import { View, StyleSheet, Alert, TextInput } from "react-native";
 import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
 import { StripeProvider } from "@stripe/stripe-react-native";
-
+import { Button, Text } from "@ui-kitten/components";
 //ADD localhost address of your server
-const API_URL = "https://06w1839ac5.execute-api.us-east-1.amazonaws.com";
+const API_URL = "http://192.168.0.107:3000";
 
-const PaymentStripe = (props) => {
-  const [email, setEmail] = useState();
-  const [cardDetails, setCardDetails] = useState();
+const PaymentStripe = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [cardDetails, setCardDetails] = useState("");
   const { confirmPayment, loading } = useConfirmPayment();
 
   const fetchPaymentIntentClientSecret = async () => {
-    const response = await fetch(`${API_URL}/payment`, {
+    const response = await fetch(`${API_URL}/create-payment-intent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,6 +47,7 @@ const PaymentStripe = (props) => {
         } else if (paymentIntent) {
           alert("Payment Successful");
           console.log("Payment successful ", paymentIntent);
+          navigation.navigate("Success");
         }
       }
     } catch (e) {
@@ -58,6 +59,9 @@ const PaymentStripe = (props) => {
   return (
     <StripeProvider publishableKey="pk_test_51J5aVYSBhy92HuL3Qwn9pVoRyOuWzayePWJAPBT5Rs00wYdy1c6Z5N1nEFqAK36zMm40U9TA7pb4DxU0dHM9uOcn00UmL2PnhB">
       <View style={styles.container}>
+        <Text category={"h4"} style={{ alignSelf: "center", padding: 10 }}>
+          Make your secure payment
+        </Text>
         <TextInput
           autoCapitalize="none"
           placeholder="E-mail"
@@ -76,7 +80,9 @@ const PaymentStripe = (props) => {
             setCardDetails(cardDetails);
           }}
         />
-        <Button onPress={handlePayPress} title="Pay" disabled={loading} />
+        <Button onPress={handlePayPress} disabled={loading}>
+          Pay
+        </Button>
       </View>
     </StripeProvider>
   );
