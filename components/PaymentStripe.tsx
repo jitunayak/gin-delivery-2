@@ -4,7 +4,7 @@ import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import { Button, Text } from "@ui-kitten/components";
 //ADD localhost address of your server
-const API_URL = "http://192.168.0.107:3000";
+const API_URL = "https://stripe-gin.herokuapp.com";
 
 const PaymentStripe = ({ navigation }) => {
   const [email, setEmail] = useState("");

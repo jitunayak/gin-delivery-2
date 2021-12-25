@@ -12,7 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import { COLORS } from "../utilities/Constants";
 
-export default function AddressModal() {
+export default function AddressModal({ navigation }) {
   const [checked, setChecked] = React.useState(true);
   const dispatch = useDispatch();
   const { address } = useSelector(
@@ -112,7 +112,10 @@ export default function AddressModal() {
         </Layout>
 
         <Button
-          onPress={() => updatenewAddress()}
+          onPress={() => {
+            updatenewAddress();
+            navigation.navigate("Order");
+          }}
           status={"primary"}
           appearance={"filled"}
         >

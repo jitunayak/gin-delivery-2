@@ -3,8 +3,8 @@ import React from "react";
 
 export default function OrdersScreen() {
   return (
-    <Layout>
-      <Text>Orders Screen</Text>
+    <Layout style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text category={"h1"}>ORDERS SCREEN</Text>
     </Layout>
   );
 }

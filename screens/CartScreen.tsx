@@ -1,4 +1,4 @@
-import { Layout, Button } from "@ui-kitten/components";
+import { Layout, Button, Text } from "@ui-kitten/components";
 import React, { useState } from "react";
 import { StyleSheet, Alert, Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -8,18 +8,31 @@ import CartItems from "../components/CartItems";
 import TimSchedule from "../components/TimSchedule";
 import { COLORS, SYMBOLS } from "../utilities/Constants";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 
 export default function CartScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const { address } = useSelector(
+    (state) => state.addressReducer.selectedAddress
+  );
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      shouldCancelWhenOutside={false}
-    >
-      <CartItems navigation={navigation} />
-
-      <TimSchedule />
-
+    <>
+      <ScrollView showsVerticalScrollIndicator={true}>
+        <CartItems navigation={navigation} />
+        <Button
+          style={{ marginHorizontal: 10 }}
+          appearance={"outline"}
+          onPress={() => navigation.navigate("Address")}
+        >
+          {address === null ? "Add Address" : "Change Address"}
+        </Button>
+        {address !== null ? (
+          <Button category={"s1"} status={"control"}>
+            Choosen address is for {address.name}, {address.address1}
+          </Button>
+        ) : null}
+        <TimSchedule />
+      </ScrollView>
       <Button
         accessoryRight={() => (
           <MaterialIcons name="payment" size={24} color="white" />
@@ -30,7 +43,7 @@ export default function CartScreen({ navigation }) {
       >
         MAKE PAYMENT
       </Button>
-    </ScrollView>
+    </>
   );
 }
 

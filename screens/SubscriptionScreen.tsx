@@ -3,10 +3,10 @@ import React from "react";
 import { View } from "react-native";
 import PaymentStripe from "../components/PaymentStripe";
 
-export default function SubscriptionScreen() {
+export default function SubscriptionScreen({ navigation }) {
   return (
     <Layout style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <PaymentStripe />
+      <Text category={"h1"}>SUBSCRIPTION</Text>
     </Layout>
   );
 }
