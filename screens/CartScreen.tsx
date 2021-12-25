@@ -26,7 +26,7 @@ export default function CartScreen({ navigation }) {
           {address.name === "" ? "Add Address" : "Change Address"}
         </Button>
         {address.name !== "" ? (
-          <Button category={"s1"} status={"control"}>
+          <Button status={"control"}>
             Choosen address is for {address.name} {`,${address.address1}`}
           </Button>
         ) : null}

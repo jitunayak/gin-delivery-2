@@ -29,7 +29,7 @@ export default function CartItems({ navigation }) {
   }, [items]);
 
   return (
-    <Layout style={{ marginVertical: 10, padding: 10 }}>
+    <Layout style={{ padding: 10 }}>
       <Text category="h3" style={{ marginVertical: 16 }}>
         In cart
       </Text>

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { View, StyleSheet, Alert, TextInput, Image } from "react-native";
 import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
 import { StripeProvider } from "@stripe/stripe-react-native";
-import { Button, Text } from "@ui-kitten/components";
+import { Button, Layout, Text } from "@ui-kitten/components";
 import { COLORS } from "../utilities/Constants";
 //ADD localhost address of your server
 const API_URL = "https://stripe-gin.herokuapp.com";
+const API_KEY = "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
 
 const PaymentStripe = ({ navigation }) => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("jitunayak715@gmail.com");
   const [cardDetails, setCardDetails] = useState("");
   const { confirmPayment, loading } = useConfirmPayment();
 
@@ -17,6 +18,7 @@ const PaymentStripe = ({ navigation }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: API_KEY,
       },
     });
     const { clientSecret, error } = await response.json();
@@ -59,7 +61,7 @@ const PaymentStripe = ({ navigation }) => {
 
   return (
     <StripeProvider publishableKey="pk_test_51J5aVYSBhy92HuL3Qwn9pVoRyOuWzayePWJAPBT5Rs00wYdy1c6Z5N1nEFqAK36zMm40U9TA7pb4DxU0dHM9uOcn00UmL2PnhB">
-      <View style={styles.container}>
+      <Layout style={styles.container}>
         <Image
           source={{
             uri: "https://cdn-icons-png.flaticon.com/512/1086/1086741.png",
@@ -71,12 +73,13 @@ const PaymentStripe = ({ navigation }) => {
             marginBottom: 50,
           }}
         />
-        <Text category={"h4"} style={{ alignSelf: "center", padding: 10 }}>
+        <Text category={"h5"} style={{ alignSelf: "center", padding: 10 }}>
           Make your secure payment
         </Text>
         <TextInput
           autoCapitalize="none"
           placeholder="E-mail"
+          placeholderTextColor={"grey"}
           keyboardType="email-address"
           onChange={(value) => setEmail(value.nativeEvent.text)}
           style={styles.input}
@@ -95,7 +98,7 @@ const PaymentStripe = ({ navigation }) => {
         <Button onPress={handlePayPress} disabled={loading}>
           Pay
         </Button>
-      </View>
+      </Layout>
     </StripeProvider>
   );
 };
@@ -105,16 +108,14 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     padding: 20,
-    backgroundColor: COLORS.WHITE,
     paddingTop: 100,
   },
   input: {
-    backgroundColor: "#efefefef",
-
     borderRadius: 8,
     fontSize: 20,
     height: 50,
     padding: 10,
+    backgroundColor: "#efefefef",
   },
   card: {
     backgroundColor: "#efefefef",

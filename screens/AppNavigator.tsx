@@ -12,6 +12,7 @@ import AddressModal from "../components/AddressModal";
 import SubscriptionScreen from "./SubscriptionScreen";
 import PaymentStripe from "../components/PaymentStripe";
 import Success from "../components/Success";
+import PhonePeModal from "../components/PhonePeModal";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -71,17 +72,28 @@ const TabNavigator = ({ navigation }) => (
 export default function AppNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="HomeScreen"
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="HomeScreen" component={TabNavigator} />
-        <Stack.Screen name="Order" component={CartScreen} />
-        <Stack.Screen name="Address" component={AddressModal} />
+      <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Screen
+          name="HomeScreen"
+          component={TabNavigator}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen name="Order" component={CartScreen} options={{}} />
+        <Stack.Screen name="Address" component={AddressModal} options={{}} />
         <Stack.Screen name="Payment" component={PaymentStripe} />
         <Stack.Screen name="Success" component={Success} />
+        <Stack.Screen
+          name="Phonepe"
+          component={PhonePeModal}
+          options={{
+            headerStyle: {
+              backgroundColor: COLORS.BLACK,
+            },
+            headerTintColor: COLORS.WHITE,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
