@@ -55,7 +55,7 @@ export default function AddressModal({ navigation }) {
         backgroundColor: COLORS.WHITE,
       }}
     >
-      <Text category={"h4"}>Add Address</Text>
+      {/* <Text category={"h4"}>Add Address</Text> */}
       <Input
         value={newAddress.name}
         label="Name"

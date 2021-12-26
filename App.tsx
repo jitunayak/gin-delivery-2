@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: Constants.statusBarHeight || 10,
     backgroundColor: COLORS.WHITE,
   },
 });

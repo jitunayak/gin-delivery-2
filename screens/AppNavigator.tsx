@@ -13,8 +13,13 @@ import SubscriptionScreen from "./SubscriptionScreen";
 import PaymentStripe from "../components/PaymentStripe";
 import Success from "../components/Success";
 import PhonePeModal from "../components/PhonePeModal";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Platform } from "react-native";
 
-const Stack = createStackNavigator();
+/* This provides native OS specific navigation. */
+const Stack = createNativeStackNavigator();
+
+//const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const UsersScreen = () => (
@@ -80,16 +85,48 @@ export default function AppNavigator() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="Order" component={CartScreen} options={{}} />
-        <Stack.Screen name="Address" component={AddressModal} options={{}} />
-        <Stack.Screen name="Payment" component={PaymentStripe} />
-        <Stack.Screen name="Success" component={Success} />
+        <Stack.Screen
+          name="Order"
+          component={CartScreen}
+          options={
+            Platform.OS === "ios"
+              ? { headerLargeTitle: true, headerBackVisible: false }
+              : { headerBackVisible: true }
+          }
+        />
+        <Stack.Screen
+          name="Address"
+          component={AddressModal}
+          options={
+            Platform.OS === "ios"
+              ? { headerLargeTitle: true, headerBackVisible: false }
+              : { headerBackVisible: true }
+          }
+        />
+        <Stack.Screen
+          name="Payment"
+          component={PaymentStripe}
+          options={
+            Platform.OS === "ios"
+              ? { headerLargeTitle: true, headerBackVisible: false }
+              : { headerBackVisible: true }
+          }
+        />
+        <Stack.Screen
+          name="Success"
+          component={Success}
+          options={
+            Platform.OS === "ios"
+              ? { headerLargeTitle: true, headerBackVisible: false }
+              : { headerBackVisible: false }
+          }
+        />
         <Stack.Screen
           name="Phonepe"
           component={PhonePeModal}
           options={{
             headerStyle: {
-              backgroundColor: COLORS.BLACK,
+              backgroundColor: COLORS.PURPLE,
             },
             headerTintColor: COLORS.WHITE,
           }}

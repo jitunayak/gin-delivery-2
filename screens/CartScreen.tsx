@@ -13,7 +13,7 @@ export default function CartScreen({ navigation }) {
   const { address } = useSelector(
     (state) => state.addressReducer.selectedAddress
   );
-  console.log(address);
+  //console.log(address);
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={true}>
@@ -25,20 +25,20 @@ export default function CartScreen({ navigation }) {
         >
           {address.name === "" ? "Add Address" : "Change Address"}
         </Button>
-        {address.name !== "" ? (
-          <Button status={"control"}>
+        {address.address1 !== "" ? (
+          <Text style={{ textAlign: "center", paddingVertical: 10 }}>
             Choosen address is for {address.name} {`,${address.address1}`}
-          </Button>
+          </Text>
         ) : null}
         <TimSchedule />
       </ScrollView>
       <Button
         accessoryRight={() => (
-          <MaterialIcons name="payment" size={24} color="white" />
+          <MaterialIcons name="payment" size={20} color="white" />
         )}
         onPress={() => navigation.navigate("Payment")}
         style={styles.button}
-        size={"large"}
+        size={"medium"}
       >
         MAKE PAYMENT
       </Button>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     borderColor: "black",
     position: "absolute",
-    bottom: 16,
+    bottom: 20,
     width: Dimensions.get("screen").width * 0.95,
     margin: 10,
   },

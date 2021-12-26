@@ -30,9 +30,9 @@ export default function CartItems({ navigation }) {
 
   return (
     <Layout style={{ padding: 10 }}>
-      <Text category="h3" style={{ marginVertical: 16 }}>
+      {/* <Text category="h3" style={{ marginVertical: 16 }}>
         In cart
-      </Text>
+      </Text> */}
 
       {items != null || undefined ? (
         items.map((item, index) => {
