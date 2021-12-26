@@ -7,17 +7,59 @@ import CartItems from "../components/CartItems";
 import TimSchedule from "../components/TimSchedule";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
+import PhonePe from "../components/PhonePeModal";
+import PhonePeModal from "../components/PhonePeModal";
 
 export default function CartScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+
   const { address } = useSelector(
     (state) => state.addressReducer.selectedAddress
   );
-  //console.log(address);
+  const PaymentContainer = (
+    <Layout
+      style={{
+        backgroundColor: "white",
+        padding: 10,
+        position: "absolute",
+        bottom: 5,
+        width: Dimensions.get("window").width,
+        shadowRadius: 10,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: -10 },
+      }}
+    >
+      <Layout
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          marginBottom: 20,
+          marginHorizontal: 10,
+          marginTop: 10,
+        }}
+      >
+        <Button
+          appearance={"outline"}
+          status={"basic"}
+          style={{ marginRight: 10 }}
+        >
+          Clear cart
+        </Button>
+        <PhonePeModal amount={totalPrice} navigation={navigation} />
+      </Layout>
+    </Layout>
+  );
+
+  /* Main Screen view for Cart Screen */
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={true}>
-        <CartItems navigation={navigation} />
+        <CartItems
+          navigation={navigation}
+          totalPrice={totalPrice}
+          setTotalPrice={setTotalPrice}
+        />
         <Button
           style={{ marginHorizontal: 10 }}
           appearance={"outline"}
@@ -32,16 +74,7 @@ export default function CartScreen({ navigation }) {
         ) : null}
         <TimSchedule />
       </ScrollView>
-      <Button
-        accessoryRight={() => (
-          <MaterialIcons name="payment" size={20} color="white" />
-        )}
-        onPress={() => navigation.navigate("Payment")}
-        style={styles.button}
-        size={"medium"}
-      >
-        MAKE PAYMENT
-      </Button>
+      {PaymentContainer}
     </>
   );
 }
@@ -55,9 +88,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "black",
     borderColor: "black",
-    position: "absolute",
-    bottom: 20,
-    width: Dimensions.get("screen").width * 0.95,
     margin: 10,
+    flex: 1,
   },
 });

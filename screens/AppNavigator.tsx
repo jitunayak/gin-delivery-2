@@ -70,7 +70,7 @@ const TabNavigator = ({ navigation }) => (
   >
     <Tab.Screen name="Home" component={HomeScreen} />
     <Tab.Screen name="Orders" component={OrdersScreen} />
-    <Tab.Screen name="Subscription" component={SubscriptionScreen} />
+    <Tab.Screen name="Subscription" component={PhonePeModal} />
   </Tab.Navigator>
 );
 
@@ -90,7 +90,10 @@ export default function AppNavigator() {
           component={CartScreen}
           options={
             Platform.OS === "ios"
-              ? { headerLargeTitle: true, headerBackVisible: false }
+              ? {
+                  headerBackVisible: true,
+                  title: "",
+                }
               : { headerBackVisible: true }
           }
         />

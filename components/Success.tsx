@@ -13,8 +13,8 @@ export default function Success({ navigation }) {
       }}
     >
       <Ionicons name="md-checkmark-done-circle" size={100} color="green" />
-      <Text category={"h4"}>Payment has been successful</Text>
-      <Text category={"c2"}>
+      <Text category={"h6"}>Payment has been successful</Text>
+      <Text category={"c1"}>
         Please, don't close this page or press back button
       </Text>
       {/* <Text category={"c2"} status={"warning"}>

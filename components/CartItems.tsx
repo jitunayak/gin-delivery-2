@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { COLORS, SYMBOLS } from "../utilities/Constants";
 
-export default function CartItems({ navigation }) {
-  const [totalPrice, setTotalPrice] = useState(0);
+export default function CartItems({ navigation, totalPrice, setTotalPrice }) {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.cartReducer.selectedItems);
   // items.size === 0 ? setIsCartEmpty(true) : setIsCartEmpty(false);
@@ -29,7 +28,7 @@ export default function CartItems({ navigation }) {
   }, [items]);
 
   return (
-    <Layout style={{ padding: 10 }}>
+    <Layout style={{ padding: 20 }}>
       {/* <Text category="h3" style={{ marginVertical: 16 }}>
         In cart
       </Text> */}
@@ -81,7 +80,7 @@ export default function CartItems({ navigation }) {
         </Text>
         <Divider style={{ marginTop: 16 }} />
         <Layout style={styles.rowcartitem}>
-          <Text category="s1">To Pay</Text>
+          <Text category="s1">Total Bill</Text>
           <Text category={"s1"}>
             {SYMBOLS.INR} {totalPrice}
           </Text>
