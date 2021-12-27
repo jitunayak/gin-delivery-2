@@ -1,6 +1,6 @@
 import { StripeProvider, useStripe } from "@stripe/stripe-react-native";
-import { Button, Layout } from "@ui-kitten/components";
-import React from "react";
+import { Button, Layout, Spinner } from "@ui-kitten/components";
+import React, { useState } from "react";
 import { View, Text, Alert } from "react-native";
 import { COLORS } from "../utilities/Constants";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -11,7 +11,10 @@ export default function PhonePeModal({ amount, navigation }) {
   const API_URL = "https://stripe-gin.herokuapp.com";
   const API_KEY = "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
 
-  console.log("amount", amount);
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("jitunayak715@gmail.com");
+
+  //console.log("amount", amount);
   const fetchPaymentIntentClientSecret: any = async () => {
     const response = await fetch(`${API_URL}/create-payment-intent`, {
       method: "POST",
@@ -28,11 +31,13 @@ export default function PhonePeModal({ amount, navigation }) {
   };
 
   const makeAPayment = async () => {
+    setLoading(true);
     try {
       const { clientSecret, error } = await fetchPaymentIntentClientSecret();
 
       if (error) {
         Alert.alert("Unable to process payment");
+        setLoading(false);
       }
       const initSheet = await stripe.initPaymentSheet({
         paymentIntentClientSecret: clientSecret,
@@ -43,6 +48,7 @@ export default function PhonePeModal({ amount, navigation }) {
       });
       if (initSheet.error) {
         //console.error(initSheet.error);
+        setLoading(false);
         return Alert.alert(initSheet.error.message);
       }
       const presentSheet = await stripe.presentPaymentSheet({
@@ -50,12 +56,14 @@ export default function PhonePeModal({ amount, navigation }) {
       });
       if (presentSheet.error) {
         //console.error(presentSheet.error);
+        setLoading(false);
         return Alert.alert(presentSheet.error.message);
       }
       //navigation.navigate("Success");
       Alert.alert("Donated successfully! Thank you for the donation.");
     } catch (err) {
       //console.error(err);
+      setLoading(false);
       Alert.alert("Payment failed!");
     }
   };
@@ -65,9 +73,13 @@ export default function PhonePeModal({ amount, navigation }) {
         accessoryRight={() => (
           <MaterialIcons name="payment" size={20} color="white" />
         )}
+        accessoryLeft={() => {
+          return loading ? <Spinner size="small" status={"success"} /> : null;
+        }}
         style={{ backgroundColor: "black", borderColor: "black", flex: 1 }}
         size={"medium"}
         onPress={makeAPayment}
+        disabled={loading}
       >
         MAKE PAYMENT
       </Button>
