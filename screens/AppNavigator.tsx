@@ -70,7 +70,7 @@ const TabNavigator = ({ navigation }) => (
   >
     <Tab.Screen name="Home" component={HomeScreen} />
     <Tab.Screen name="Orders" component={OrdersScreen} />
-    <Tab.Screen name="Subscription" component={PhonePeModal} />
+    <Tab.Screen name="Subscription" component={SubscriptionScreen} />
   </Tab.Navigator>
 );
 

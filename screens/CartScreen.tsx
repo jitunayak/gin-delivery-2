@@ -17,10 +17,20 @@ export default function CartScreen({ navigation }) {
   const { address } = useSelector(
     (state) => state.addressReducer.selectedAddress
   );
+
+  /**
+   * TODO Yet to be implemented
+   */
+  function makeTheCartEmpty() {
+    Alert.alert("Not implemented yet");
+  }
+
+  /**
+   * TODO put it in separate component
+   */
   const PaymentContainer = (
     <Layout
       style={{
-        backgroundColor: "white",
         padding: 10,
         position: "absolute",
         bottom: 5,
@@ -28,6 +38,7 @@ export default function CartScreen({ navigation }) {
         shadowRadius: 10,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: -10 },
+        shadowOpacity: 0.1,
       }}
     >
       <Layout
@@ -53,7 +64,7 @@ export default function CartScreen({ navigation }) {
 
   /* Main Screen view for Cart Screen */
   return (
-    <>
+    <Layout style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={true}>
         <CartItems
           navigation={navigation}
@@ -75,7 +86,7 @@ export default function CartScreen({ navigation }) {
         <TimSchedule />
       </ScrollView>
       {PaymentContainer}
-    </>
+    </Layout>
   );
 }
 

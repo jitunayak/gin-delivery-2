@@ -63,7 +63,7 @@ export default function Item({
     return (
       <TouchableOpacity
         onPress={() => {
-          //Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           dispatch({
             type: "ADD_TO_CART",
             payload: props.item,
@@ -97,6 +97,10 @@ export default function Item({
           borderColor: COLORS.LIGHT_GREY,
           borderWidth: 2,
           borderRadius: 4,
+          shadowRadius: 10,
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 6 },
+          shadowOpacity: 0.1,
         }}
       >
         <Pressable
@@ -144,7 +148,6 @@ export default function Item({
         style={{
           flexWrap: "wrap",
           flexDirection: "row",
-          backgroundColor: COLORS.WHITE,
         }}
       >
         {products.map((item, index) => {

@@ -99,6 +99,10 @@ export default function HomeScreen({ navigation }) {
           justifyContent: "space-between",
           paddingHorizontal: 10,
           alignItems: "center",
+          shadowRadius: 10,
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 10 },
+          shadowOpacity: 0.5,
         }}
         onPress={() => navigation.navigate("Order")}
       >
@@ -202,7 +206,6 @@ const styles = StyleSheet.create({
   container: {
     padding: 2,
     paddingTop: Constants.statusBarHeight || 50,
-    backgroundColor: COLORS.WHITE,
     paddingBottom: 10,
     flex: 1,
   },
@@ -210,6 +213,5 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
-    backgroundColor: "white",
   },
 });

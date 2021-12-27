@@ -52,7 +52,6 @@ export default function AddressModal({ navigation }) {
         flex: 1,
         padding: 20,
         flexDirection: "column",
-        backgroundColor: COLORS.WHITE,
       }}
     >
       {/* <Text category={"h4"}>Add Address</Text> */}
