@@ -106,7 +106,7 @@ export default function Item({
         <Pressable
           onPress={() => {
             incrementInQuantity(props);
-            //Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           }}
         >
           <Text
@@ -126,7 +126,7 @@ export default function Item({
         <Pressable
           onPress={() => {
             decrementInQuantity(props);
-            //Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           }}
         >
           <Text

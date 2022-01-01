@@ -92,7 +92,6 @@ export default function CartScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 40,
     flex: 1,
   },
 

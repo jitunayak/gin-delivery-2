@@ -32,6 +32,10 @@ export default function CartItems({ navigation, totalPrice, setTotalPrice }) {
       {/* <Text category="h3" style={{ marginVertical: 16 }}>
         In cart
       </Text> */}
+      <Text category="h5" style={{ paddingVertical: 10 }}>
+        To Pay {SYMBOLS.INR}
+        {totalPrice}
+      </Text>
 
       {items != null || undefined ? (
         items.map((item, index) => {

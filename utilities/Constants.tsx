@@ -4,6 +4,13 @@ export const SYMBOLS = {
   POWERED_BY_GIN: "POWERED BY GIN",
 };
 
+export const API = {
+  BASE_URL: "https://stripe-gin.herokuapp.com/api",
+  JWT_TOKEN:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxY2NhYmQ4MDlkMWQxMDE0OTkwM2MzYiIsImlhdCI6MTY0MDk1NDMxMX0.U3ApYhtW_b9gjZ3Rab0fPnZMyyCpGkEl3vp2ZeMN7YE",
+  API_KEY: "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+};
+
 export const COLORS = {
   PRIMARY: "#84cc16",
   SECONDARY: "#ecfccb",

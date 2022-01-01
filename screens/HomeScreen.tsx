@@ -75,7 +75,7 @@ export default function HomeScreen({ navigation }) {
     },
     {
       id: "12asbhevjpk",
-      name: "Dosa with \nChutney",
+      name: "Dosa with Chutney",
       price: 55,
       isAvailable: true,
       weight: "1 Dosa",
@@ -102,7 +102,7 @@ export default function HomeScreen({ navigation }) {
           shadowRadius: 10,
           shadowColor: "#000",
           shadowOffset: { width: 0, height: 10 },
-          shadowOpacity: 0.5,
+          shadowOpacity: 0.3,
         }}
         onPress={() => navigation.navigate("Order")}
       >
