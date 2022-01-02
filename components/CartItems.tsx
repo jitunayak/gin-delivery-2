@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   rowcartitem: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 6,
+    marginVertical: 4,
     marginHorizontal: 6,
   },
 });

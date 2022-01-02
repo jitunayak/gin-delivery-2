@@ -87,6 +87,10 @@ export default function HomeScreen({ navigation }) {
   ];
   const [products, setProducts] = useState<Product[]>(fetchedProducts);
 
+  const makeCartEmpty = () => {
+    setProducts(fetchedProducts);
+  };
+
   const CartButton = () => {
     return (
       <TouchableOpacity
@@ -194,6 +198,7 @@ export default function HomeScreen({ navigation }) {
             products={products}
             setProducts={setProducts}
             setIsCartEmpty={setIsCartEmpty}
+            makeCartEmpty={makeCartEmpty}
           />
         </Layout>
         {isCartEmpty > 0 ? <CartButton /> : null}

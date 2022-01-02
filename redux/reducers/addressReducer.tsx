@@ -1,5 +1,13 @@
 let defaultState = {
-  selectedAddress: { address: "" },
+  selectedAddress: {
+    address: {
+      address1: "",
+      address2: "",
+      name: "",
+      phone: "",
+      pincode: "",
+    },
+  },
 };
 
 let addressReducer = (state = defaultState, action) => {
@@ -8,7 +16,7 @@ let addressReducer = (state = defaultState, action) => {
       let newState = { ...state };
 
       if (action.payload) {
-        console.log("ADD NEW ADDRESS");
+        //console.log("ADD NEW ADDRESS");
         newState.selectedAddress = { address: action.payload };
         return newState;
       }

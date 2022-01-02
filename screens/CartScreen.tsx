@@ -71,19 +71,19 @@ export default function CartScreen({ navigation }) {
           totalPrice={totalPrice}
           setTotalPrice={setTotalPrice}
         />
+        <TimSchedule />
         <Button
           style={{ marginHorizontal: 10 }}
-          appearance={"outline"}
+          appearance={"ghost"}
           onPress={() => navigation.navigate("Address")}
         >
-          {address.name === "" ? "Add Address" : "Change Address"}
+          {address.address1 === "" ? "Add Address" : "Change Address"}
         </Button>
         {address.address1 !== "" ? (
           <Text style={{ textAlign: "center", paddingVertical: 10 }}>
             Choosen address is for {address.name} {`,${address.address1}`}
           </Text>
         ) : null}
-        <TimSchedule />
       </ScrollView>
       {PaymentContainer}
     </Layout>

@@ -1,12 +1,14 @@
 import { mapping } from "@eva-design/eva";
 import { Button, Layout, Text } from "@ui-kitten/components";
 import React, { useState, useEffect } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, RefreshControl, RefreshControlBase } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { API, COLORS, SYMBOLS } from "../utilities/Constants";
 import Constants from "expo-constants";
 
 export default function OrdersScreen() {
+  const [refreshing, setRefreshing] = React.useState(true);
+
   const fetchRecentOrders = async () => {
     const orders = await fetch(
       `${API.BASE_URL}/order/customer/61ccb12a2c4515c1b403363c`,
@@ -23,12 +25,31 @@ export default function OrdersScreen() {
   };
   const [orders, setOrders] = useState([]);
 
+  useEffect(() => {
+    fetchRecentOrders();
+    setRefreshing(false);
+    return () => {};
+  }, [refreshing]);
+
   return (
-    <Layout style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <Layout
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: COLORS.LIGHT_GREY,
+      }}
+    >
       {orders.length === 0 ? <Text>No Orders </Text> : null}
       <ScrollView
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => setRefreshing(true)}
+          />
+        }
         style={{
           flex: 1,
           width: Dimensions.get("window").width,
@@ -42,10 +63,8 @@ export default function OrdersScreen() {
               key={order._id}
               style={{
                 width: Dimensions.get("screen").width,
-                padding: 10,
+                padding: 20,
                 margin: 6,
-                borderBottomColor: COLORS.GREY,
-                borderBottomWidth: 1,
               }}
             >
               <Text
@@ -53,8 +72,9 @@ export default function OrdersScreen() {
                 style={{
                   backgroundColor: order.Delivered
                     ? COLORS.LIGHT_GREY
-                    : COLORS.PRIMARY,
-                  padding: 10,
+                    : COLORS.WHITE,
+                  paddingVertical: 10,
+                  color: COLORS.ACCENT,
                 }}
               >
                 {order.Delivered
@@ -83,18 +103,31 @@ export default function OrdersScreen() {
                 {order.cart.items.map((item, index) => {
                   return (
                     <Text category={"c1"} key={index}>
-                      {item.name} x {item.quantity}
+                      {item.name} x {item.quantity},{" "}
                     </Text>
                   );
                 })}
+              </Layout>
+              <Layout style={{ flexDirection: "row" }}>
+                <Button
+                  appearance={"outline"}
+                  status={"warning"}
+                  style={{ flex: 1, margin: 10 }}
+                >
+                  Rate Delivery
+                </Button>
+                <Button
+                  appearance={"outline"}
+                  status={"info"}
+                  style={{ flex: 1, margin: 10 }}
+                >
+                  Review
+                </Button>
               </Layout>
             </Layout>
           );
         })}
       </ScrollView>
-      <Button appearance={"ghost"} onPress={() => fetchRecentOrders()}>
-        Show Orders
-      </Button>
     </Layout>
   );
 }

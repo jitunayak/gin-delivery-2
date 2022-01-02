@@ -18,6 +18,7 @@ export default function Item({
   products,
   setProducts,
   setIsCartEmpty,
+  makeCartEmpty,
 }) {
   const dispatch = useDispatch();
   // const { items } = useSelector((state) => state.cartReducer.selectedItems);
@@ -170,18 +171,20 @@ export default function Item({
                   }}
                 />
                 <Text
-                  category={"p1"}
+                  category={"p2"}
                   style={{
-                    paddingVertical: 6,
+                    paddingVertical: 2,
                     fontSize: FONTS.H4,
+                    flexWrap: "wrap",
+                    width: Dimensions.get("screen").width * 0.25,
                   }}
                 >
                   {item.name}
                 </Text>
-                <Text>₹{item.price}</Text>
+                <Text category={"c2"}>₹{item.price}</Text>
                 <Text
-                  category={"p2"}
-                  style={{ color: COLORS.GREY, marginVertical: 6 }}
+                  category={"c2"}
+                  style={{ color: COLORS.GREY, marginVertical: 4 }}
                 >
                   {item.weight}
                 </Text>
