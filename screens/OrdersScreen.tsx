@@ -40,7 +40,6 @@ export default function OrdersScreen() {
 				backgroundColor: COLORS.LIGHT_GREY,
 			}}
 		>
-			{refreshing ? <Text>Loading</Text> : <Text>Not refresh</Text>}
 			{orders.length === 0 ? <Text>No Orders </Text> : null}
 			<ScrollView
 				showsHorizontalScrollIndicator={false}
@@ -58,30 +57,41 @@ export default function OrdersScreen() {
 					marginRight: 10,
 				}}
 			>
+				<Text category={'h3'} style={{ paddingHorizontal: 20 }}>
+					Orders
+				</Text>
+				{refreshing ? (
+					<Text category={'h6'} style={{ paddingHorizontal: 20 }}>
+						fetching...
+					</Text>
+				) : null}
+
 				{orders.map((order, index) => {
 					const OrderStatus = (
-						<Text
-							category={'c2'}
-							style={{
-								backgroundColor: order.Delivered
-									? COLORS.LIGHT_GREY
-									: COLORS.WHITE,
-								paddingVertical: 10,
-								color: order.Delivered ? COLORS.BLACK : COLORS.ACCENT,
-							}}
-						>
-							{order.Delivered
-								? `Delivered on ${new Date(
-										order.updatedAt
-								  ).toLocaleDateString()} , ${new Date(
-										order.updatedAt
-								  ).toLocaleTimeString()}`
-								: `Order placed on  ${new Date(
-										order.createdAt
-								  ).toDateString()}  ${new Date(
-										order.createdAt
-								  ).toLocaleTimeString()}`}
-						</Text>
+						<>
+							<Text
+								category={'c2'}
+								style={{
+									// backgroundColor: order.Delivered
+									// 	? COLORS.LIGHT_GREY
+									// 	: COLORS.WHITE,
+									paddingVertical: 10,
+									color: order.Delivered ? COLORS.BLACK : COLORS.ACCENT,
+								}}
+							>
+								{order.Delivered
+									? `Delivered on ${new Date(
+											order.updatedAt
+									  ).toLocaleDateString()} , ${new Date(
+											order.updatedAt
+									  ).toLocaleTimeString()}`
+									: `Order: ${new Date(
+											order.createdAt
+									  ).toDateString()}  ${new Date(
+											order.createdAt
+									  ).toLocaleTimeString()}`}
+							</Text>
+						</>
 					);
 					return (
 						<Layout
@@ -112,9 +122,10 @@ export default function OrdersScreen() {
 											{item.name} x {item.quantity},{' '}
 										</Text>
 									);
+									11111111;
 								})}
 							</Layout>
-							{RatingAndReview()}
+							{RatingAndReview(order.Delivered)}
 						</Layout>
 					);
 				})}
@@ -122,15 +133,15 @@ export default function OrdersScreen() {
 		</Layout>
 	);
 
-	function RatingAndReview() {
+	function RatingAndReview(delivered) {
 		return (
 			<Layout style={{ flexDirection: 'row' }}>
 				<Button
-					appearance={'outline'}
-					status={'warning'}
+					appearance={delivered ? 'outline' : 'filled'}
+					status={delivered ? 'warning' : 'danger'}
 					style={{ flex: 1, margin: 10 }}
 				>
-					Rate Delivery
+					{delivered ? 'Rate Delivery' : 'Sheduled'}
 				</Button>
 				<Button
 					appearance={'outline'}
