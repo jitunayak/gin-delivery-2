@@ -117,7 +117,8 @@ export default function HomeScreen({ navigation }) {
 								color: COLORS.WHITE,
 							}}
 						>
-							totalItemsInCart ${totalItemsInCart === 1 ? 'item' : 'items'} |
+							{totalItemsInCart}
+							{totalItemsInCart === 1 ? ' item' : ' items'} |
 						</Text>
 						<Text
 							category={'c2'}
