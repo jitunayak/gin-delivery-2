@@ -7,7 +7,9 @@ import { COLORS, SYMBOLS } from '../utilities/Constants';
 
 export default function CartItems({ navigation, totalPrice, setTotalPrice }) {
 	const dispatch = useDispatch();
-	const { items } = useSelector((state) => state.cartReducer.selectedItems);
+	const { items, isCartEmpty } = useSelector(
+		(state) => state.cartReducer.selectedItems
+	);
 	// items.size === 0 ? setIsCartEmpty(true) : setIsCartEmpty(false);
 
 	const calculateTotalPrice = () => {
@@ -18,12 +20,14 @@ export default function CartItems({ navigation, totalPrice, setTotalPrice }) {
 	};
 
 	useEffect(() => {
-		setTotalPrice(
-			items.reduce((total, item) => {
-				total += item.price * item.quantity;
-				return total;
-			}, 0)
-		);
+		!isCartEmpty
+			? setTotalPrice(
+					items.reduce((total, item) => {
+						total += item.price * item.quantity;
+						return total;
+					}, 0)
+			  )
+			: setTotalPrice(0);
 		return () => {};
 	}, [items]);
 
@@ -37,7 +41,7 @@ export default function CartItems({ navigation, totalPrice, setTotalPrice }) {
 				{totalPrice}
 			</Text>
 
-			{items != null || undefined ? (
+			{!isCartEmpty ? (
 				items.map((item, index) => {
 					return (
 						<Layout

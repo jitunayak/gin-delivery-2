@@ -1,4 +1,4 @@
-import { Button, Layout, Text } from '@ui-kitten/components';
+import { Button, Layout, Spinner, Text } from '@ui-kitten/components';
 import Constants from 'expo-constants';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, RefreshControl } from 'react-native';
@@ -22,12 +22,12 @@ export default function OrdersScreen() {
 		);
 		const jsonOrders = await orders.json();
 		setOrders(jsonOrders.reverse());
+		setRefreshing(false);
 	};
 	const [orders, setOrders] = useState([]);
 
 	useEffect(() => {
 		fetchRecentOrders();
-		setRefreshing(false);
 		return () => {};
 	}, [refreshing]);
 
@@ -40,6 +40,7 @@ export default function OrdersScreen() {
 				backgroundColor: COLORS.LIGHT_GREY,
 			}}
 		>
+			{refreshing ? <Text>Loading</Text> : <Text>Not refresh</Text>}
 			{orders.length === 0 ? <Text>No Orders </Text> : null}
 			<ScrollView
 				showsHorizontalScrollIndicator={false}

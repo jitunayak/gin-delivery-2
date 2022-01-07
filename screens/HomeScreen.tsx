@@ -4,6 +4,7 @@ import Constants from 'expo-constants';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Categories from '../components/Categories';
 import Item from '../components/Item';
@@ -13,7 +14,7 @@ import { COLORS, SYMBOLS } from '../utilities/Constants';
 export default function HomeScreen({ navigation }) {
 	const [selectedCategory, setSelectedCategory] = useState('Milk');
 	const [totalCost, setTotalCost] = useState(0);
-	const [isCartEmpty, setIsCartEmpty] = useState(0);
+	const [totalItemsInCart, setTotalItemsInCart] = useState(0);
 
 	//const { items } = useSelector((state) => state.cartReducer.selectedItems);
 	const fetchedProducts = [
@@ -86,9 +87,13 @@ export default function HomeScreen({ navigation }) {
 	];
 	const [products, setProducts] = useState<Product[]>(fetchedProducts);
 
-	const makeCartEmpty = () => {
-		setProducts(fetchedProducts);
-	};
+	const isCartEmpty = useSelector(
+		(state) => state.cartReducer.selectedItems.isCartEmpty
+	);
+	useEffect(() => {
+		isCartEmpty ? setProducts(fetchedProducts) : null;
+		return () => {};
+	}, [isCartEmpty]);
 
 	const CartButton = () => {
 		return (
@@ -112,7 +117,7 @@ export default function HomeScreen({ navigation }) {
 								color: COLORS.WHITE,
 							}}
 						>
-							{isCartEmpty} {isCartEmpty === 1 ? 'item' : 'items'} |
+							totalItemsInCart ${totalItemsInCart === 1 ? 'item' : 'items'} |
 						</Text>
 						<Text
 							category={'c2'}
@@ -162,7 +167,7 @@ export default function HomeScreen({ navigation }) {
 		}, 0);
 		//console.log(totalInCart);
 		setTotalCost(totalCost);
-		setIsCartEmpty(totalInCart);
+		setTotalItemsInCart(totalInCart);
 
 		return () => {};
 	}, [products]);
@@ -183,11 +188,9 @@ export default function HomeScreen({ navigation }) {
 						selectedCategory={selectedCategory}
 						products={products}
 						setProducts={setProducts}
-						setIsCartEmpty={setIsCartEmpty}
-						makeCartEmpty={makeCartEmpty}
 					/>
 				</Layout>
-				{isCartEmpty > 0 ? <CartButton /> : null}
+				{totalItemsInCart > 0 ? <CartButton /> : null}
 			</Layout>
 		</>
 	);

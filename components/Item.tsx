@@ -18,8 +18,6 @@ export default function Item({
 	selectedCategory,
 	products,
 	setProducts,
-	setIsCartEmpty,
-	makeCartEmpty,
 }) {
 	const dispatch = useDispatch();
 	// const { items } = useSelector((state) => state.cartReducer.selectedItems);
@@ -60,7 +58,7 @@ export default function Item({
 	function AddButton(props) {
 		// console.log({ "add button pressed": props });
 
-		dispatch({ type: 'REMOVE_FROM_CART', payload: props.item });
+		//dispatch({ type: 'REMOVE_FROM_CART', payload: props.item });
 
 		return (
 			<TouchableOpacity
