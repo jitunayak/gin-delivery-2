@@ -1,7 +1,10 @@
+import Constants from 'expo-constants';
+
 export const SYMBOLS = {
 	INR: '₹',
 	APP_NAME: 'Ginmart',
 	POWERED_BY_GIN: 'POWERED BY GIN',
+	STATUSBAR_HERIGHT: Constants.statusBarHeight,
 };
 
 export const API = {

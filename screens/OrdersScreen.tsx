@@ -10,19 +10,23 @@ export default function OrdersScreen() {
 	const [refreshing, setRefreshing] = React.useState(true);
 
 	const fetchRecentOrders = async () => {
-		const orders = await fetch(
-			`${API.BASE_URL}/order/customer/61ccb12a2c4515c1b403363c`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					authorization: API.JWT_TOKEN,
-				},
-			}
-		);
-		const jsonOrders = await orders.json();
-		setOrders(jsonOrders.reverse());
-		setRefreshing(false);
+		try {
+			const orders = await fetch(
+				`${API.BASE_URL}/order/customer/61ccb12a2c4515c1b403363c`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						authorization: API.JWT_TOKEN,
+					},
+				}
+			);
+			const jsonOrders = await orders.json();
+			setOrders(jsonOrders.reverse());
+			setRefreshing(false);
+		} catch (err) {
+			setRefreshing(false);
+		}
 	};
 	const [orders, setOrders] = useState([]);
 
@@ -72,9 +76,6 @@ export default function OrdersScreen() {
 							<Text
 								category={'c2'}
 								style={{
-									// backgroundColor: order.Delivered
-									// 	? COLORS.LIGHT_GREY
-									// 	: COLORS.WHITE,
 									paddingVertical: 10,
 									color: order.Delivered ? COLORS.BLACK : COLORS.ACCENT,
 								}}
@@ -119,10 +120,9 @@ export default function OrdersScreen() {
 								{order.cart.items.map((item, index) => {
 									return (
 										<Text category={'c1'} key={index}>
-											{item.name} x {item.quantity},{' '}
+											{item.name} x {item.quantity}
 										</Text>
 									);
-									11111111;
 								})}
 							</Layout>
 							{RatingAndReview(order.Delivered)}
@@ -138,7 +138,7 @@ export default function OrdersScreen() {
 			<Layout style={{ flexDirection: 'row' }}>
 				<Button
 					appearance={delivered ? 'outline' : 'filled'}
-					status={delivered ? 'warning' : 'danger'}
+					status={delivered ? 'basic' : 'danger'}
 					style={{ flex: 1, margin: 10 }}
 				>
 					{delivered ? 'Rate Delivery' : 'Sheduled'}
