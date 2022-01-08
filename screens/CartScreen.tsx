@@ -9,6 +9,7 @@ import PhonePeModal from '../components/PhonePeModal';
 import TimSchedule from '../components/TimSchedule';
 
 export default function CartScreen({ navigation }) {
+	const [scheduledDeliveryTime, setScheduledDeliveryTime] = useState(null);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [totalPrice, setTotalPrice] = useState(0);
 
@@ -83,7 +84,10 @@ export default function CartScreen({ navigation }) {
 							totalPrice={totalPrice}
 							setTotalPrice={setTotalPrice}
 						/>
-						<TimSchedule />
+						<TimSchedule
+							scheduledDeliveryTime={scheduledDeliveryTime}
+							setScheduledDeliveryTime={setScheduledDeliveryTime}
+						/>
 						<Button
 							style={{ marginHorizontal: 10 }}
 							appearance={'ghost'}

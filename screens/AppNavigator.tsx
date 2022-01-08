@@ -102,8 +102,8 @@ export default function AppNavigator() {
 					component={AddressModal}
 					options={
 						Platform.OS === 'ios'
-							? { headerLargeTitle: true, headerBackVisible: false }
-							: { headerBackVisible: true }
+							? { headerBackVisible: false }
+							: { headerBackVisible: false }
 					}
 				/>
 				<Stack.Screen

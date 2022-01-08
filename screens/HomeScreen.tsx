@@ -212,12 +212,12 @@ const styles = StyleSheet.create({
 
 	cartButtonContainer: {
 		backgroundColor: COLORS.ACCENT,
-		paddingVertical: 8,
 		margin: 10,
 		borderRadius: 4,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		paddingHorizontal: 10,
+		paddingVertical: 10,
 		alignItems: 'center',
 		shadowRadius: 10,
 		shadowColor: '#000',

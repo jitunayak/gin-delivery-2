@@ -10,36 +10,14 @@ import React, { useState } from 'react';
 import { Image, Pressable } from 'react-native';
 import { COLORS } from '../utilities/Constants';
 
-export default function SubscriptionItems() {
-	const [items, setItems] = useState([
-		{
-			id: '1',
-			name: 'Milk',
-			image: 'https://cdn-icons-png.flaticon.com/512/3500/3500270.png',
-			isAvailable: true,
-			items: ['Omfed', 'Moo Milk', 'Nandini'],
-		},
-		{
-			id: '2',
-			name: 'Juice',
-			image: 'https://cdn-icons-png.flaticon.com/512/2442/2442251.png',
-			isAvailable: true,
-			items: ['Apple', 'Mix Fruits', 'Banana Shake'],
-		},
-		{
-			id: '3',
-			name: 'News Paper',
-			image: 'https://cdn-icons-png.flaticon.com/512/2965/2965879.png',
-			isAvailable: true,
-			items: ['Suprabhat', 'Sambad', 'Dharitri', 'Times Of India'],
-		},
-	]);
-	const [selectedIndex, setSelectedIndex] = React.useState('Select');
-
-	const [currentSelectedItem, setcurrentSelectedItem] = useState({
-		id: items[0].id,
-		items: items[0].items,
-	});
+export default function SubscriptionItems({
+	items,
+	setItems,
+	selectedIndex,
+	setSelectedIndex,
+	currentSelectedItem,
+	setcurrentSelectedItem,
+}) {
 	return (
 		<>
 			<Layout style={{ flexDirection: 'row' }}>

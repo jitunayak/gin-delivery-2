@@ -4,9 +4,10 @@ import { TouchableOpacity } from 'react-native';
 
 import { COLORS } from '../utilities/Constants';
 
-export default function TimSchedule() {
-	const [scheduledDeliveryTime, setScheduledDeliveryTime] = useState(null);
-
+export default function TimSchedule({
+	scheduledDeliveryTime,
+	setScheduledDeliveryTime,
+}) {
 	const currenttime = new Date();
 
 	const times = [
@@ -18,7 +19,7 @@ export default function TimSchedule() {
 	];
 
 	const checkAvailability = (time) => {
-		return currenttime.getHours() + 2 < time ? true : false;
+		return currenttime.getHours() - 10 < time ? true : false;
 	};
 	return (
 		<Layout
@@ -41,9 +42,9 @@ export default function TimSchedule() {
 								justifyContent: 'space-between',
 								backgroundColor:
 									scheduledDeliveryTime === time.time
-										? COLORS.ACCENT
-										: checkAvailability(time.hour)
 										? COLORS.ACCENT_LIGHT
+										: checkAvailability(time.hour)
+										? COLORS.WHITE
 										: COLORS.LIGHT_GREY,
 								padding: 16,
 								borderRadius: 4,
@@ -58,9 +59,9 @@ export default function TimSchedule() {
 								style={{
 									color:
 										scheduledDeliveryTime === time.time
-											? COLORS.WHITE
-											: checkAvailability(time.hour)
 											? COLORS.ACCENT
+											: checkAvailability(time.hour)
+											? COLORS.BLACK
 											: COLORS.GREY,
 								}}
 							>
