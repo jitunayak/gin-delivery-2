@@ -41,7 +41,6 @@ export default function OrdersScreen() {
 				flex: 1,
 				justifyContent: 'center',
 				alignItems: 'center',
-				backgroundColor: COLORS.LIGHT_GREY,
 			}}
 		>
 			{orders.length === 0 ? <Text>No Orders </Text> : null}
@@ -61,8 +60,11 @@ export default function OrdersScreen() {
 					marginRight: 10,
 				}}
 			>
-				<Text category={'h3'} style={{ paddingHorizontal: 20 }}>
-					Orders
+				<Text
+					category={'h6'}
+					style={{ paddingHorizontal: 20, textAlign: 'center' }}
+				>
+					ORDERS
 				</Text>
 				{refreshing ? (
 					<Text category={'h6'} style={{ paddingHorizontal: 20 }}>
@@ -99,8 +101,10 @@ export default function OrdersScreen() {
 							key={order._id}
 							style={{
 								width: Dimensions.get('screen').width,
-								padding: 20,
+								paddingHorizontal: 20,
 								margin: 6,
+								borderBottomWidth: 1,
+								borderBottomColor: COLORS.ACCENT_LIGHT,
 							}}
 						>
 							{OrderStatus}
@@ -138,7 +142,7 @@ export default function OrdersScreen() {
 			<Layout style={{ flexDirection: 'row' }}>
 				<Button
 					appearance={delivered ? 'outline' : 'filled'}
-					status={delivered ? 'basic' : 'danger'}
+					status={delivered ? 'warning' : 'warning'}
 					style={{ flex: 1, margin: 10 }}
 				>
 					{delivered ? 'Rate Delivery' : 'Sheduled'}
@@ -148,7 +152,7 @@ export default function OrdersScreen() {
 					status={'info'}
 					style={{ flex: 1, margin: 10 }}
 				>
-					Review
+					{delivered ? 'Review' : 'Help'}
 				</Button>
 			</Layout>
 		);
