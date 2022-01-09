@@ -19,7 +19,7 @@ export default function TimSchedule({
 	];
 
 	const checkAvailability = (time) => {
-		return currenttime.getHours() - 10 < time ? true : false;
+		return currenttime.getHours() + 2 < time ? true : false;
 	};
 	return (
 		<Layout
@@ -28,7 +28,10 @@ export default function TimSchedule({
 				padding: 10,
 			}}
 		>
-			<Text category={'h6'} style={{ marginVertical: 6 }}>
+			<Text
+				category={'s1'}
+				style={{ marginVertical: 6, textAlign: 'left', marginBottom: 10 }}
+			>
 				Choose your Schedule
 			</Text>
 			<Layout style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
@@ -44,7 +47,7 @@ export default function TimSchedule({
 									scheduledDeliveryTime === time.time
 										? COLORS.ACCENT_LIGHT
 										: checkAvailability(time.hour)
-										? COLORS.WHITE
+										? COLORS.LIGHT_GREY
 										: COLORS.LIGHT_GREY,
 								padding: 16,
 								borderRadius: 4,
@@ -55,7 +58,7 @@ export default function TimSchedule({
 							}}
 						>
 							<Text
-								category={'c2'}
+								category={'c1'}
 								style={{
 									color:
 										scheduledDeliveryTime === time.time

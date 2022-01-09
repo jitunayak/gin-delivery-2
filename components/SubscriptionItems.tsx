@@ -45,7 +45,7 @@ export default function SubscriptionItems({
 								source={{ uri: item.image }}
 								style={{ width: 60, height: 60 }}
 							/>
-							<Text>{item.name}</Text>
+							<Text category={'c2'}>{item.name}</Text>
 						</Pressable>
 					);
 				})}

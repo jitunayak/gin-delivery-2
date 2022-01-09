@@ -113,6 +113,10 @@ export default function CartScreen({ navigation }) {
 					<Text category={'c2'} style={{ textAlign: 'center' }}>
 						Go back and add some items
 					</Text>
+					{/* <Image
+						style={{ width: 300, height: 400 }}
+						source={require('@expo/assets/images/developer.svg')}
+					/> */}
 					<Image
 						source={{
 							uri: 'https://image.freepik.com/free-vector/empty-concept-illustration_114360-1253.jpg',

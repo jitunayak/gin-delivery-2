@@ -5,6 +5,10 @@ import {
 	Button,
 	Calendar,
 	CalendarRange,
+	RadioGroup,
+	Radio,
+	CheckBox,
+	Icon,
 } from '@ui-kitten/components';
 import React, {
 	useState,
@@ -18,8 +22,10 @@ import SubscriptionItems from '../components/SubscriptionItems';
 import TimSchedule from '../components/TimSchedule';
 import { COLORS, SYMBOLS } from '../utilities/Constants';
 import BottomSheet from '@gorhom/bottom-sheet';
-
+import { Ionicons } from '@expo/vector-icons';
 export default function SubscriptionScreen({ navigation }) {
+	const [checked, setChecked] = React.useState(true);
+
 	const [scheduledDeliveryTime, setScheduledDeliveryTime] = useState(null);
 	const [range, setRange] = useState<CalendarRange<Date>>({});
 	const [items, setItems] = useState([
@@ -50,22 +56,38 @@ export default function SubscriptionScreen({ navigation }) {
 		id: items[0].id,
 		items: items[0].items,
 	});
+	const [selectedPayment, setSelectedPayment] = React.useState(1);
 	const bottomSheetRef = useRef<BottomSheet>(null);
 	const snapPoints = useMemo(() => ['10%', '30%', '50%'], []);
 	const handleSheetChanges = useCallback((index: number) => {}, []);
-
+	const showToast = () => {
+		console.log('showToast');
+	};
 	const checkIfAllDetailsAreCaptured = () => {
 		let shouldShowBottomSheet = true;
 		if (selectedIndex === null || selectedIndex === 'Select From DropDown') {
+			//showToast();
+			//bottomSheetRef.current.close();
 			alert('Please select a subscription');
 			shouldShowBottomSheet = false;
+			return false;
 		}
 		if (range.startDate === undefined) {
+			// showToast();
+			// bottomSheetRef.current.close();
 			alert('Please select a date');
 			shouldShowBottomSheet = false;
+			return false;
+		}
+		if (range.startDate < new Date()) {
+			//showToast();
+			alert('Order cannot be placed in past');
+			shouldShowBottomSheet = false;
+			return false;
 		}
 		if (shouldShowBottomSheet) {
 			bottomSheetRef.current.snapToIndex(2);
+			return true;
 		}
 		/**
 		 *  TODO: Send the subscription to the server
@@ -73,13 +95,16 @@ export default function SubscriptionScreen({ navigation }) {
 	};
 
 	const sendPayloadToServer = () => {
-		const payload = {
-			item: selectedIndex,
-			dateRange: range,
-			scheduledDeliveryTime: scheduledDeliveryTime,
-		};
-		alert(JSON.stringify(payload));
-		console.log(payload);
+		const shoudlPay = checkIfAllDetailsAreCaptured();
+		if (shoudlPay) {
+			const payload = {
+				item: selectedIndex,
+				dateRange: range,
+				scheduledDeliveryTime: scheduledDeliveryTime,
+			};
+			alert(JSON.stringify(payload));
+			console.log(payload);
+		}
 	};
 
 	useEffect(() => {
@@ -90,9 +115,7 @@ export default function SubscriptionScreen({ navigation }) {
 			checkIfAllDetailsAreCaptured();
 		}
 
-		return () => {
-			bottomSheetRef.current.close();
-		};
+		return () => {};
 	}, [range]);
 
 	return (
@@ -134,7 +157,7 @@ export default function SubscriptionScreen({ navigation }) {
 				snapPoints={snapPoints}
 				onChange={handleSheetChanges}
 				backgroundStyle={{
-					shadowRadius: 10,
+					shadowRadius: 12,
 					shadowColor: '#000',
 					shadowOffset: { width: 0, height: 6 },
 					shadowOpacity: 0.5,
@@ -145,14 +168,34 @@ export default function SubscriptionScreen({ navigation }) {
 					setScheduledDeliveryTime={setScheduledDeliveryTime}
 				/>
 
+				<RadioGroup
+					selectedIndex={selectedPayment}
+					onChange={(index) => setSelectedPayment(index)}
+					style={{ flexDirection: 'row', justifyContent: 'space-around' }}
+				>
+					<Radio>Cash</Radio>
+					<Ionicons name="ios-cash-outline" size={24} color="gray" />
+					<Radio>Card</Radio>
+					<Ionicons name="card-outline" size={24} color="gray" />
+					<Radio>UPI</Radio>
+					<Ionicons name="card" size={24} color="gray" />
+				</RadioGroup>
+				{/* <CheckBox
+					style={{ marginHorizontal: 10, marginTop: 20 }}
+					checked={checked}
+					onChange={(nextChecked) => setChecked(nextChecked)}
+				>
+					{`Terms & Conditions`}
+				</CheckBox> */}
 				<Button
 					onPress={() => sendPayloadToServer()}
 					status={'primary'}
 					appearance={'primary'}
 					style={{ margin: 10 }}
 					disabled={scheduledDeliveryTime === null}
+					accessoryRight={<Icon name={'arrow-forward'} />}
 				>
-					Place Subscription
+					Pay To Subscribe
 				</Button>
 			</BottomSheet>
 		</Layout>
