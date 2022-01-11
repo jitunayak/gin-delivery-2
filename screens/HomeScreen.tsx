@@ -80,9 +80,7 @@ export default function HomeScreen({ navigation }) {
 			category: 'Breakfast',
 		},
 	];
-	const [selectedCategory, setSelectedCategory] = useState(
-		fetchedProducts[0].category
-	);
+	const [selectedCategory, setSelectedCategory] = useState('Vegetables');
 	const [totalCost, setTotalCost] = useState(0);
 	const [totalItemsInCart, setTotalItemsInCart] = useState(0);
 
