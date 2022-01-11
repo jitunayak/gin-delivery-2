@@ -77,7 +77,7 @@ export default function Item({
 					borderWidth: 1,
 					alignItems: 'center',
 					justifyContent: 'center',
-					borderRadius: 2,
+					borderRadius: 10,
 				}}
 			>
 				<Text style={{ color: COLORS.PRIMARY, fontWeight: 'bold' }}>ADD</Text>
@@ -96,8 +96,8 @@ export default function Item({
 					height: 40,
 					borderColor: COLORS.LIGHT_GREY,
 					borderWidth: 2,
-					borderRadius: 4,
-					shadowRadius: 10,
+					borderRadius: 10,
+					shadowRadius: 20,
 					shadowColor: '#000',
 					shadowOffset: { width: 0, height: 6 },
 					shadowOpacity: 0.1,
@@ -164,28 +164,33 @@ export default function Item({
 								<Image
 									source={{ uri: item.image }}
 									style={{
-										width: Dimensions.get('screen').width * 0.25,
-										height: Dimensions.get('screen').width * 0.25,
+										width: Dimensions.get('screen').width * 0.2,
+										height: Dimensions.get('screen').width * 0.2,
 										backgroundColor: 'transparent',
+										margin: 10,
 									}}
 								/>
 								<Text
-									category={'p2'}
+									category={'c2'}
 									style={{
-										paddingVertical: 2,
+										paddingVertical: 4,
 										fontSize: FONTS.H4,
 										flexWrap: 'wrap',
 										width: Dimensions.get('screen').width * 0.25,
+										height: 46,
+										textAlign: 'auto',
 									}}
 								>
 									{item.name}
 								</Text>
-								<Text category={'c2'}>₹{item.price}</Text>
 								<Text
-									category={'c2'}
-									style={{ color: COLORS.GREY, marginVertical: 4 }}
+									category={'c1'}
+									style={{ color: COLORS.GREY, marginBottom: 2 }}
 								>
 									{item.weight}
+								</Text>
+								<Text category={'c2'} style={{ paddingVertical: 10 }}>
+									₹{item.price}
 								</Text>
 
 								{item.quantity > 0 ? (

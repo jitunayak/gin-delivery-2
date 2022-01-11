@@ -19,6 +19,17 @@ export default function HomeScreen({ navigation }) {
 	//const { items } = useSelector((state) => state.cartReducer.selectedItems);
 	const fetchedProducts = [
 		{
+			id: '1we23klpd',
+			name: 'Panner',
+			price: 30,
+			isAvailable: true,
+			weight: '1ltr',
+			quantity: 0,
+			image:
+				'https://previews.123rf.com/images/bigacis/bigacis1610/bigacis161000162/65500420-bowl-of-diced-soft-cheese-isolated-on-white-background-top-view.jpg',
+			category: 'Milk',
+		},
+		{
 			id: '12asbhej',
 			name: 'Nandini Milk',
 			price: 22,
@@ -61,17 +72,6 @@ export default function HomeScreen({ navigation }) {
 			image:
 				'https://media.istockphoto.com/photos/three-potatoes-picture-id157430678?k=20&m=157430678&s=612x612&w=0&h=dfYLuPYwA50ojI90hZ4jCgKZd5TGnqf24UCVBszoZIA=',
 			category: 'Vegetables',
-		},
-		{
-			id: '1we23klpd',
-			name: 'Panner',
-			price: 30,
-			isAvailable: true,
-			weight: '1ltr',
-			quantity: 0,
-			image:
-				'https://previews.123rf.com/images/bigacis/bigacis1610/bigacis161000162/65500420-bowl-of-diced-soft-cheese-isolated-on-white-background-top-view.jpg',
-			category: 'Milk',
 		},
 		{
 			id: '12asbhevjpk',
@@ -121,7 +121,7 @@ export default function HomeScreen({ navigation }) {
 							{totalItemsInCart === 1 ? ' item' : ' items'} |
 						</Text>
 						<Text
-							category={'c2'}
+							category={'s1'}
 							style={{
 								color: COLORS.WHITE,
 								paddingHorizontal: 10,
@@ -130,9 +130,9 @@ export default function HomeScreen({ navigation }) {
 							{SYMBOLS.INR} {totalCost}
 						</Text>
 					</Layout>
-					<Text category={'c1'} style={{ color: COLORS.WHITE }}>
+					{/* <Text category={'c1'} style={{ color: COLORS.ACCENT_LIGHT }}>
 						Extra charges may apply
-					</Text>
+					</Text> */}
 				</Layout>
 				<Layout
 					style={{
@@ -216,8 +216,8 @@ const styles = StyleSheet.create({
 		borderRadius: 4,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		paddingHorizontal: 10,
-		paddingVertical: 10,
+		paddingHorizontal: 16,
+		paddingVertical: 16,
 		alignItems: 'center',
 		shadowRadius: 10,
 		shadowColor: '#000',

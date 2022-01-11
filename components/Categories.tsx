@@ -9,16 +9,16 @@ const Categories = ({ setSelectedCategory }) => {
 	// console.log(props);
 	const [categories, setCategories] = useState([
 		{
-			id: '189sdjnsd',
-			name: 'Dairy',
-			category: 'Milk',
-			image: 'https://cdn-icons-png.flaticon.com/512/3500/3500270.png',
-		},
-		{
 			id: '189sdjnsdp',
 			name: 'vegetables',
 			category: 'Vegetables',
 			image: 'https://cdn-icons-png.flaticon.com/512/2329/2329865.png',
+		},
+		{
+			id: '189sdjnsd',
+			name: 'Dairy',
+			category: 'Milk',
+			image: 'https://cdn-icons-png.flaticon.com/512/3500/3500270.png',
 		},
 		{
 			id: '189sdjnsd1',
@@ -48,14 +48,15 @@ const Categories = ({ setSelectedCategory }) => {
 					currentCategory === category.id ? COLORS.ACCENT_LIGHT : '',
 				height: Dimensions.get('window').width / 5,
 				width: Dimensions.get('window').width / 5,
-				margin: 2,
+				marginVertical: 6,
+				marginHorizontal: 2,
 				borderRadius: 4,
 				justifyContent: 'center',
 			}}
 		>
 			<Image
 				source={{ uri: category.image }}
-				style={{ width: 50, height: 50 }}
+				style={{ width: 40, height: 40 }}
 			/>
 			<Text
 				category="c1"

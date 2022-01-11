@@ -30,6 +30,8 @@ export default function SubscriptionItems({
 								setSelectedIndex(item.items[0]);
 							}}
 							style={{
+								width: 80,
+								height: 80,
 								justifyContent: 'center',
 								alignItems: 'center',
 								padding: 10,
@@ -43,9 +45,11 @@ export default function SubscriptionItems({
 						>
 							<Image
 								source={{ uri: item.image }}
-								style={{ width: 60, height: 60 }}
+								style={{ width: 40, height: 40 }}
 							/>
-							<Text category={'c2'}>{item.name}</Text>
+							<Text category={'c2'} style={{ paddingTop: 6 }}>
+								{item.name}
+							</Text>
 						</Pressable>
 					);
 				})}

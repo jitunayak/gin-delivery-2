@@ -78,10 +78,10 @@ export default function OrdersScreen() {
 		return (
 			<Layout key={order._id} style={styles.container}>
 				<Text
-					category={'p1'}
+					category={'p2'}
 					style={{
-						paddingVertical: 10,
-						color: order.Delivered ? COLORS.BLACK : COLORS.ACCENT,
+						paddingVertical: 6,
+						color: order.Delivered ? COLORS.GREY : COLORS.DARK_GREY,
 					}}
 				>
 					{order.Delivered
@@ -103,6 +103,8 @@ export default function OrdersScreen() {
 					style={{
 						flexDirection: 'row',
 						justifyContent: 'flex-start',
+						flexWrap: 'wrap',
+						paddingVertical: 6,
 					}}
 				>
 					{order.cart.items.map((item, index) => {
@@ -123,15 +125,22 @@ export default function OrdersScreen() {
 			<Layout style={{ flexDirection: 'row' }}>
 				<Button
 					appearance={delivered ? 'outline' : 'filled'}
-					status={delivered ? 'warning' : 'warning'}
-					style={{ flex: 1, margin: 10 }}
+					status={delivered ? 'success' : 'success'}
+					style={{ flex: 2, marginTop: 10, marginBottom: 10 }}
 				>
 					{delivered ? 'Rate Delivery' : 'Sheduled'}
 				</Button>
 				<Button
 					appearance={'outline'}
-					status={'info'}
-					style={{ flex: 1, margin: 10 }}
+					status={'basic'}
+					style={{
+						flex: 2,
+						marginTop: 10,
+						marginBottom: 10,
+						marginLeft: 10,
+						borderColor: COLORS.GREY,
+						backgroundColor: COLORS.WHITE,
+					}}
 				>
 					{delivered ? 'Review' : 'Help'}
 				</Button>
@@ -143,7 +152,7 @@ export default function OrdersScreen() {
 const styles = StyleSheet.create({
 	container: {
 		width: Dimensions.get('screen').width,
-		paddingHorizontal: 20,
+		paddingHorizontal: 40,
 		margin: 6,
 		borderBottomWidth: 1,
 		borderBottomColor: COLORS.ACCENT_LIGHT,

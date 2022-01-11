@@ -84,10 +84,7 @@ export default function CartScreen({ navigation }) {
 							totalPrice={totalPrice}
 							setTotalPrice={setTotalPrice}
 						/>
-						<TimSchedule
-							scheduledDeliveryTime={scheduledDeliveryTime}
-							setScheduledDeliveryTime={setScheduledDeliveryTime}
-						/>
+
 						<Button
 							style={{ marginHorizontal: 10 }}
 							appearance={'ghost'}
@@ -96,10 +93,20 @@ export default function CartScreen({ navigation }) {
 							{address.address1 === '' ? 'Add Address' : 'Change Address'}
 						</Button>
 						{address.address1 !== '' ? (
-							<Text style={{ textAlign: 'center', paddingVertical: 10 }}>
+							<Text
+								style={{
+									textAlign: 'center',
+									paddingVertical: 10,
+								}}
+							>
 								Choosen address is for {address.name} {`,${address.address1}`}
 							</Text>
 						) : null}
+						<TimSchedule
+							scheduledDeliveryTime={scheduledDeliveryTime}
+							setScheduledDeliveryTime={setScheduledDeliveryTime}
+						/>
+						<Layout style={{ flex: 1, height: 200 }}></Layout>
 					</ScrollView>
 					<PaymentContainer />
 				</Layout>

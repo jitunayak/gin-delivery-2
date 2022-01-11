@@ -18,6 +18,8 @@ export const COLORS = {
 	PRIMARY: '#84cc16',
 	SECONDARY: '#ecfccb',
 	ACCENT: '#9d174d',
+	//ACCENT: '#BF226E',
+	//ACCENT: '#ff5a5f',
 	ACCENT_LIGHT: '#fce7f3',
 	WHITE: '#FFFFFF',
 	BLACK: '#000000',

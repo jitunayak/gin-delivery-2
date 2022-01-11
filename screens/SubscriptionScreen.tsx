@@ -139,10 +139,13 @@ export default function SubscriptionScreen({ navigation }) {
 				currentSelectedItem={currentSelectedItem}
 				setcurrentSelectedItem={setcurrentSelectedItem}
 			/>
-			<RangeCalendar
-				range={range}
-				onSelect={(nextRange) => setRange(nextRange)}
-			/>
+			{selectedIndex === null ||
+			selectedIndex === 'Select From DropDown' ? null : (
+				<RangeCalendar
+					range={range}
+					onSelect={(nextRange) => setRange(nextRange)}
+				/>
+			)}
 			{/* <Button
 				appearance={'outline'}
 				onPress={() => checkIfAllDetailsAreCaptured()}
@@ -189,9 +192,12 @@ export default function SubscriptionScreen({ navigation }) {
 				</CheckBox> */}
 				<Button
 					onPress={() => sendPayloadToServer()}
-					status={'primary'}
-					appearance={'primary'}
-					style={{ margin: 10 }}
+					status={'danger'}
+					style={{
+						margin: 10,
+						backgroundColor: scheduledDeliveryTime ? COLORS.BLACK : COLORS.GRAY,
+						borderColor: COLORS.BLACK,
+					}}
 					disabled={scheduledDeliveryTime === null}
 					accessoryRight={<Icon name={'arrow-forward'} />}
 				>

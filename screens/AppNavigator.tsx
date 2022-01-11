@@ -16,11 +16,21 @@ import HomeScreen from './HomeScreen';
 import OrdersScreen from './OrdersScreen';
 import SubscriptionScreen from './SubscriptionScreen';
 
+import {
+	AnimatedTabBarNavigator,
+	DotSize, // optional
+	TabElementDisplayOptions, // optional
+	TabButtonLayout, // optional
+	IAppearanceOptions, // optional
+} from 'react-native-animated-nav-tab-bar';
+
 /* This provides native OS specific navigation. */
 const Stack = createNativeStackNavigator();
 
 //const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
+
+const Tab = AnimatedTabBarNavigator();
 
 const UsersScreen = () => (
 	<Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -30,18 +40,41 @@ const UsersScreen = () => (
 
 const TabNavigator = ({ navigation }) => (
 	<Tab.Navigator
+		tabBarOptions={{
+			activeTintColor: COLORS.BLACK,
+			// inactiveTintColor: '#222222',
+			// showLabel: true,
+			// showIcon: true,
+			// style: {
+			// 	backgroundColor: '#2F7C6E',
+			// 	height: 90,
+			// 	borderTopWidth: 0,
+			// 	borderTopColor: '#fff',
+			// },
+			tabStyle: {
+				padding: 0,
+				margin: 0,
+				borderRadius: 30,
+				backgroundColor: COLORS.LIGHT_GREY,
+			},
+			indicatorStyle: {
+				backgroundColor: '#2F7C6E',
+			},
+		}}
 		screenOptions={({ route }) => ({
-			// tabBarInactiveTintColor: "rgba(255, 255, 255, 0.5)",
-			// tabBarActiveTintColor: "#fff",
+			// tabBarInactiveTintColor: COLORS.GREY,
+			// tabBarActiveTintColor: COLORS.ACCENT,
 			headerShown: false,
 			headerTitleStyle: { color: COLORS.ACCENT, fontSize: 20 },
+			// activeTintColor: '#2F7C6E',
+			// inactiveTintColor: '#222222',
 			tabBarLabel: ({ focused, color }) => {
 				return (
 					<Text
-						category={'c1'}
+						category={'c2'}
 						style={{
-							color: focused ? COLORS.ACCENT : COLORS.GREY,
-							paddingBottom: 4,
+							color: focused ? COLORS.BLACK : COLORS.BLACK,
+							padding: 4,
 						}}
 					>
 						{route.name}
@@ -62,7 +95,7 @@ const TabNavigator = ({ navigation }) => (
 					<Ionicons
 						name={iconName}
 						size={26}
-						color={focused ? COLORS.ACCENT : COLORS.GREY}
+						color={focused ? COLORS.BLACK : COLORS.GREY}
 					/>
 				);
 			},

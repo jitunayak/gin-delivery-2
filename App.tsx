@@ -14,6 +14,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import configureStore from './redux/store';
 import AppNavigator from './screens/AppNavigator';
 import { COLORS } from './utilities/Constants';
+import { default as customtheme } from './custom-theme2.json'; // <-- Import app theme
 
 const store: any = configureStore();
 export default function App() {
@@ -30,7 +31,7 @@ export default function App() {
 		<>
 			<IconRegistry icons={EvaIconsPack} />
 			<SafeAreaProvider>
-				<ApplicationProvider {...eva} theme={eva.light}>
+				<ApplicationProvider {...eva} theme={{ ...eva.light, ...customtheme }}>
 					<ReduxProvider store={store}>
 						<StatusBar style="dark" />
 						<AppNavigator />
