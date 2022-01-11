@@ -196,7 +196,8 @@ export default function SubscriptionScreen({ navigation }) {
 					style={{
 						margin: 10,
 						backgroundColor: scheduledDeliveryTime ? COLORS.BLACK : COLORS.GRAY,
-						borderColor: COLORS.BLACK,
+						borderColor:
+							scheduledDeliveryTime === null ? COLORS.WHITE : COLORS.BLACK,
 					}}
 					disabled={scheduledDeliveryTime === null}
 					accessoryRight={<Icon name={'arrow-forward'} />}

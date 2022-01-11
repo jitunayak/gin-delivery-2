@@ -38,14 +38,14 @@ export default function OrdersScreen() {
 
 	return (
 		<Layout style={styles.primaryContainer}>
-			{orders.length === 0 ? <Text>No Orders </Text> : null}
 			{/* <Text
 				category={'h6'}
 				style={{ paddingHorizontal: 20, textAlign: 'center' }}
-			>
+				>
 				ORDERS
 			</Text> */}
 			<MultiSelectTab />
+			{orders.length === 0 ? <Text>No Orders </Text> : null}
 			<ScrollView
 				showsHorizontalScrollIndicator={false}
 				showsVerticalScrollIndicator={false}
