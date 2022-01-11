@@ -12,11 +12,6 @@ import { Product } from '../models/Product';
 import { COLORS, SYMBOLS } from '../utilities/Constants';
 
 export default function HomeScreen({ navigation }) {
-	const [selectedCategory, setSelectedCategory] = useState('Milk');
-	const [totalCost, setTotalCost] = useState(0);
-	const [totalItemsInCart, setTotalItemsInCart] = useState(0);
-
-	//const { items } = useSelector((state) => state.cartReducer.selectedItems);
 	const fetchedProducts = [
 		{
 			id: '1we23klpd',
@@ -85,6 +80,13 @@ export default function HomeScreen({ navigation }) {
 			category: 'Breakfast',
 		},
 	];
+	const [selectedCategory, setSelectedCategory] = useState(
+		fetchedProducts[0].category
+	);
+	const [totalCost, setTotalCost] = useState(0);
+	const [totalItemsInCart, setTotalItemsInCart] = useState(0);
+
+	//const { items } = useSelector((state) => state.cartReducer.selectedItems);
 	const [products, setProducts] = useState<Product[]>(fetchedProducts);
 
 	const isCartEmpty = useSelector(
