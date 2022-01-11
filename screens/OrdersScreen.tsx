@@ -1,7 +1,7 @@
 import { Button, Layout, Spinner, Text } from '@ui-kitten/components';
 import Constants from 'expo-constants';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, RefreshControl, StyleSheet } from 'react-native';
+import { Dimensions, RefreshControl, StyleSheet, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import MultiSelectTab from '../components/MultiSelectTab';
 
@@ -45,7 +45,17 @@ export default function OrdersScreen() {
 				ORDERS
 			</Text> */}
 			<MultiSelectTab />
-			{orders.length === 0 ? <Text>No Orders </Text> : null}
+			{orders.length === 0 ? (
+				<Layout style={{ justifyContent: 'center', alignItems: 'center' }}>
+					<Image
+						source={require('../assets/pngs/no_data.png')}
+						style={{ width: 200, height: 200 }}
+					/>
+					<Text category={'s1'} style={{ margin: 30 }}>
+						NO ORDERS{' '}
+					</Text>
+				</Layout>
+			) : null}
 			<ScrollView
 				showsHorizontalScrollIndicator={false}
 				showsVerticalScrollIndicator={false}

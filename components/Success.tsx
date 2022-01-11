@@ -1,10 +1,20 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Button, Layout, Text } from '@ui-kitten/components';
-import React from 'react';
+import { Button, Layout, Spinner, Text } from '@ui-kitten/components';
+import React, { useEffect } from 'react';
+import { Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 export default function Success({ navigation }) {
 	const dispatch = useDispatch();
+
+	setTimeout(() => {
+		dispatch({
+			type: 'EMPTY_CART',
+			payload: null,
+		});
+		navigation.navigate('HomeScreen');
+	}, 20000);
+
 	return (
 		<Layout
 			style={{
@@ -14,7 +24,12 @@ export default function Success({ navigation }) {
 				alignItems: 'center',
 			}}
 		>
-			<Ionicons name="md-checkmark-done-circle" size={100} color="green" />
+			<Image
+				source={require('../assets/pngs/credit_card.png')}
+				style={{ width: 400, height: 400 }}
+			/>
+			<Spinner size={'giant'} />
+			{/* <Ionicons name="md-checkmark-done-circle" size={100} color="green" /> */}
 			<Text category={'h6'}>Payment has been successful</Text>
 			<Text>Please, don't close this page or press back button</Text>
 			{/* <Text category={"c2"} status={"warning"}>
@@ -22,6 +37,7 @@ export default function Success({ navigation }) {
       </Text> */}
 			<Button
 				style={{ margin: 30 }}
+				status={'success'}
 				onPress={() => {
 					dispatch({
 						type: 'EMPTY_CART',
@@ -30,7 +46,7 @@ export default function Success({ navigation }) {
 					navigation.navigate('HomeScreen');
 				}}
 			>
-				Press me
+				Wait Auto Redirection or Press me
 			</Button>
 		</Layout>
 	);
