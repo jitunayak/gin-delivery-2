@@ -87,9 +87,11 @@ export default function HomeScreen({ navigation }) {
 	//const { items } = useSelector((state) => state.cartReducer.selectedItems);
 	const [products, setProducts] = useState<Product[]>(fetchedProducts);
 
+	const dispatch = useDispatch();
 	const isCartEmpty = useSelector(
 		(state) => state.cartReducer.selectedItems.isCartEmpty
 	);
+
 	useEffect(() => {
 		isCartEmpty ? setProducts(fetchedProducts) : null;
 		return () => {};
@@ -166,10 +168,8 @@ export default function HomeScreen({ navigation }) {
 			totalCost += item.price * item.quantity;
 			return totalCost;
 		}, 0);
-		//console.log(totalInCart);
 		setTotalCost(totalCost);
 		setTotalItemsInCart(totalInCart);
-
 		return () => {};
 	}, [products]);
 

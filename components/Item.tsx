@@ -40,6 +40,12 @@ export default function Item({
 		//navigation.navigate("Order");
 	}
 	function decrementInQuantity(props) {
+		if (props.item.quantity === 1) {
+			dispatch({
+				type: 'REMOVE_FROM_CART',
+				payload: props.item,
+			});
+		}
 		const copyOfProducts = [...products];
 		copyOfProducts.map((product) => {
 			product.id === props.item.id && (product.quantity = product.quantity - 1);
@@ -77,7 +83,7 @@ export default function Item({
 					borderWidth: 1,
 					alignItems: 'center',
 					justifyContent: 'center',
-					borderRadius: 10,
+					borderRadius: 4,
 				}}
 			>
 				<Text style={{ color: COLORS.PRIMARY, fontWeight: 'bold' }}>ADD</Text>
@@ -94,13 +100,13 @@ export default function Item({
 					alignItems: 'center',
 					width: Dimensions.get('window').width * 0.22,
 					height: 40,
-					borderColor: COLORS.LIGHT_GREY,
-					borderWidth: 2,
-					borderRadius: 10,
-					shadowRadius: 20,
-					shadowColor: '#000',
-					shadowOffset: { width: 0, height: 6 },
-					shadowOpacity: 0.1,
+					borderColor: COLORS.PRIMARY,
+					borderWidth: 1,
+					borderRadius: 4,
+					// shadowRadius: 20,
+					// shadowColor: '#000',
+					// shadowOffset: { width: 0, height: 6 },
+					// shadowOpacity: 0.1,
 				}}
 			>
 				<Pressable
