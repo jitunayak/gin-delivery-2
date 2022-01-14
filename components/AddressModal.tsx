@@ -5,8 +5,9 @@ import {
 	Button,
 	Text,
 	CheckBox,
+	Spinner,
 } from '@ui-kitten/components';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	View,
 	Alert,
@@ -14,10 +15,13 @@ import {
 	Pressable,
 	Modal,
 	KeyboardAvoidingView,
+	Dimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { COLORS } from '../utilities/Constants';
+import * as Location from 'expo-location';
+import MapView, { Marker } from 'react-native-maps';
 
 export default function AddressModal({ navigation }) {
 	const [checked, setChecked] = React.useState(true);
@@ -44,6 +48,27 @@ export default function AddressModal({ navigation }) {
 	const renderCaption = () => {
 		return <Text status={'danger'}>Should contain at least 8 symbols</Text>;
 	};
+	const [location, setLocation] = useState(null);
+	const [errorMsg, setErrorMsg] = useState(null);
+	useEffect(() => {
+		(async () => {
+			let { status } = await Location.requestForegroundPermissionsAsync();
+			if (status !== 'granted') {
+				setErrorMsg('Permission to access location was denied');
+				return;
+			}
+
+			let location = await Location.getCurrentPositionAsync({});
+			setLocation(location);
+		})();
+	}, []);
+
+	let text = 'Waiting..';
+	if (errorMsg) {
+		text = errorMsg;
+	} else if (location) {
+		text = JSON.stringify(location);
+	}
 
 	return (
 		// <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.WHITE }}>
@@ -55,6 +80,36 @@ export default function AddressModal({ navigation }) {
 			}}
 		>
 			{/* <Text category={"h4"}>Add Address</Text> */}
+
+			{/* <Text>{text}</Text> */}
+			{location !== null ? (
+				<MapView
+					region={{
+						latitude: location.coords.latitude,
+						longitude: location.coords.longitude,
+						latitudeDelta: 0.0000922,
+						longitudeDelta: 0.00221,
+					}}
+					style={{
+						width: Dimensions.get('screen').width - 40,
+						height: 200,
+						right: 10,
+						margin: 10,
+					}}
+				>
+					<Marker
+						key={1}
+						coordinate={location.coords}
+						title={'Your Location'}
+						description={'Confirm your location'}
+					/>
+				</MapView>
+			) : (
+				<Layout style={{ alignItems: 'center' }}>
+					<Spinner />
+					<Text>Loading Your Map Data</Text>
+				</Layout>
+			)}
 			<Input
 				value={newAddress.name}
 				label="Name"
@@ -64,7 +119,7 @@ export default function AddressModal({ navigation }) {
 				onChangeText={(nextValue) =>
 					setnewAddress({ ...newAddress, name: nextValue })
 				}
-				style={{ marginVertical: 10 }}
+				style={{ marginVertical: 2 }}
 			/>
 			<Input
 				value={newAddress.phone}
@@ -75,7 +130,7 @@ export default function AddressModal({ navigation }) {
 				onChangeText={(nextValue) =>
 					setnewAddress({ ...newAddress, phone: nextValue })
 				}
-				style={{ marginVertical: 10 }}
+				style={{ marginVertical: 2 }}
 			/>
 			<Input
 				value={newAddress.address1}
@@ -85,7 +140,7 @@ export default function AddressModal({ navigation }) {
 				onChangeText={(nextValue) =>
 					setnewAddress({ ...newAddress, address1: nextValue })
 				}
-				style={{ marginVertical: 10 }}
+				style={{ marginVertical: 2 }}
 			/>
 			<Input
 				value={newAddress.address2}
@@ -96,7 +151,7 @@ export default function AddressModal({ navigation }) {
 				onChangeText={(nextValue) =>
 					setnewAddress({ ...newAddress, address2: nextValue })
 				}
-				style={{ marginVertical: 10 }}
+				style={{ marginVertical: 2 }}
 			/>
 			<Input
 				value={newAddress.pincode}
@@ -107,9 +162,8 @@ export default function AddressModal({ navigation }) {
 				onChangeText={(nextValue) =>
 					setnewAddress({ ...newAddress, pincode: nextValue })
 				}
-				style={{ marginVertical: 10 }}
+				style={{ marginVertical: 2 }}
 			/>
-
 			<Layout style={{ flexDirection: 'row' }}>
 				<CheckBox
 					status={'primary'}
@@ -121,7 +175,6 @@ export default function AddressModal({ navigation }) {
 					user experience
 				</Text>
 			</Layout>
-
 			<Button
 				onPress={() => {
 					updatenewAddress();

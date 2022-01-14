@@ -49,11 +49,12 @@ export default function OrdersScreen() {
 				<Layout style={{ justifyContent: 'center', alignItems: 'center' }}>
 					<Image
 						source={require('../assets/pngs/no_data.png')}
-						style={{ width: 200, height: 200 }}
+						style={{ width: 150, height: 150, marginTop: 100 }}
 					/>
-					<Text category={'s1'} style={{ margin: 30 }}>
-						NO ORDERS{' '}
+					<Text category={'p1'} style={{ marginTop: 30 }}>
+						No Orders{' '}
 					</Text>
+					<Text category={'p2'}>Start ordering now!</Text>
 				</Layout>
 			) : null}
 			<ScrollView
@@ -72,7 +73,10 @@ export default function OrdersScreen() {
 				}}
 			>
 				{refreshing ? (
-					<Text category={'h6'} style={{ paddingHorizontal: 20 }}>
+					<Text
+						category={'h6'}
+						style={{ paddingHorizontal: 20, textAlign: 'center' }}
+					>
 						fetching...
 					</Text>
 				) : null}
