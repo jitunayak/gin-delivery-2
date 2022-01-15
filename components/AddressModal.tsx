@@ -1,29 +1,22 @@
 import {
+	Button,
+	CheckBox,
+	Icon,
 	Input,
 	Layout,
-	Icon,
-	Button,
-	Text,
-	CheckBox,
 	Spinner,
+	Text,
 } from '@ui-kitten/components';
-import React, { useState, useEffect } from 'react';
-import {
-	View,
-	Alert,
-	StyleSheet,
-	Pressable,
-	Modal,
-	KeyboardAvoidingView,
-	Dimensions,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch, useSelector } from 'react-redux';
-import { COLORS } from '../utilities/Constants';
 import * as Location from 'expo-location';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import { useDispatch, useSelector } from 'react-redux';
+import { API } from '../utilities/Constants';
 
 export default function AddressModal({ navigation }) {
+	const [location, setLocation] = useState(null);
+	const [errorMsg, setErrorMsg] = useState(null);
 	const [checked, setChecked] = React.useState(true);
 	const dispatch = useDispatch();
 	const { address } = useSelector(
@@ -37,19 +30,45 @@ export default function AddressModal({ navigation }) {
 		address1: address.address1 || '',
 		address2: address.address2 || '',
 		pincode: address.pincode || '',
+		geoLocation: null,
 	});
 	const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
-	function updatenewAddress() {
-		//console.log({ "New Address": newAddress });
+	async function updatenewAddress() {
 		dispatch({ type: 'ADD_ADDRESS', payload: newAddress });
+
+		const finalAddress = { address: newAddress };
+
+		// console.log(JSON.stringify(finalAddress));
+		try {
+			const result = await fetch(
+				`${API.BASE_URL}/users/61d35108715a7baea58859ca`,
+				{
+					method: 'PUT',
+					body: JSON.stringify(finalAddress),
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: API.JWT_TOKEN,
+						'api-key': API.API_KEY,
+					},
+				}
+			);
+			console.log({ result });
+			alert('Saved');
+			return result;
+			//const data = await response.json();
+			// console.log({ 'server response': response });
+		} catch (er) {
+			// alert(er);
+			console.log(er);
+			return er;
+		}
 	}
 
 	const renderCaption = () => {
 		return <Text status={'danger'}>Should contain at least 8 symbols</Text>;
 	};
-	const [location, setLocation] = useState(null);
-	const [errorMsg, setErrorMsg] = useState(null);
+
 	useEffect(() => {
 		(async () => {
 			let { status } = await Location.requestForegroundPermissionsAsync();
@@ -60,16 +79,66 @@ export default function AddressModal({ navigation }) {
 
 			let location = await Location.getCurrentPositionAsync({});
 			setLocation(location);
+			setnewAddress({ ...newAddress, geoLocation: JSON.stringify(location) });
+			// console.log({ 'useEffect: ': newAddress });
 		})();
 	}, []);
 
-	let text = 'Waiting..';
-	if (errorMsg) {
-		text = errorMsg;
-	} else if (location) {
-		text = JSON.stringify(location);
-	}
-
+	const AddressForm = (
+		<Layout>
+			<Input
+				value={newAddress.name}
+				label="Name"
+				placeholder="Jitu Nayak"
+				textContentType="name"
+				onChangeText={(nextValue) =>
+					setnewAddress({ ...newAddress, name: nextValue })
+				}
+				style={{ marginVertical: 2 }}
+			/>
+			<Input
+				value={newAddress.phone}
+				label="Phone Number"
+				placeholder="000-000-0000"
+				textContentType="telephoneNumber"
+				onChangeText={(nextValue) =>
+					setnewAddress({ ...newAddress, phone: nextValue })
+				}
+				style={{ marginVertical: 2 }}
+			/>
+			<Input
+				value={newAddress.address1}
+				label="House No, Street, Locality"
+				placeholder="1/2, Times Square, Locality"
+				onChangeText={(nextValue) =>
+					setnewAddress({ ...newAddress, address1: nextValue })
+				}
+				style={{ marginVertical: 2 }}
+			/>
+			<Input
+				value={newAddress.address2}
+				label="Area / City"
+				placeholder="Bapuji Nagar"
+				textContentType="addressCityAndState"
+				//   caption={renderCaption}
+				onChangeText={(nextValue) =>
+					setnewAddress({ ...newAddress, address2: nextValue })
+				}
+				style={{ marginVertical: 2 }}
+			/>
+			<Input
+				value={newAddress.pincode}
+				label="PINCODE"
+				placeholder="750021"
+				textContentType="postalCode"
+				//   caption={renderCaption}
+				onChangeText={(nextValue) =>
+					setnewAddress({ ...newAddress, pincode: nextValue })
+				}
+				style={{ marginVertical: 2 }}
+			/>
+		</Layout>
+	);
 	return (
 		// <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.WHITE }}>
 		<Layout
@@ -110,60 +179,8 @@ export default function AddressModal({ navigation }) {
 					<Text>Loading Your Map Data</Text>
 				</Layout>
 			)}
-			<Input
-				value={newAddress.name}
-				label="Name"
-				placeholder="Jitu Nayak"
-				textContentType="name"
-				//   caption={renderCaption}
-				onChangeText={(nextValue) =>
-					setnewAddress({ ...newAddress, name: nextValue })
-				}
-				style={{ marginVertical: 2 }}
-			/>
-			<Input
-				value={newAddress.phone}
-				label="Phone Number"
-				placeholder="000-000-0000"
-				textContentType="telephoneNumber"
-				//   caption={renderCaption}
-				onChangeText={(nextValue) =>
-					setnewAddress({ ...newAddress, phone: nextValue })
-				}
-				style={{ marginVertical: 2 }}
-			/>
-			<Input
-				value={newAddress.address1}
-				label="House No, Street, Locality"
-				placeholder="1/2, Times Square, Locality"
-				//   caption={renderCaption}
-				onChangeText={(nextValue) =>
-					setnewAddress({ ...newAddress, address1: nextValue })
-				}
-				style={{ marginVertical: 2 }}
-			/>
-			<Input
-				value={newAddress.address2}
-				label="Area / City"
-				placeholder="Bapuji Nagar"
-				textContentType="addressCityAndState"
-				//   caption={renderCaption}
-				onChangeText={(nextValue) =>
-					setnewAddress({ ...newAddress, address2: nextValue })
-				}
-				style={{ marginVertical: 2 }}
-			/>
-			<Input
-				value={newAddress.pincode}
-				label="PINCODE"
-				placeholder="750021"
-				textContentType="postalCode"
-				//   caption={renderCaption}
-				onChangeText={(nextValue) =>
-					setnewAddress({ ...newAddress, pincode: nextValue })
-				}
-				style={{ marginVertical: 2 }}
-			/>
+			{location !== null ? AddressForm : null}
+
 			<Layout style={{ flexDirection: 'row' }}>
 				<CheckBox
 					status={'primary'}
@@ -176,12 +193,19 @@ export default function AddressModal({ navigation }) {
 				</Text>
 			</Layout>
 			<Button
-				onPress={() => {
-					updatenewAddress();
-					navigation.navigate('Order');
+				onPress={async () => {
+					updatenewAddress()
+						.then((data) => {
+							//navigation.navigate('Order');
+							console.log({ data });
+						})
+						.catch((err) => {
+							console.log({ err });
+						});
 				}}
 				status={'primary'}
 				appearance={'filled'}
+				disabled={!location}
 			>
 				Deliver here
 			</Button>

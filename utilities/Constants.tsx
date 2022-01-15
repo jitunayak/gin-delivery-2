@@ -11,7 +11,7 @@ export const API = {
 	BASE_URL: 'https://stripe-gin.herokuapp.com/api',
 	//BASE_URL: 'https://stripe-gamma.vercel.app/api',
 	JWT_TOKEN:
-		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxY2NhYmQ4MDlkMWQxMDE0OTkwM2MzYiIsImlhdCI6MTY0MDk1NDMxMX0.U3ApYhtW_b9gjZ3Rab0fPnZMyyCpGkEl3vp2ZeMN7YE',
+		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDM1MTA4NzE1YTdiYWVhNTg4NTljYSIsImlhdCI6MTY0MjI0Njg2N30.0RYaqcoXK9Z0UpvgJKKAZr49nj58pZompLI70aOPALs',
 	API_KEY: 'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
 };
 

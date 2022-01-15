@@ -6,6 +6,7 @@ let defaultState = {
 			name: '',
 			phone: '',
 			pincode: '',
+			geoLocation: {},
 		},
 	},
 };
@@ -14,7 +15,6 @@ let addressReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		case 'ADD_ADDRESS': {
 			let newState = { ...state };
-
 			if (action.payload) {
 				//console.log("ADD NEW ADDRESS");
 				newState.selectedAddress = { address: action.payload };

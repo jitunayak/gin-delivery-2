@@ -73,7 +73,7 @@ const TabNavigator = ({ navigation }) => (
 					<Text
 						category={'c2'}
 						style={{
-							color: focused ? COLORS.BLACK : COLORS.BLACK,
+							color: focused ? COLORS.BLACK : COLORS.GREY,
 							padding: 4,
 						}}
 					>
