@@ -14,30 +14,53 @@ import MapView, { Marker } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
 import { API } from '../utilities/Constants';
 
-export default function AddressModal({ navigation }) {
+export default function AddressModal({ route, navigation }) {
+	const { allAddresses, currentSelectedAddress } = route.params;
+
 	const [location, setLocation] = useState(null);
 	const [errorMsg, setErrorMsg] = useState(null);
 	const [checked, setChecked] = React.useState(true);
 	const dispatch = useDispatch();
-	const { address } = useSelector(
-		(state) => state.addressReducer.selectedAddress
-	);
+	// const { address } = useSelector(
+	// 	(state) => state.addressReducer.selectedAddress
+	// );
 	//console.log({ store: address });
+	//console.log({ currentSelectedAddress });
 
 	const [newAddress, setnewAddress] = useState({
-		name: address.name || '',
-		phone: address.phone || '',
-		address1: address.address1 || '',
-		address2: address.address2 || '',
-		pincode: address.pincode || '',
+		name: currentSelectedAddress !== null ? currentSelectedAddress.name : '',
+		phone: currentSelectedAddress !== null ? currentSelectedAddress.phone : '',
+		address1:
+			currentSelectedAddress !== null ? currentSelectedAddress.address1 : '',
+		address2:
+			currentSelectedAddress !== null ? currentSelectedAddress.address2 : '',
+		pincode:
+			currentSelectedAddress !== null ? currentSelectedAddress.pincode : '',
 		geoLocation: null,
 	});
+
+	// currentSelectedAddress !== null && setnewAddress(currentSelectedAddress);
+
+	// console.log({ newAddress });
+
 	const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
 	async function updatenewAddress() {
 		dispatch({ type: 'ADD_ADDRESS', payload: newAddress });
 
-		const finalAddress = { address: newAddress };
+		let finalAddress;
+
+		if (currentSelectedAddress === null) {
+			finalAddress = { address: [...allAddresses, newAddress] };
+		} else {
+			let allAddressesCopy = [...allAddresses];
+			const updatedAddress = allAddressesCopy.filter(
+				(address) => address._id !== currentSelectedAddress._id
+			);
+			//console.log({ updatedAddress });
+			finalAddress = { address: [newAddress, ...updatedAddress] };
+		}
+		// console.log({ finalAddress });
 
 		// console.log(JSON.stringify(finalAddress));
 		try {
@@ -53,11 +76,9 @@ export default function AddressModal({ navigation }) {
 					},
 				}
 			);
-			console.log({ result });
-			alert('Saved');
+			// console.log({ result });
+			alert('Address updated successfully');
 			return result;
-			//const data = await response.json();
-			// console.log({ 'server response': response });
 		} catch (er) {
 			// alert(er);
 			console.log(er);
@@ -196,8 +217,8 @@ export default function AddressModal({ navigation }) {
 				onPress={async () => {
 					updatenewAddress()
 						.then((data) => {
-							//navigation.navigate('Order');
-							console.log({ data });
+							navigation.navigate('Order');
+							//console.log({ data });
 						})
 						.catch((err) => {
 							console.log({ err });

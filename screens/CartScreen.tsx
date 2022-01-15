@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CartItems from '../components/CartItems';
 import PhonePeModal from '../components/PhonePeModal';
+import SelectAddress from '../components/SelectAddress';
 import TimSchedule from '../components/TimSchedule';
+import { COLORS } from '../utilities/Constants';
 
 export default function CartScreen({ navigation }) {
 	const [scheduledDeliveryTime, setScheduledDeliveryTime] = useState(null);
@@ -85,23 +87,25 @@ export default function CartScreen({ navigation }) {
 							setTotalPrice={setTotalPrice}
 						/>
 
-						<Button
+						{/* <Button
 							style={{ marginHorizontal: 10 }}
-							appearance={'ghost'}
+							appearance={'outline'}
 							onPress={() => navigation.navigate('Address')}
 						>
 							{address.address1 === '' ? 'Add Address' : 'Change Address'}
 						</Button>
 						{address.address1 !== '' ? (
 							<Text
-								style={{
-									textAlign: 'center',
-									paddingVertical: 10,
-								}}
+							style={{
+								textAlign: 'center',
+								paddingVertical: 10,
+							}}
 							>
-								Choosen address is for {address.name} {`,${address.address1}`}
+							Choosen address is for {address.name} {`,${address.address1}`}
 							</Text>
-						) : null}
+						) : null} */}
+
+						<SelectAddress />
 						<TimSchedule
 							scheduledDeliveryTime={scheduledDeliveryTime}
 							setScheduledDeliveryTime={setScheduledDeliveryTime}
