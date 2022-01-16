@@ -1,9 +1,10 @@
+import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Button, Layout, Text } from '@ui-kitten/components';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Pressable, TouchableOpacity } from 'react-native';
+import { Pressable } from 'react-native';
+
 import { API, COLORS } from '../utilities/Constants';
-import { Feather } from '@expo/vector-icons';
 
 export default function SelectAddress() {
 	const [address, setAddress] = useState([]);

@@ -57,7 +57,7 @@ export default function SubscriptionScreen({ navigation }) {
 	});
 	const [selectedPayment, setSelectedPayment] = React.useState(1);
 	const bottomSheetRef = useRef<BottomSheet>(null);
-	const snapPoints = useMemo(() => ['10%', '30%', '50%'], []);
+	const snapPoints = useMemo(() => ['10%', '30%', '45%'], []);
 	const handleSheetChanges = useCallback((index: number) => {}, []);
 	const showToast = () => {
 		console.log('showToast');
@@ -170,7 +170,7 @@ export default function SubscriptionScreen({ navigation }) {
 					setScheduledDeliveryTime={setScheduledDeliveryTime}
 				/>
 
-				<RadioGroup
+				{/* <RadioGroup
 					selectedIndex={selectedPayment}
 					onChange={(index) => setSelectedPayment(index)}
 					style={{ flexDirection: 'row', justifyContent: 'space-around' }}
@@ -181,7 +181,7 @@ export default function SubscriptionScreen({ navigation }) {
 					<Ionicons name="card-outline" size={24} color="gray" />
 					<Radio>UPI</Radio>
 					<Ionicons name="card" size={24} color="gray" />
-				</RadioGroup>
+				</RadioGroup> */}
 				{/* <CheckBox
 					style={{ marginHorizontal: 10, marginTop: 20 }}
 					checked={checked}
@@ -193,7 +193,7 @@ export default function SubscriptionScreen({ navigation }) {
 					onPress={() => sendPayloadToServer()}
 					status={'danger'}
 					style={{
-						margin: 10,
+						margin: 20,
 						backgroundColor: scheduledDeliveryTime ? COLORS.BLACK : COLORS.GRAY,
 						borderColor:
 							scheduledDeliveryTime === null ? COLORS.WHITE : COLORS.BLACK,

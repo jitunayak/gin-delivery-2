@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import {
 	Dimensions,
 	Image,
-	Pressable,
 	ScrollView,
 	StyleSheet,
 	TouchableOpacity,
@@ -109,7 +108,8 @@ export default function Item({
 					// shadowOpacity: 0.1,
 				}}
 			>
-				<Pressable
+				<TouchableOpacity
+					style={{ padding: 6 }}
 					onPress={() => {
 						incrementInQuantity(props);
 						Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -125,11 +125,12 @@ export default function Item({
 					>
 						+
 					</Text>
-				</Pressable>
+				</TouchableOpacity>
 				<Text style={{ color: COLORS.PRIMARY, fontWeight: 'bold' }}>
 					{props.item.quantity}
 				</Text>
-				<Pressable
+				<TouchableOpacity
+					style={{ padding: 6 }}
 					onPress={() => {
 						decrementInQuantity(props);
 						Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -144,7 +145,7 @@ export default function Item({
 					>
 						-
 					</Text>
-				</Pressable>
+				</TouchableOpacity>
 			</Layout>
 		);
 	}

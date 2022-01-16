@@ -1,13 +1,13 @@
 import {
-	Layout,
-	Text,
-	IndexPath,
-	SelectItem,
-	Select,
 	Button,
+	Layout,
+	Select,
+	SelectItem,
+	Text,
 } from '@ui-kitten/components';
 import React, { useState } from 'react';
-import { Image, Pressable } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
+
 import { COLORS } from '../utilities/Constants';
 
 export default function SubscriptionItems({
@@ -23,7 +23,7 @@ export default function SubscriptionItems({
 			<Layout style={{ flexDirection: 'row' }}>
 				{items.map((item, index) => {
 					return (
-						<Pressable
+						<TouchableOpacity
 							key={item.id}
 							onPress={() => {
 								setcurrentSelectedItem({ id: item.id, items: item.items });
@@ -50,7 +50,7 @@ export default function SubscriptionItems({
 							<Text category={'c2'} style={{ paddingTop: 6 }}>
 								{item.name}
 							</Text>
-						</Pressable>
+						</TouchableOpacity>
 					);
 				})}
 			</Layout>

@@ -1,7 +1,7 @@
 import { Layout, Text } from '@ui-kitten/components';
-import React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
 import * as Haptics from 'expo-haptics';
+import React from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function MultiSelectTab() {
 	const [tabs, setTabs] = React.useState(['All', 'Pending', 'Completed']);
@@ -18,7 +18,7 @@ export default function MultiSelectTab() {
 		>
 			{tabs.map((tab, index) => {
 				return (
-					<Pressable
+					<TouchableOpacity
 						key={index}
 						onPress={() => {
 							setSelectedTab(index),
@@ -41,7 +41,7 @@ export default function MultiSelectTab() {
 								{tab}
 							</Text>
 						</Layout>
-					</Pressable>
+					</TouchableOpacity>
 				);
 			})}
 		</Layout>

@@ -121,6 +121,7 @@ export default function AddressModal({ route, navigation }) {
 				label="Phone Number"
 				placeholder="000-000-0000"
 				textContentType="telephoneNumber"
+				keyboardType="phone-pad"
 				onChangeText={(nextValue) =>
 					setnewAddress({ ...newAddress, phone: nextValue })
 				}
@@ -173,6 +174,8 @@ export default function AddressModal({ route, navigation }) {
 				status={!newAddress.pincode ? 'danger' : 'basic'}
 				caption={!newAddress.pincode ? 'Pincode is required' : null}
 				autoFocus={false}
+				keyboardType="number-pad"
+				maxLength={6}
 			/>
 		</KeyboardAvoidingView>
 	);
