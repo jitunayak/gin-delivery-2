@@ -1,28 +1,27 @@
+import { Ionicons } from '@expo/vector-icons';
+import BottomSheet from '@gorhom/bottom-sheet';
 import {
-	Layout,
-	Text,
-	RangeCalendar,
 	Button,
-	Calendar,
 	CalendarRange,
-	RadioGroup,
-	Radio,
-	CheckBox,
 	Icon,
+	Layout,
+	Radio,
+	RadioGroup,
+	RangeCalendar,
+	Text,
 } from '@ui-kitten/components';
 import React, {
-	useState,
 	useCallback,
+	useEffect,
 	useMemo,
 	useRef,
-	useEffect,
+	useState,
 } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+
 import SubscriptionItems from '../components/SubscriptionItems';
 import TimSchedule from '../components/TimSchedule';
 import { COLORS, SYMBOLS } from '../utilities/Constants';
-import BottomSheet from '@gorhom/bottom-sheet';
-import { Ionicons } from '@expo/vector-icons';
+
 export default function SubscriptionScreen({ navigation }) {
 	const [checked, setChecked] = React.useState(true);
 

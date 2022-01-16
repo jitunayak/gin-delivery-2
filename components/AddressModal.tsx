@@ -116,6 +116,9 @@ export default function AddressModal({ route, navigation }) {
 					setnewAddress({ ...newAddress, name: nextValue })
 				}
 				style={{ marginVertical: 2 }}
+				status={!newAddress.name ? 'danger' : null}
+				caption={!newAddress.name ? 'Name is required' : null}
+				autoFocus={false}
 			/>
 			<Input
 				value={newAddress.phone}
@@ -125,7 +128,15 @@ export default function AddressModal({ route, navigation }) {
 				onChangeText={(nextValue) =>
 					setnewAddress({ ...newAddress, phone: nextValue })
 				}
-				style={{ marginVertical: 2 }}
+				style={{ marginVertical: 10 }}
+				status={newAddress.phone.length !== 10 ? 'danger' : 'basic'}
+				caption={
+					newAddress.phone.length !== 10
+						? 'Phone Number must be 10 digits'
+						: null
+				}
+				maxLength={10}
+				autoFocus={false}
 			/>
 			<Input
 				value={newAddress.address1}
@@ -135,6 +146,9 @@ export default function AddressModal({ route, navigation }) {
 					setnewAddress({ ...newAddress, address1: nextValue })
 				}
 				style={{ marginVertical: 2 }}
+				status={!newAddress.address1 ? 'danger' : 'basic'}
+				caption={!newAddress.address1 ? 'House No is required' : null}
+				autoFocus={false}
 			/>
 			<Input
 				value={newAddress.address2}
@@ -146,6 +160,9 @@ export default function AddressModal({ route, navigation }) {
 					setnewAddress({ ...newAddress, address2: nextValue })
 				}
 				style={{ marginVertical: 2 }}
+				status={!newAddress.address2 ? 'danger' : 'basic'}
+				caption={!newAddress.address2 ? 'Area is required' : null}
+				autoFocus={false}
 			/>
 			<Input
 				value={newAddress.pincode}
@@ -157,6 +174,9 @@ export default function AddressModal({ route, navigation }) {
 					setnewAddress({ ...newAddress, pincode: nextValue })
 				}
 				style={{ marginVertical: 2 }}
+				status={!newAddress.pincode ? 'danger' : 'basic'}
+				caption={!newAddress.pincode ? 'Pincode is required' : null}
+				autoFocus={false}
 			/>
 		</Layout>
 	);

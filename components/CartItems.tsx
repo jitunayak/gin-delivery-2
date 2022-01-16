@@ -36,7 +36,7 @@ export default function CartItems({ navigation, totalPrice, setTotalPrice }) {
 			{/* <Text category="h3" style={{ marginVertical: 16 }}>
         In cart
       </Text> */}
-			<Text category="h5" style={{ paddingVertical: 10 }}>
+			<Text category="h5" style={{ padding: 6 }}>
 				To Pay {SYMBOLS.INR}
 				{totalPrice}
 			</Text>
@@ -52,12 +52,18 @@ export default function CartItems({ navigation, totalPrice, setTotalPrice }) {
 								justifyContent: 'space-between',
 							}}
 						>
-							<Text>
+							<Text category={'p2'}>
 								{item.name} ({item.weight})
 							</Text>
 							<Layout style={{ flexDirection: 'row' }}>
-								<Text style={{ textAlign: 'right' }}> ₹{item.price}</Text>
-								<Text style={{ textAlign: 'right' }}> x {item.quantity}</Text>
+								<Text category={'p2'} style={{ textAlign: 'right' }}>
+									{' '}
+									₹{item.price}
+								</Text>
+								<Text category={'c2'} style={{ textAlign: 'right' }}>
+									{' '}
+									x {item.quantity}
+								</Text>
 							</Layout>
 						</Layout>
 					);
@@ -72,7 +78,7 @@ export default function CartItems({ navigation, totalPrice, setTotalPrice }) {
 				</Text>
 
 				<Layout style={styles.rowcartitem}>
-					<Text>Item Total</Text>
+					<Text category={'s2'}>Item Total</Text>
 					<Text>
 						{SYMBOLS.INR}
 						{totalPrice}
@@ -80,8 +86,12 @@ export default function CartItems({ navigation, totalPrice, setTotalPrice }) {
 				</Layout>
 
 				<Layout style={styles.rowcartitem}>
-					<Text style={{ color: COLORS.DARK_BLUE }}>Delivery Fee</Text>
-					<Text style={{ color: 'green' }}>FREE</Text>
+					<Text category={'c2'} style={{ color: COLORS.DARK_BLUE }}>
+						Delivery Fee
+					</Text>
+					<Text category={'label'} style={{ color: 'green' }}>
+						FREE
+					</Text>
 				</Layout>
 				<Text category={'c1'} style={{ color: 'gray', marginHorizontal: 6 }}>
 					This fees goes towards paying your Delivery Partner fairly{' '}

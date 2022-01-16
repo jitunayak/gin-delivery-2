@@ -24,12 +24,12 @@ export default function TimSchedule({
 	return (
 		<Layout
 			style={{
-				marginVertical: 10,
+				margin: 10,
 				padding: 10,
 			}}
 		>
 			<Text
-				category={'s1'}
+				category={'h6'}
 				style={{ marginVertical: 6, textAlign: 'left', marginBottom: 10 }}
 			>
 				Choose your Schedule
@@ -58,7 +58,7 @@ export default function TimSchedule({
 							}}
 						>
 							<Text
-								category={'c1'}
+								category={'c2'}
 								style={{
 									color:
 										scheduledDeliveryTime === time.time

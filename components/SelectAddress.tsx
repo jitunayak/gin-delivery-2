@@ -61,7 +61,7 @@ export default function SelectAddress() {
 									borderRadius: 4,
 									// borderColor: COLORS.LIGHT_BLUE,
 									borderWidth: 2,
-									width: Dimensions.get('screen').width - 40,
+									width: '100%',
 								}}
 							>
 								<Layout

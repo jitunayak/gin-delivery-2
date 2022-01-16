@@ -40,27 +40,27 @@ const UsersScreen = () => (
 
 const TabNavigator = ({ navigation }) => (
 	<Tab.Navigator
-		tabBarOptions={{
-			activeTintColor: COLORS.BLACK,
-			inactiveTintColor: '#222222',
-			showLabel: true,
-			showIcon: true,
-			// style: {
-			// 	backgroundColor: '#2F7C6E',
-			// 	height: 90,
-			// 	borderTopWidth: 0,
-			// 	borderTopColor: '#fff',
-			// },
-			// tabStyle: {
-			// 	padding: 0,
-			// 	margin: 0,
-			// 	borderRadius: 30,
-			// 	backgroundColor: COLORS.ACCENT,
-			// },
-			// indicatorStyle: {
-			// 	backgroundColor: '#2F7C6E',
-			// },
-		}}
+		// tabBarOptions={{
+		// 	activeTintColor: COLORS.BLACK,
+		// 	inactiveTintColor: '#222222',
+		// 	showLabel: true,
+		// 	showIcon: true,
+		// style: {
+		// 	backgroundColor: '#2F7C6E',
+		// 	height: 90,
+		// 	borderTopWidth: 0,
+		// 	borderTopColor: '#fff',
+		// },
+		// tabStyle: {
+		// 	padding: 0,
+		// 	margin: 0,
+		// 	borderRadius: 30,
+		// 	backgroundColor: COLORS.ACCENT,
+		// },
+		// indicatorStyle: {
+		// 	backgroundColor: '#2F7C6E',
+		// },
+		// }}
 		screenOptions={({ route }) => ({
 			// tabBarInactiveTintColor: COLORS.GREY,
 			// tabBarActiveTintColor: COLORS.ACCENT,
