@@ -9,14 +9,15 @@ import {
 } from '@ui-kitten/components';
 import * as Location from 'expo-location';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
 import { API } from '../utilities/Constants';
 
 export default function AddressModal({ route, navigation }) {
 	const { allAddresses, currentSelectedAddress } = route.params;
-
+	const [loading, setLoading] = useState(false);
 	const [location, setLocation] = useState(null);
 	const [errorMsg, setErrorMsg] = useState(null);
 	const [checked, setChecked] = React.useState(true);
@@ -41,11 +42,10 @@ export default function AddressModal({ route, navigation }) {
 
 	// currentSelectedAddress !== null && setnewAddress(currentSelectedAddress);
 
-	// console.log({ newAddress });
-
 	const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
 	async function updatenewAddress() {
+		setLoading(true);
 		dispatch({ type: 'ADD_ADDRESS', payload: newAddress });
 
 		let finalAddress;
@@ -60,9 +60,7 @@ export default function AddressModal({ route, navigation }) {
 			//console.log({ updatedAddress });
 			finalAddress = { address: [newAddress, ...updatedAddress] };
 		}
-		// console.log({ finalAddress });
 
-		// console.log(JSON.stringify(finalAddress));
 		try {
 			const result = await fetch(
 				`${API.BASE_URL}/users/61d35108715a7baea58859ca`,
@@ -76,11 +74,9 @@ export default function AddressModal({ route, navigation }) {
 					},
 				}
 			);
-			// console.log({ result });
-			alert('Address updated successfully');
 			return result;
 		} catch (er) {
-			// alert(er);
+			alert("Can't update, temporary Issue with Server");
 			console.log(er);
 			return er;
 		}
@@ -106,7 +102,7 @@ export default function AddressModal({ route, navigation }) {
 	}, []);
 
 	const AddressForm = (
-		<Layout>
+		<KeyboardAvoidingView behavior="height">
 			<Input
 				value={newAddress.name}
 				label="Name"
@@ -178,11 +174,11 @@ export default function AddressModal({ route, navigation }) {
 				caption={!newAddress.pincode ? 'Pincode is required' : null}
 				autoFocus={false}
 			/>
-		</Layout>
+		</KeyboardAvoidingView>
 	);
 	return (
 		// <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.WHITE }}>
-		<Layout
+		<ScrollView
 			style={{
 				flex: 1,
 				padding: 20,
@@ -237,7 +233,12 @@ export default function AddressModal({ route, navigation }) {
 				onPress={async () => {
 					updatenewAddress()
 						.then((data) => {
-							navigation.navigate('Order');
+							setLoading(false);
+							if (data) {
+								navigation.goBack();
+							} else {
+								alert('Server error response');
+							}
 							//console.log({ data });
 						})
 						.catch((err) => {
@@ -246,12 +247,16 @@ export default function AddressModal({ route, navigation }) {
 				}}
 				status={'primary'}
 				appearance={'filled'}
-				disabled={!location}
+				disabled={!location || loading}
 			>
 				Deliver here
 			</Button>
-		</Layout>
-		// </SafeAreaView>
+			{loading ? (
+				<>
+					<Text style={{ textAlign: 'center' }}>updating...</Text>
+				</>
+			) : null}
+		</ScrollView>
 	);
 }
 

@@ -12,6 +12,7 @@ import { Product } from '../models/Product';
 import { COLORS, SYMBOLS } from '../utilities/Constants';
 import ActionSheet from 'react-native-actions-sheet';
 import SelectAddress from '../components/SelectAddress';
+import { AntDesign } from '@expo/vector-icons';
 
 export default function HomeScreen({ navigation }) {
 	const actionSheetRef = createRef();
@@ -105,6 +106,22 @@ export default function HomeScreen({ navigation }) {
 		return () => {};
 	}, [isCartEmpty]);
 
+	useEffect(() => {
+		const copyOfProducts = [...products];
+		const totalInCart = copyOfProducts.reduce((sum, curr) => {
+			sum += curr.quantity;
+			return sum;
+		}, 0);
+
+		const totalCost = copyOfProducts.reduce((totalCost, item) => {
+			totalCost += item.price * item.quantity;
+			return totalCost;
+		}, 0);
+		setTotalCost(totalCost);
+		setTotalItemsInCart(totalInCart);
+		return () => {};
+	}, [products]);
+
 	const CartButton = () => {
 		return (
 			<TouchableOpacity
@@ -165,31 +182,41 @@ export default function HomeScreen({ navigation }) {
 			</TouchableOpacity>
 		);
 	};
-	useEffect(() => {
-		const copyOfProducts = [...products];
-		const totalInCart = copyOfProducts.reduce((sum, curr) => {
-			sum += curr.quantity;
-			return sum;
-		}, 0);
 
-		const totalCost = copyOfProducts.reduce((totalCost, item) => {
-			totalCost += item.price * item.quantity;
-			return totalCost;
-		}, 0);
-		setTotalCost(totalCost);
-		setTotalItemsInCart(totalInCart);
-		return () => {};
-	}, [products]);
-
-	return (
-		<>
-			<Layout style={styles.container}>
+	const HomeHeader = (
+		<Layout style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+			<Layout style={{ flexDirection: 'column' }}>
 				<Text category={'h2'} style={{ color: COLORS.ACCENT, marginLeft: 10 }}>
 					{SYMBOLS.APP_NAME}
 				</Text>
 				<Text category={'p2'} style={{ color: COLORS.ACCENT, marginLeft: 10 }}>
 					{SYMBOLS.POWERED_BY_GIN}
 				</Text>
+			</Layout>
+			<TouchableOpacity
+				onPress={() => {
+					actionSheetRef.current?.setModalVisible();
+				}}
+			>
+				<Layout
+					style={{
+						flexDirection: 'row',
+						alignItems: 'center',
+						padding: 10,
+						marginHorizontal: 10,
+					}}
+				>
+					<Text category={'c2'}>Change Location</Text>
+					<AntDesign name="down" size={20} color={COLORS.GREY} />
+				</Layout>
+			</TouchableOpacity>
+		</Layout>
+	);
+
+	return (
+		<>
+			<Layout style={styles.container}>
+				{HomeHeader}
 				<Layout style={styles.subcontainer}>
 					<Categories setSelectedCategory={setSelectedCategory} />
 					<Item
@@ -199,13 +226,7 @@ export default function HomeScreen({ navigation }) {
 						setProducts={setProducts}
 					/>
 				</Layout>
-				<TouchableOpacity
-					onPress={() => {
-						actionSheetRef.current?.setModalVisible();
-					}}
-				>
-					<Text>Open ActionSheet</Text>
-				</TouchableOpacity>
+
 				<ActionSheet ref={actionSheetRef} bounceOnOpen={true}>
 					<Layout style={{ margin: 10, paddingBottom: 100 }}>
 						<SelectAddress />
