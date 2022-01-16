@@ -1,7 +1,7 @@
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Layout, Text } from '@ui-kitten/components';
 import Constants from 'expo-constants';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +10,11 @@ import Categories from '../components/Categories';
 import Item from '../components/Item';
 import { Product } from '../models/Product';
 import { COLORS, SYMBOLS } from '../utilities/Constants';
+import ActionSheet from 'react-native-actions-sheet';
+import SelectAddress from '../components/SelectAddress';
 
 export default function HomeScreen({ navigation }) {
+	const actionSheetRef = createRef();
 	const fetchedProducts = [
 		{
 			id: '1we23klpd',
@@ -91,9 +94,14 @@ export default function HomeScreen({ navigation }) {
 	const isCartEmpty = useSelector(
 		(state) => state.cartReducer.selectedItems.isCartEmpty
 	);
+	useEffect(() => {
+		actionSheetRef.current?.setModalVisible();
+		return () => {};
+	}, []);
 
 	useEffect(() => {
 		isCartEmpty ? setProducts(fetchedProducts) : null;
+
 		return () => {};
 	}, [isCartEmpty]);
 
@@ -191,6 +199,18 @@ export default function HomeScreen({ navigation }) {
 						setProducts={setProducts}
 					/>
 				</Layout>
+				<TouchableOpacity
+					onPress={() => {
+						actionSheetRef.current?.setModalVisible();
+					}}
+				>
+					<Text>Open ActionSheet</Text>
+				</TouchableOpacity>
+				<ActionSheet ref={actionSheetRef} bounceOnOpen={true}>
+					<Layout style={{ margin: 10, paddingBottom: 100 }}>
+						<SelectAddress />
+					</Layout>
+				</ActionSheet>
 				{totalItemsInCart > 0 ? <CartButton /> : null}
 			</Layout>
 		</>

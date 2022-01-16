@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import { Button, Layout, Text } from '@ui-kitten/components';
 import React, { useEffect, useState } from 'react';
-import { Pressable, TouchableOpacity } from 'react-native';
+import { Dimensions, Pressable, TouchableOpacity } from 'react-native';
 import { API, COLORS } from '../utilities/Constants';
+import { Feather } from '@expo/vector-icons';
 
 export default function SelectAddress() {
 	const [address, setAddress] = useState([]);
@@ -35,10 +36,10 @@ export default function SelectAddress() {
 
 	return (
 		<Layout style={{ margin: 10 }}>
-			<Text category={'label'} style={{ padding: 10 }}>
+			<Text category={'h6'} style={{ padding: 10 }}>
 				Select Address
 			</Text>
-			<Layout style={{ flexDirection: 'row', paddingHorizontal: 10 }}>
+			<Layout style={{ flexDirection: 'column', paddingHorizontal: 10 }}>
 				{!refreshing &&
 					address.map((item, index) => {
 						//console.log(item, index);
@@ -50,33 +51,58 @@ export default function SelectAddress() {
 								}}
 								style={{
 									padding: 10,
-									backgroundColor:
+									marginTop: 10,
+									borderColor:
 										currentSelectedAddress !== null &&
 										currentSelectedAddress._id === item._id
-											? COLORS.LIGHT_BLUE
-											: 'white',
+											? '#1B40AC'
+											: COLORS.LIGHT_GREY,
+
 									borderRadius: 4,
-									borderColor: COLORS.LIGHT_BLUE,
-									borderWidth: 1,
-									height: 120,
-									width: 160,
-									marginRight: 20,
+									// borderColor: COLORS.LIGHT_BLUE,
+									borderWidth: 2,
+									width: Dimensions.get('screen').width - 40,
 								}}
 							>
-								<Text category={'s2'} style={{ paddingVertical: 6 }}>
-									{item.name}
-								</Text>
-								<Text category={'p2'}>{item.address1}</Text>
-								<Text category={'p2'}>{item.address2}</Text>
-								<Text category={'p2'} style={{ paddingVertical: 6 }}>
-									{item.phone}
-								</Text>
+								<Layout
+									style={{
+										flexDirection: 'row',
+										justifyContent: 'space-between',
+										alignItems: 'center',
+									}}
+								>
+									<Layout>
+										<Text category={'label'} style={{ paddingVertical: 6 }}>
+											{item.name}
+										</Text>
+										<Text category={'p2'}>
+											{item.address1},{item.address2},{item.phone}
+										</Text>
+									</Layout>
+
+									<Feather
+										name="edit"
+										size={24}
+										color={
+											currentSelectedAddress !== null &&
+											currentSelectedAddress._id === item._id
+												? '#1B40AC'
+												: COLORS.LIGHT_GREY
+										}
+										onPress={() =>
+											navigation.navigate('Address', {
+												allAddresses: address,
+												currentSelectedAddress: currentSelectedAddress,
+											})
+										}
+									/>
+								</Layout>
 							</Pressable>
 						);
 					})}
 			</Layout>
-			<Layout style={{ flexDirection: 'row', flex: 2, paddingVertical: 10 }}>
-				<Button
+			<Layout style={{ flexDirection: 'row', flex: 1, paddingVertical: 10 }}>
+				{/* <Button
 					appearance={'outline'}
 					status={'info'}
 					style={{ flex: 1, margin: 10 }}
@@ -89,7 +115,7 @@ export default function SelectAddress() {
 					disabled={currentSelectedAddress === null}
 				>
 					Edit
-				</Button>
+				</Button> */}
 				<Button
 					appearance={'filled'}
 					status={'info'}
@@ -101,7 +127,7 @@ export default function SelectAddress() {
 						})
 					}
 				>
-					Add
+					Add New Address
 				</Button>
 			</Layout>
 		</Layout>
