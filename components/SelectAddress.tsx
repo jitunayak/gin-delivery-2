@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Layout, Text } from '@ui-kitten/components';
 import React, { useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import { API, COLORS } from '../utilities/Constants';
 
@@ -12,6 +13,17 @@ export default function SelectAddress() {
 	const [currentSelectedAddress, setCurrentSelectedAddress] = useState(null);
 
 	const navigation = useNavigation();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			// Screen was focused
+			// Do something
+			fetchAddress();
+		});
+
+		return unsubscribe;
+	}, [navigation]);
 
 	const fetchAddress = async () => {
 		return await fetch(`${API.BASE_URL}/users/${API.USER_ID}`, {
@@ -23,8 +35,8 @@ export default function SelectAddress() {
 			},
 		});
 	};
-	useEffect(() => {
-		setRefreshing(true);
+
+	const updateAddress = async () => {
 		fetchAddress().then((res) => {
 			res.json().then((data) => {
 				setAddress(data.address);
@@ -32,14 +44,29 @@ export default function SelectAddress() {
 				setRefreshing(false);
 			});
 		});
-		return () => {};
+	};
+
+	useEffect(() => {
+		setRefreshing(true);
+		updateAddress();
 	}, []);
 
 	return (
 		<Layout style={{ margin: 10 }}>
-			<Text category={'h6'} style={{ padding: 10 }}>
-				Select Address
-			</Text>
+			<Layout
+				style={{
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+				}}
+			>
+				<Text category={'h6'} style={{ padding: 10 }}>
+					Select Address
+				</Text>
+				<Text status={'info'} onPress={async () => await updateAddress()}>
+					Refresh
+				</Text>
+			</Layout>
 			<Layout style={{ flexDirection: 'column', paddingHorizontal: 10 }}>
 				{!refreshing &&
 					address.map((item, index) => {
@@ -49,6 +76,10 @@ export default function SelectAddress() {
 								key={index}
 								onPress={() => {
 									setCurrentSelectedAddress(item);
+									dispatch({
+										type: 'ADD_ADDRESS',
+										payload: item,
+									});
 								}}
 								style={{
 									padding: 10,
@@ -118,7 +149,7 @@ export default function SelectAddress() {
 					Edit
 				</Button> */}
 				<Button
-					appearance={'filled'}
+					appearance={'outline'}
 					status={'info'}
 					style={{ flex: 1, margin: 10 }}
 					onPress={() =>

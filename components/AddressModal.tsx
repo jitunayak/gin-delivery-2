@@ -13,7 +13,7 @@ import { Dimensions, KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
-import { API } from '../utilities/Constants';
+import { API, COLORS } from '../utilities/Constants';
 
 export default function AddressModal({ route, navigation }) {
 	const { allAddresses, currentSelectedAddress } = route.params;
@@ -40,11 +40,9 @@ export default function AddressModal({ route, navigation }) {
 		geoLocation: null,
 	});
 
-	// currentSelectedAddress !== null && setnewAddress(currentSelectedAddress);
-
 	const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
-	async function updatenewAddress() {
+	async function addNewAddress() {
 		setLoading(true);
 		dispatch({ type: 'ADD_ADDRESS', payload: newAddress });
 
@@ -57,10 +55,22 @@ export default function AddressModal({ route, navigation }) {
 			const updatedAddress = allAddressesCopy.filter(
 				(address) => address._id !== currentSelectedAddress._id
 			);
-			//console.log({ updatedAddress });
 			finalAddress = { address: [newAddress, ...updatedAddress] };
 		}
+		await updateUserAddressesOnServer(finalAddress);
+	}
 
+	async function deleteAddress() {
+		setLoading(true);
+		let allAddressesCopy = [...allAddresses];
+		const addressesWithOutCurrentOne = allAddressesCopy.filter(
+			(address) => address._id !== currentSelectedAddress._id
+		);
+		const finalAddress = { address: [...addressesWithOutCurrentOne] };
+		await updateUserAddressesOnServer(finalAddress);
+	}
+
+	async function updateUserAddressesOnServer(finalAddress) {
 		try {
 			const result = await fetch(
 				`${API.BASE_URL}/users/61d35108715a7baea58859ca`,
@@ -179,18 +189,53 @@ export default function AddressModal({ route, navigation }) {
 			/>
 		</KeyboardAvoidingView>
 	);
+	const AddressActionButtons = (
+		<Layout style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+			<Button
+				appearance={'outline'}
+				status={'danger'}
+				style={{ flex: 1 }}
+				disabled={!location || loading}
+				onPress={async () => {
+					deleteAddress()
+						.then((data) => {
+							navigation.goBack();
+						})
+						.catch((err) => alert('Unable to delete'));
+				}}
+			>
+				Delete
+			</Button>
+			<Button
+				style={{ flex: 2, marginLeft: 10 }}
+				status={'primary'}
+				appearance={'filled'}
+				disabled={!location || loading}
+				onPress={async () => {
+					addNewAddress()
+						.then((data) => {
+							setLoading(false);
+							navigation.goBack();
+						})
+						.catch((err) => {
+							console.log({ err });
+							alert('Server error response');
+						});
+				}}
+			>
+				Deliver here
+			</Button>
+		</Layout>
+	);
 	return (
-		// <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.WHITE }}>
 		<ScrollView
 			style={{
 				flex: 1,
 				padding: 20,
 				flexDirection: 'column',
+				backgroundColor: COLORS.WHITE,
 			}}
 		>
-			{/* <Text category={"h4"}>Add Address</Text> */}
-
-			{/* <Text>{text}</Text> */}
 			{location !== null ? (
 				<MapView
 					region={{
@@ -232,28 +277,7 @@ export default function AddressModal({ route, navigation }) {
 					user experience
 				</Text>
 			</Layout>
-			<Button
-				onPress={async () => {
-					updatenewAddress()
-						.then((data) => {
-							setLoading(false);
-							if (data) {
-								navigation.goBack();
-							} else {
-								alert('Server error response');
-							}
-							//console.log({ data });
-						})
-						.catch((err) => {
-							console.log({ err });
-						});
-				}}
-				status={'primary'}
-				appearance={'filled'}
-				disabled={!location || loading}
-			>
-				Deliver here
-			</Button>
+			{AddressActionButtons}
 			{loading ? (
 				<>
 					<Text style={{ textAlign: 'center' }}>updating...</Text>

@@ -193,7 +193,7 @@ export default function HomeScreen({ navigation }) {
 					{SYMBOLS.POWERED_BY_GIN}
 				</Text>
 			</Layout>
-			<TouchableOpacity
+			{/* <TouchableOpacity
 				onPress={() => {
 					actionSheetRef.current?.setModalVisible();
 				}}
@@ -209,7 +209,7 @@ export default function HomeScreen({ navigation }) {
 					<Text category={'c2'}>Change Location</Text>
 					<AntDesign name="down" size={20} color={COLORS.GREY} />
 				</Layout>
-			</TouchableOpacity>
+			</TouchableOpacity> */}
 		</Layout>
 	);
 
@@ -227,11 +227,12 @@ export default function HomeScreen({ navigation }) {
 					/>
 				</Layout>
 
-				<ActionSheet ref={actionSheetRef} bounceOnOpen={true}>
+				{/* <ActionSheet ref={actionSheetRef} bounceOnOpen={true}>
 					<Layout style={{ margin: 10, paddingBottom: 100 }}>
 						<SelectAddress />
 					</Layout>
-				</ActionSheet>
+				</ActionSheet> */}
+
 				{totalItemsInCart > 0 ? <CartButton /> : null}
 			</Layout>
 		</>

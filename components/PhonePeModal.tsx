@@ -12,17 +12,20 @@ export default function PhonePeModal({ amount, navigation }) {
 	const { items } = useSelector((state) => state.cartReducer.selectedItems);
 	const [loading, setLoading] = useState(false);
 	const [email, setEmail] = useState('jitunayak715@gmail.com');
+	const {
+		selectedAddress: { address },
+		sheduledDeliveryTime,
+	} = useSelector((state) => state.addressReducer);
 
-	//console.log("amount", amount);
+	//console.log({ address }, { sheduledDeliveryTime });
+
 	const placeOrder: any = async () => {
-		//console.log("order place button pressed");
 		const mappedCartItems = [];
 		items.forEach((item) => {
 			const { id, ...others } = item;
 			mappedCartItems.push({ _id: item.id, ...others });
 		});
 
-		//console.log(mappedCartItems);
 		try {
 			const response = await fetch(`${API.BASE_URL}/order`, {
 				method: 'POST',
@@ -38,13 +41,14 @@ export default function PhonePeModal({ amount, navigation }) {
 						items: mappedCartItems,
 					},
 					address: {
-						name: 'Jitu Nayak',
-						phoneNumber: '7377056991',
-						address1: '989/B ',
-						address2: 'bangalore',
-						pin: '754004',
-						geoLocation: '45.67, 23.56',
+						name: address.name,
+						phoneNumber: address.phoneNumber,
+						address1: address.address1,
+						address2: address.address2,
+						pin: address.pincode,
+						geoLocation: address.geoLocation,
 					},
+					sheduledDeliveryTime: sheduledDeliveryTime,
 					paymentId:
 						'pi_3KD1QbSBhy92HuL30K0qHfAA_secret_D58Vl2cGdokESHcLbv2GMv9sO',
 					Delivered: false,
@@ -106,8 +110,6 @@ export default function PhonePeModal({ amount, navigation }) {
 				setLoading(false);
 				return Alert.alert(presentSheet.error.message);
 			}
-			Alert.alert('Payment received ');
-
 			const res = await placeOrder();
 			console.log(res);
 			navigation.navigate('Success');

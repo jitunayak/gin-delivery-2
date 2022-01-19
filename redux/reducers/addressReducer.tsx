@@ -9,6 +9,7 @@ let defaultState = {
 			geoLocation: {},
 		},
 	},
+	sheduledDeliveryTime: '',
 };
 
 let addressReducer = (state = defaultState, action) => {
@@ -36,6 +37,14 @@ let addressReducer = (state = defaultState, action) => {
 				};
 			}
 			return newState;
+		}
+
+		case 'ADD_SCHEDULED_DELIVERY_TIME': {
+			let newState = { ...state };
+			if (action.payload) {
+				newState.sheduledDeliveryTime = action.payload;
+				return newState;
+			}
 		}
 
 		default:

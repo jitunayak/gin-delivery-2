@@ -13,7 +13,7 @@ export default function Success({ navigation }) {
 			payload: null,
 		});
 		navigation.navigate('HomeScreen');
-	}, 20000);
+	}, 3000);
 
 	return (
 		<Layout
@@ -26,7 +26,7 @@ export default function Success({ navigation }) {
 		>
 			<Image
 				source={require('../assets/pngs/credit_card.png')}
-				style={{ width: 400, height: 400 }}
+				style={{ width: 200, height: 200 }}
 			/>
 			<Spinner size={'giant'} />
 			{/* <Ionicons name="md-checkmark-done-circle" size={100} color="green" /> */}
@@ -43,7 +43,7 @@ export default function Success({ navigation }) {
 						type: 'EMPTY_CART',
 						payload: null,
 					});
-					navigation.navigate('HomeScreen');
+					navigation.navigate('Orders');
 				}}
 			>
 				Wait Auto Redirection or Press me

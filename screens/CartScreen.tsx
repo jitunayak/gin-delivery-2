@@ -1,5 +1,5 @@
 import { Button, Layout, Text } from '@ui-kitten/components';
-import React, { useState } from 'react';
+import React, { createRef, useRef, useState } from 'react';
 import { Alert, Dimensions, StyleSheet, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ export default function CartScreen({ navigation }) {
 	const [totalPrice, setTotalPrice] = useState(0);
 
 	const dispatch = useDispatch();
+	const scrollViewRef = useRef();
 
 	const { address } = useSelector(
 		(state) => state.addressReducer.selectedAddress
@@ -25,15 +26,11 @@ export default function CartScreen({ navigation }) {
 		(state) => state.cartReducer.selectedItems
 	);
 
-	/**
-	 * TODO Yet to be implemented
-	 */
 	const makeTheCartEmpty = () =>
 		dispatch({
 			type: 'EMPTY_CART',
 			payload: null,
 		});
-	//Alert.alert('Not implemented yet');
 
 	/**
 	 * TODO put it in separate component
@@ -80,7 +77,13 @@ export default function CartScreen({ navigation }) {
 		<>
 			{!isCartEmpty ? (
 				<Layout style={styles.container}>
-					<ScrollView showsVerticalScrollIndicator={true}>
+					<ScrollView
+						showsVerticalScrollIndicator={true}
+						ref={scrollViewRef}
+						onContentSizeChange={() =>
+							scrollViewRef.current.scrollToEnd({ animated: true })
+						}
+					>
 						<CartItems
 							navigation={navigation}
 							totalPrice={totalPrice}
@@ -110,7 +113,7 @@ export default function CartScreen({ navigation }) {
 							scheduledDeliveryTime={scheduledDeliveryTime}
 							setScheduledDeliveryTime={setScheduledDeliveryTime}
 						/>
-						<Layout style={{ flex: 1, height: 200 }}></Layout>
+						<Layout style={{ flex: 1, height: 100 }}></Layout>
 					</ScrollView>
 					<PaymentContainer />
 				</Layout>
