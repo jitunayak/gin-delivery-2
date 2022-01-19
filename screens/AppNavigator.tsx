@@ -23,6 +23,7 @@ import {
 	TabButtonLayout, // optional
 	IAppearanceOptions, // optional
 } from 'react-native-animated-nav-tab-bar';
+import SearchScreen from './SearchScreen';
 
 /* This provides native OS specific navigation. */
 const Stack = createNativeStackNavigator();
@@ -49,9 +50,9 @@ const TabNavigator = ({ navigation }) => (
 			tabBarLabel: ({ focused, color }) => {
 				return (
 					<Text
-						category={'c2'}
+						category={'c1'}
 						style={{
-							color: focused ? COLORS.BLACK : COLORS.GREY,
+							color: focused ? COLORS.ACCENT : COLORS.GREY,
 							marginTop: -10,
 						}}
 					>
@@ -67,19 +68,22 @@ const TabNavigator = ({ navigation }) => (
 					iconName = focused ? 'ios-wallet' : 'ios-wallet-outline';
 				} else if (route.name === 'Orders') {
 					iconName = focused ? 'list-circle' : 'list-circle-outline';
+				} else if (route.name === 'Search') {
+					iconName = focused ? 'search' : 'search-outline';
 				}
 				// You can return any component that you like here!
 				return (
 					<Ionicons
 						name={iconName}
 						size={26}
-						color={focused ? COLORS.BLACK : COLORS.GREY}
+						color={focused ? COLORS.ACCENT : COLORS.GREY}
 					/>
 				);
 			},
 		})}
 	>
 		<Tab.Screen name="Home" component={HomeScreen} />
+		<Tab.Screen name="Search" component={SearchScreen} />
 		<Tab.Screen name="Orders" component={OrdersScreen} />
 		<Tab.Screen name="Subscription" component={SubscriptionScreen} />
 	</Tab.Navigator>
