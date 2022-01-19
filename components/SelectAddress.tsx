@@ -7,19 +7,17 @@ import { useDispatch } from 'react-redux';
 
 import { API, COLORS } from '../utilities/Constants';
 
-export default function SelectAddress() {
+export default function SelectAddress({ navigation }) {
 	const [address, setAddress] = useState([]);
 	const [refreshing, setRefreshing] = useState(false);
 	const [currentSelectedAddress, setCurrentSelectedAddress] = useState(null);
 
-	const navigation = useNavigation();
+	// const navigation = useNavigation();
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
-			// Screen was focused
-			// Do something
-			fetchAddress();
+			updateAddress();
 		});
 
 		return unsubscribe;

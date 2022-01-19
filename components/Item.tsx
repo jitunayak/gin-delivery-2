@@ -61,10 +61,6 @@ export default function Item({
 		setProducts(copyOfProducts);
 	}
 	function AddButton(props) {
-		// console.log({ "add button pressed": props });
-
-		//dispatch({ type: 'REMOVE_FROM_CART', payload: props.item });
-
 		return (
 			<TouchableOpacity
 				onPress={() => {
@@ -150,11 +146,15 @@ export default function Item({
 		);
 	}
 	return (
-		<ScrollView showsVerticalScrollIndicator={true}>
+		<ScrollView
+			showsVerticalScrollIndicator={true}
+			style={{ backgroundColor: COLORS.LIGHT_GREY }}
+		>
 			<Layout
 				style={{
 					flexWrap: 'wrap',
 					flexDirection: 'row',
+					backgroundColor: COLORS.LIGHT_GREY,
 				}}
 			>
 				{products.map((item, index) => {
@@ -171,8 +171,8 @@ export default function Item({
 								<Image
 									source={{ uri: item.image }}
 									style={{
-										width: Dimensions.get('screen').width * 0.2,
-										height: Dimensions.get('screen').width * 0.2,
+										width: Dimensions.get('screen').width * 0.22,
+										height: Dimensions.get('screen').width * 0.22,
 										backgroundColor: 'transparent',
 										margin: 10,
 									}}

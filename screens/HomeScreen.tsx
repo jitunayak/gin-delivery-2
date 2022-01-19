@@ -184,12 +184,18 @@ export default function HomeScreen({ navigation }) {
 	};
 
 	const HomeHeader = (
-		<Layout style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+		<Layout
+			style={{
+				flexDirection: 'row',
+				justifyContent: 'space-between',
+				marginHorizontal: 10,
+			}}
+		>
 			<Layout style={{ flexDirection: 'column' }}>
-				<Text category={'h2'} style={{ color: COLORS.ACCENT, marginLeft: 10 }}>
+				<Text category={'h2'} style={{ color: COLORS.ACCENT }}>
 					{SYMBOLS.APP_NAME}
 				</Text>
-				<Text category={'p2'} style={{ color: COLORS.ACCENT, marginLeft: 10 }}>
+				<Text category={'p2'} style={{ color: COLORS.ACCENT }}>
 					{SYMBOLS.POWERED_BY_GIN}
 				</Text>
 			</Layout>
@@ -210,6 +216,23 @@ export default function HomeScreen({ navigation }) {
 					<AntDesign name="down" size={20} color={COLORS.GREY} />
 				</Layout>
 			</TouchableOpacity> */}
+
+			{/* <Layout
+				style={{
+					alignSelf: 'center',
+					flexDirection: 'row',
+					alignItems: 'center',
+				}}
+			>
+				<AntDesign name="search1" size={20} color="black" />
+				<Text category={'p1'} style={{ paddingHorizontal: 10 }}>
+					Search
+				</Text>
+			</Layout> */}
+
+			<Text category={'s1'} style={{ alignSelf: 'center' }}>
+				Hi, Jitu Nayak
+			</Text>
 		</Layout>
 	);
 
@@ -243,7 +266,7 @@ const styles = StyleSheet.create({
 	container: {
 		padding: 2,
 		paddingTop: Constants.statusBarHeight || 50,
-		paddingBottom: 10,
+		paddingBottom: 0,
 		flex: 1,
 	},
 	subcontainer: {

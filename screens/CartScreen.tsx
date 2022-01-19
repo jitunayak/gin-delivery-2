@@ -108,7 +108,7 @@ export default function CartScreen({ navigation }) {
 							</Text>
 						) : null} */}
 
-						<SelectAddress />
+						<SelectAddress navigation={navigation} />
 						<TimSchedule
 							scheduledDeliveryTime={scheduledDeliveryTime}
 							setScheduledDeliveryTime={setScheduledDeliveryTime}

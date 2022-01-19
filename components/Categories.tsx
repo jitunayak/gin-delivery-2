@@ -49,7 +49,7 @@ const Categories = ({ setSelectedCategory }) => {
 				height: Dimensions.get('window').width / 5,
 				width: Dimensions.get('window').width / 5,
 				marginVertical: 6,
-				marginHorizontal: 2,
+				marginHorizontal: 4,
 				borderRadius: 4,
 				justifyContent: 'center',
 			}}
