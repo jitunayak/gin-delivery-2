@@ -7,8 +7,15 @@ import MultiSelectTab from '../components/MultiSelectTab';
 
 import { API, COLORS, SYMBOLS } from '../utilities/Constants';
 
-export default function OrdersScreen() {
+export default function OrdersScreen({ navigation }) {
 	const [refreshing, setRefreshing] = React.useState(true);
+
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			fetchRecentOrders();
+		});
+		return unsubscribe;
+	}, [navigation]);
 
 	const fetchRecentOrders = async () => {
 		try {

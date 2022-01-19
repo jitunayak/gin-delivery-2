@@ -36,7 +36,7 @@ export default function TimSchedule({
 				category={'h6'}
 				style={{ marginVertical: 10, textAlign: 'left', marginBottom: 10 }}
 			>
-				Choose your Schedule
+				Schedule Delivery Time
 			</Text>
 			<Layout
 				style={{

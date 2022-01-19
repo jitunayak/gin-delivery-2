@@ -55,7 +55,7 @@ const TabNavigator = ({ navigation }) => (
 							marginTop: -10,
 						}}
 					>
-						{route.name}
+						{route.name.toUpperCase()}
 					</Text>
 				);
 			},

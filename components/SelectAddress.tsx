@@ -68,6 +68,11 @@ export default function SelectAddress() {
 				</Text>
 			</Layout>
 			<Layout style={{ flexDirection: 'column', paddingHorizontal: 10 }}>
+				{refreshing && (
+					<Text style={{ textAlign: 'center', padding: 20 }}>
+						Fetching addresses...
+					</Text>
+				)}
 				{!refreshing &&
 					address.map((item, index) => {
 						//console.log(item, index);
@@ -149,7 +154,7 @@ export default function SelectAddress() {
 					Edit
 				</Button> */}
 				<Button
-					appearance={'outline'}
+					appearance={'filled'}
 					status={'info'}
 					style={{ flex: 1, margin: 10 }}
 					onPress={() =>

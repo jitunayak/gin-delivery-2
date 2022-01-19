@@ -3,6 +3,7 @@ import { Button, Layout, Spinner, Text } from '@ui-kitten/components';
 import React, { useEffect } from 'react';
 import { Image } from 'react-native';
 import { useDispatch } from 'react-redux';
+import * as Haptics from 'expo-haptics';
 
 export default function Success({ navigation }) {
 	const dispatch = useDispatch();
@@ -12,7 +13,8 @@ export default function Success({ navigation }) {
 			type: 'EMPTY_CART',
 			payload: null,
 		});
-		navigation.navigate('HomeScreen');
+		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+		navigation.navigate('Orders');
 	}, 3000);
 
 	return (
