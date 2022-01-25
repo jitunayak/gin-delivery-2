@@ -57,7 +57,7 @@ export default function SubscriptionScreen({ navigation }) {
 	});
 	const [selectedPayment, setSelectedPayment] = React.useState(1);
 	const bottomSheetRef = useRef<BottomSheet>(null);
-	const snapPoints = useMemo(() => ['10%', '30%', '45%'], []);
+	const snapPoints = useMemo(() => ['10%', '30%', '50%'], []);
 	const handleSheetChanges = useCallback((index: number) => {}, []);
 	const showToast = () => {
 		console.log('showToast');

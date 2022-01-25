@@ -1,7 +1,8 @@
-import { Layout, Text } from '@ui-kitten/components';
+import { Button, Layout, Text } from '@ui-kitten/components';
 import React, { useState } from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
+import Toast from 'react-native-toast-message';
 
 import { COLORS } from '../utilities/Constants';
 
@@ -25,10 +26,11 @@ export default function TimSchedule({
 	const checkAvailability = (time) => {
 		return currenttime.getHours() - 10 < time ? true : false;
 	};
+
 	return (
 		<Layout
 			style={{
-				margin: 10,
+				marginVertical: 10,
 				padding: 10,
 			}}
 		>
@@ -65,6 +67,11 @@ export default function TimSchedule({
 							}}
 							disabled={!checkAvailability(time.hour)}
 							onPress={() => {
+								// Toast.show({
+								// 	type: 'success',
+								// 	text1: 'Hello',
+								// 	text2: 'This is some something 👋',
+								// });
 								setScheduledDeliveryTime(time.time);
 								dispatch({
 									type: 'ADD_SCHEDULED_DELIVERY_TIME',

@@ -159,22 +159,24 @@ export default function Item({
 			>
 				{products.map((item, index) => {
 					return (
-						item.category == selectedCategory && (
+						item.category === selectedCategory && (
 							<Layout
 								style={{
-									padding: 18,
+									padding: 10,
 									borderWidth: 1,
 									borderColor: COLORS.LIGHT_GREY,
+									width: '50%',
 								}}
 								key={item.id}
 							>
 								<Image
 									source={{ uri: item.image }}
 									style={{
-										width: Dimensions.get('screen').width * 0.22,
-										height: Dimensions.get('screen').width * 0.22,
+										width: '80%',
+										height: 100,
 										backgroundColor: 'transparent',
 										margin: 10,
+										resizeMode: 'contain',
 									}}
 								/>
 								<Text
@@ -191,22 +193,31 @@ export default function Item({
 									{item.name}
 								</Text>
 								<Text
-									category={'c1'}
-									style={{ color: COLORS.GREY, marginBottom: 2 }}
+									category={'c2'}
+									style={{ color: COLORS.GREY, marginBottom: 0 }}
 								>
 									{item.weight}
 								</Text>
-								<Text category={'c2'} style={{ paddingVertical: 10 }}>
-									₹{item.price}
-								</Text>
+								<Layout
+									style={{
+										flexDirection: 'row',
+										justifyContent: 'space-between',
+										width: '100%',
+										alignItems: 'center',
+									}}
+								>
+									<Text category={'c2'} style={{ padding: 6 }}>
+										₹{item.price}
+									</Text>
 
-								{item.quantity > 0 ? (
-									<QuantityManipulationView item={item} />
-								) : (
-									<>
-										<AddButton item={item} />
-									</>
-								)}
+									{item.quantity > 0 ? (
+										<QuantityManipulationView item={item} />
+									) : (
+										<>
+											<AddButton item={item} />
+										</>
+									)}
+								</Layout>
 							</Layout>
 						)
 					);

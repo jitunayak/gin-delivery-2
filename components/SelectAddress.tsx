@@ -50,7 +50,7 @@ export default function SelectAddress({ navigation }) {
 	}, []);
 
 	return (
-		<Layout style={{ margin: 10 }}>
+		<Layout style={{ margin: 6 }}>
 			<Layout
 				style={{
 					flexDirection: 'row',

@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react';
 import { Appearance, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as ReduxProvider } from 'react-redux';
+import Toast from 'react-native-toast-message';
 
 import configureStore from './redux/store';
 import AppNavigator from './screens/AppNavigator';
@@ -35,6 +36,7 @@ export default function App() {
 					<ReduxProvider store={store}>
 						<StatusBar style="dark" />
 						<AppNavigator />
+						<Toast />
 					</ReduxProvider>
 				</ApplicationProvider>
 			</SafeAreaProvider>

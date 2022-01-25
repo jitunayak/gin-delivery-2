@@ -9,8 +9,12 @@ import {
 } from '@ui-kitten/components';
 import * as Location from 'expo-location';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, KeyboardAvoidingView, StyleSheet } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import {
+	Dimensions,
+	KeyboardAvoidingView,
+	StyleSheet,
+	ScrollView,
+} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
 import { API, COLORS } from '../utilities/Constants';
@@ -101,6 +105,7 @@ export default function AddressModal({ route, navigation }) {
 			let { status } = await Location.requestForegroundPermissionsAsync();
 			if (status !== 'granted') {
 				setErrorMsg('Permission to access location was denied');
+				console.log('Permission not granted');
 				return;
 			}
 
@@ -112,7 +117,7 @@ export default function AddressModal({ route, navigation }) {
 	}, []);
 
 	const AddressForm = (
-		<KeyboardAvoidingView behavior="height">
+		<>
 			<Input
 				value={newAddress.name}
 				label="Name"
@@ -187,7 +192,7 @@ export default function AddressModal({ route, navigation }) {
 				keyboardType="number-pad"
 				maxLength={6}
 			/>
-		</KeyboardAvoidingView>
+		</>
 	);
 	const AddressActionButtons = (
 		<Layout style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -228,61 +233,44 @@ export default function AddressModal({ route, navigation }) {
 		</Layout>
 	);
 	return (
-		<ScrollView
-			style={{
-				flex: 1,
-				padding: 20,
-				flexDirection: 'column',
-				backgroundColor: COLORS.WHITE,
-			}}
-		>
-			{location !== null ? (
-				<MapView
-					region={{
-						latitude: location.coords.latitude,
-						longitude: location.coords.longitude,
-						latitudeDelta: 0.0000922,
-						longitudeDelta: 0.00221,
-					}}
-					style={{
-						width: Dimensions.get('screen').width - 40,
-						height: 200,
-						right: 10,
-						margin: 10,
-					}}
-				>
-					<Marker
-						key={1}
-						coordinate={location.coords}
-						title={'Your Location'}
-						description={'Confirm your location'}
-					/>
-				</MapView>
-			) : (
-				<Layout style={{ alignItems: 'center' }}>
-					<Spinner />
-					<Text>Loading Your Map Data</Text>
-				</Layout>
-			)}
-			{location !== null ? AddressForm : null}
+		<ScrollView style={{ flex: 1 }}>
+			<KeyboardAvoidingView
+				style={{
+					flex: 1,
+					padding: 20,
+					flexDirection: 'column',
+					backgroundColor: COLORS.WHITE,
+				}}
+			>
+				{location !== null ? // 		description={'Confirm your location'} // 		title={'Your Location'} // 		coordinate={location.coords} // 		key={1} // 	<Marker // > // 	}} // 		margin: 10, // 		right: 10, // 		height: 200, // 		width: Dimensions.get('screen').width - 40, // 	style={{ // 	}} // 		longitudeDelta: 0.00221, // 		latitudeDelta: 0.0000922, // 		longitude: location.coords.longitude, // 		latitude: location.coords.latitude, // 	region={{ // <MapView
+				// 	/>
+				// </MapView>
+				null : (
+					<Layout style={{ alignItems: 'center' }}>
+						<Spinner />
+						<Text>Loading Your Map Data</Text>
+					</Layout>
+				)}
+				{location !== null ? AddressForm : null}
 
-			<Layout style={{ flexDirection: 'row' }}>
-				<CheckBox
-					status={'primary'}
-					checked={checked}
-					onChange={(nextChecked) => setChecked(nextChecked)}
-				/>
-				<Text category={'c1'} style={{ padding: 10 }}>
-					Above information would be stored and processed for providing better
-					user experience
-				</Text>
-			</Layout>
-			{AddressActionButtons}
-			{loading ? (
-				<>
-					<Text style={{ textAlign: 'center' }}>updating...</Text>
-				</>
-			) : null}
+				<Layout style={{ flexDirection: 'row' }}>
+					<CheckBox
+						status={'primary'}
+						checked={checked}
+						onChange={(nextChecked) => setChecked(nextChecked)}
+					/>
+					<Text category={'c1'} style={{ padding: 10 }}>
+						Above information would be stored and processed for providing better
+						user experience
+					</Text>
+				</Layout>
+				{AddressActionButtons}
+				{loading ? (
+					<>
+						<Text style={{ textAlign: 'center' }}>updating...</Text>
+					</>
+				) : null}
+			</KeyboardAvoidingView>
 		</ScrollView>
 	);
 }

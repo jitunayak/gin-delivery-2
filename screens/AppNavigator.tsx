@@ -45,7 +45,7 @@ const TabNavigator = ({ navigation }) => (
 			headerShown: false,
 			headerTitleStyle: { color: COLORS.ACCENT, fontSize: 20 },
 			tabBarStyle: {
-				height: Platform.OS === 'ios' ? 90 : 100,
+				height: Platform.OS === 'ios' ? 90 : 60,
 			},
 			tabBarLabel: ({ focused, color }) => {
 				return (
@@ -53,7 +53,7 @@ const TabNavigator = ({ navigation }) => (
 						category={'c1'}
 						style={{
 							color: focused ? COLORS.ACCENT : COLORS.GREY,
-							marginTop: -10,
+							marginBottom: 6,
 						}}
 					>
 						{route.name.toUpperCase()}
@@ -75,7 +75,7 @@ const TabNavigator = ({ navigation }) => (
 				return (
 					<Ionicons
 						name={iconName}
-						size={26}
+						size={24}
 						color={focused ? COLORS.ACCENT : COLORS.GREY}
 					/>
 				);

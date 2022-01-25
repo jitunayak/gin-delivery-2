@@ -128,7 +128,12 @@ export default function PhonePeModal({ amount, navigation }) {
 				accessoryLeft={() => {
 					return loading ? <Spinner size="small" status={'success'} /> : null;
 				}}
-				style={{ backgroundColor: 'black', borderColor: 'black', flex: 1 }}
+				style={{
+					backgroundColor: 'black',
+					borderColor: 'black',
+					flex: 1,
+					elevation: 6,
+				}}
 				size={'medium'}
 				onPress={makeAPayment}
 				disabled={loading}

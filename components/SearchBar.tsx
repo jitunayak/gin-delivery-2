@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Input, Layout } from '@ui-kitten/components';
+import { TextInput } from 'react-native';
 
-export default function SearchBar() {
+export default function SearchBar({ searchText, setSearchText }) {
 	return (
 		<Layout
 			style={{
@@ -13,12 +14,17 @@ export default function SearchBar() {
 					flexDirection: 'row',
 				}}
 			>
-				<Input placeholder="Search" style={{ flex: 5 }} />
+				<TextInput
+					placeholder="Search"
+					style={{ flex: 5 }}
+					onChange={(e) => setSearchText(e)}
+					value={searchText}
+				/>
 				<Button appearance={'ghost'} style={{ flex: 1, marginLeft: 10 }}>
 					Search
 				</Button>
 			</Layout>
-			<Layout
+			{/* <Layout
 				style={{ flexWrap: 'wrap', flexDirection: 'row', marginVertical: 10 }}
 			>
 				<Button
@@ -45,7 +51,7 @@ export default function SearchBar() {
 				>
 					Discount
 				</Button>
-			</Layout>
+			</Layout> */}
 		</Layout>
 	);
 }

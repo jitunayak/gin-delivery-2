@@ -13,7 +13,7 @@ export default function MultiSelectTab() {
 				flexDirection: 'row',
 				padding: 4,
 				borderRadius: 10,
-				margin: 10,
+				marginHorizontal: 40,
 			}}
 		>
 			{tabs.map((tab, index) => {

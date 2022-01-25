@@ -1,7 +1,6 @@
 import { Button, Layout, Text } from '@ui-kitten/components';
 import React, { createRef, useRef, useState } from 'react';
-import { Alert, Dimensions, StyleSheet, Image } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Alert, Dimensions, StyleSheet, Image, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CartItems from '../components/CartItems';
@@ -41,12 +40,9 @@ export default function CartScreen({ navigation }) {
 				style={{
 					padding: 10,
 					position: 'absolute',
-					bottom: 5,
-					width: Dimensions.get('window').width,
-					shadowRadius: 10,
-					shadowColor: '#000',
-					shadowOffset: { width: 0, height: -10 },
-					shadowOpacity: 0.1,
+					bottom: 1,
+					width: '100%',
+					elevation: 10,
 				}}
 			>
 				<Layout

@@ -2,8 +2,7 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import { Layout, Text } from '@ui-kitten/components';
 import Constants from 'expo-constants';
 import React, { useEffect, useState, createRef } from 'react';
-import { StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Touchable, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Categories from '../components/Categories';
@@ -13,6 +12,7 @@ import { COLORS, SYMBOLS } from '../utilities/Constants';
 import ActionSheet from 'react-native-actions-sheet';
 import SelectAddress from '../components/SelectAddress';
 import { AntDesign } from '@expo/vector-icons';
+import { TouchableWithoutFeedback } from '@ui-kitten/components/devsupport';
 
 export default function HomeScreen({ navigation }) {
 	const actionSheetRef = createRef();
@@ -88,7 +88,7 @@ export default function HomeScreen({ navigation }) {
 	const [totalCost, setTotalCost] = useState(0);
 	const [totalItemsInCart, setTotalItemsInCart] = useState(0);
 
-	//const { items } = useSelector((state) => state.cartReducer.selectedItems);
+	const { items } = useSelector((state) => state.cartReducer.selectedItems);
 	const [products, setProducts] = useState<Product[]>(fetchedProducts);
 
 	const dispatch = useDispatch();
@@ -107,7 +107,7 @@ export default function HomeScreen({ navigation }) {
 	}, [isCartEmpty]);
 
 	useEffect(() => {
-		const copyOfProducts = [...products];
+		const copyOfProducts = [...items];
 		const totalInCart = copyOfProducts.reduce((sum, curr) => {
 			sum += curr.quantity;
 			return sum;
@@ -120,11 +120,11 @@ export default function HomeScreen({ navigation }) {
 		setTotalCost(totalCost);
 		setTotalItemsInCart(totalInCart);
 		return () => {};
-	}, [products]);
+	}, [items, ...items.map((item) => item.quantity)]);
 
 	const CartButton = () => {
 		return (
-			<TouchableOpacity
+			<TouchableWithoutFeedback
 				style={styles.cartButtonContainer}
 				onPress={() => navigation.navigate('Order')}
 			>
@@ -179,7 +179,7 @@ export default function HomeScreen({ navigation }) {
 					</Text>
 					<SimpleLineIcons name="handbag" size={20} color="white" />
 				</Layout>
-			</TouchableOpacity>
+			</TouchableWithoutFeedback>
 		);
 	};
 
@@ -188,10 +188,14 @@ export default function HomeScreen({ navigation }) {
 			style={{
 				flexDirection: 'row',
 				justifyContent: 'space-between',
-				marginHorizontal: 10,
+				paddingHorizontal: 10,
 			}}
 		>
-			<Layout style={{ flexDirection: 'column' }}>
+			<Layout
+				style={{
+					flexDirection: 'column',
+				}}
+			>
 				<Text category={'h2'} style={{ color: COLORS.ACCENT }}>
 					{SYMBOLS.APP_NAME}
 				</Text>
@@ -256,7 +260,8 @@ export default function HomeScreen({ navigation }) {
 					</Layout>
 				</ActionSheet> */}
 
-				{totalItemsInCart > 0 ? <CartButton /> : null}
+				{totalItemsInCart > 0 || !isCartEmpty ? <CartButton /> : null}
+				{/* {!isCartEmpty ? <CartButton /> : null} */}
 			</Layout>
 		</>
 	);
@@ -264,7 +269,7 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
 	container: {
-		padding: 2,
+		paddingHorizontal: 2,
 		paddingTop: Constants.statusBarHeight || 50,
 		paddingBottom: 0,
 		flex: 1,
@@ -284,9 +289,10 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 16,
 		paddingVertical: 14,
 		alignItems: 'center',
-		// shadowRadius: 10,
-		// shadowColor: '#000',
-		// shadowOffset: { width: 0, height: 10 },
-		// shadowOpacity: 0.3,
+		elevation: 6,
+		shadowRadius: 10,
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 10 },
+		shadowOpacity: 0.3,
 	},
 });

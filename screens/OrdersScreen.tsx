@@ -1,8 +1,13 @@
 import { Button, Layout, Spinner, Text } from '@ui-kitten/components';
 import Constants from 'expo-constants';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, RefreshControl, StyleSheet, Image } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import {
+	Dimensions,
+	RefreshControl,
+	StyleSheet,
+	Image,
+	ScrollView,
+} from 'react-native';
 import MultiSelectTab from '../components/MultiSelectTab';
 
 import { API, COLORS, SYMBOLS } from '../utilities/Constants';

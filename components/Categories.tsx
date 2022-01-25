@@ -46,12 +46,13 @@ const Categories = ({ setSelectedCategory }) => {
 				alignItems: 'center',
 				backgroundColor:
 					currentCategory === category.id ? COLORS.ACCENT_LIGHT : '',
-				height: Dimensions.get('window').width / 5,
-				width: Dimensions.get('window').width / 5,
-				marginVertical: 6,
-				marginHorizontal: 4,
+				width: '100%',
+				marginVertical: 10,
+				marginHorizontal: 0,
 				borderRadius: 4,
 				justifyContent: 'center',
+				padding: 6,
+				elevation: currentCategory === category.id ? 6 : 0,
 			}}
 		>
 			<Image
@@ -59,9 +60,8 @@ const Categories = ({ setSelectedCategory }) => {
 				style={{ width: 40, height: 40 }}
 			/>
 			<Text
-				category="c1"
+				category="c2"
 				style={{
-					fontSize: 14,
 					color: currentCategory === category.id ? 'black' : 'black',
 				}}
 			>
