@@ -132,8 +132,8 @@ export default function CartScreen({ navigation }) {
 							uri: 'https://image.freepik.com/free-vector/empty-concept-illustration_114360-1253.jpg',
 						}}
 						style={{
-							width: 300,
-							height: 400,
+							width: 250,
+							height: 250,
 						}}
 					/>
 				</Layout>

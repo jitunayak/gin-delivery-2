@@ -36,7 +36,7 @@ export default function TimSchedule({
 		>
 			<Text
 				category={'h6'}
-				style={{ marginVertical: 10, textAlign: 'left', marginBottom: 10 }}
+				style={{ margin: 10, textAlign: 'left', marginBottom: 10 }}
 			>
 				Schedule Delivery Time
 			</Text>

@@ -95,7 +95,7 @@ export default function SelectAddress({ navigation }) {
 
 									borderRadius: 4,
 									// borderColor: COLORS.LIGHT_BLUE,
-									borderWidth: 2,
+									borderWidth: 1.5,
 									width: '100%',
 								}}
 							>
