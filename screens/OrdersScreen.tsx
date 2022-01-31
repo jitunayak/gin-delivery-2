@@ -25,7 +25,7 @@ export default function OrdersScreen({ navigation }) {
 	const fetchRecentOrders = async () => {
 		try {
 			const orders = await fetch(
-				`${API.BASE_URL}/order/customer/61ccb12a2c4515c1b403363c`,
+				`${API.BASE_URL}/order/customer/${API.USER_ID}`,
 				{
 					method: 'GET',
 					headers: {
@@ -35,6 +35,7 @@ export default function OrdersScreen({ navigation }) {
 				}
 			);
 			const jsonOrders = await orders.json();
+			console.log(jsonOrders);
 			setOrders(jsonOrders.reverse());
 			setRefreshing(false);
 		} catch (err) {

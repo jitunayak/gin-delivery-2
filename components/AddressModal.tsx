@@ -76,18 +76,15 @@ export default function AddressModal({ route, navigation }) {
 
 	async function updateUserAddressesOnServer(finalAddress) {
 		try {
-			const result = await fetch(
-				`${API.BASE_URL}/users/61d35108715a7baea58859ca`,
-				{
-					method: 'PUT',
-					body: JSON.stringify(finalAddress),
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: API.JWT_TOKEN,
-						'api-key': API.API_KEY,
-					},
-				}
-			);
+			const result = await fetch(`${API.BASE_URL}/users/${API.USER_ID}`, {
+				method: 'PUT',
+				body: JSON.stringify(finalAddress),
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: API.JWT_TOKEN,
+					'api-key': API.API_KEY,
+				},
+			});
 			return result;
 		} catch (er) {
 			alert("Can't update, temporary Issue with Server");
@@ -242,10 +239,7 @@ export default function AddressModal({ route, navigation }) {
 					backgroundColor: COLORS.WHITE,
 				}}
 			>
-				{location !== null ? // 		description={'Confirm your location'} // 		title={'Your Location'} // 		coordinate={location.coords} // 		key={1} // 	<Marker // > // 	}} // 		margin: 10, // 		right: 10, // 		height: 200, // 		width: Dimensions.get('screen').width - 40, // 	style={{ // 	}} // 		longitudeDelta: 0.00221, // 		latitudeDelta: 0.0000922, // 		longitude: location.coords.longitude, // 		latitude: location.coords.latitude, // 	region={{ // <MapView
-				// 	/>
-				// </MapView>
-				null : (
+				{location !== null ? null : ( // </MapView> // 	/> // 		description={'Confirm your location'} // 		title={'Your Location'} // 		coordinate={location.coords} // 		key={1} // 	<Marker // > // 	}} // 		margin: 10, // 		right: 10, // 		height: 200, // 		width: Dimensions.get('screen').width - 40, // 	style={{ // 	}} // 		longitudeDelta: 0.00221, // 		latitudeDelta: 0.0000922, // 		longitude: location.coords.longitude, // 		latitude: location.coords.latitude, // 	region={{ // <MapView
 					<Layout style={{ alignItems: 'center' }}>
 						<Spinner />
 						<Text>Loading Your Map Data</Text>

@@ -12,6 +12,7 @@ export default function PhonePeModal({ amount, navigation }) {
 	const { items } = useSelector((state) => state.cartReducer.selectedItems);
 	const [loading, setLoading] = useState(false);
 	const [email, setEmail] = useState('jitunayak715@gmail.com');
+
 	const {
 		selectedAddress: { address },
 		sheduledDeliveryTime,
@@ -34,7 +35,7 @@ export default function PhonePeModal({ amount, navigation }) {
 					authorization: API.JWT_TOKEN,
 				},
 				body: JSON.stringify({
-					user: '61ccb12a2c4515c1b403363c',
+					user: API.USER_ID,
 					cart: {
 						totalQty: mappedCartItems.length,
 						totalCost: amount,

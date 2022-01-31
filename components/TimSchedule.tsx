@@ -24,7 +24,7 @@ export default function TimSchedule({
 	];
 
 	const checkAvailability = (time) => {
-		return currenttime.getHours() - 10 < time ? true : false;
+		return currenttime.getHours() - 2 < time ? true : false;
 	};
 
 	return (

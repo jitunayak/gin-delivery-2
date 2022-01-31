@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { API, COLORS } from '../utilities/Constants';
+import { API, COLORS, loadConstacts } from '../utilities/Constants';
 
 export default function SelectAddress({ navigation }) {
 	const [address, setAddress] = useState([]);
@@ -16,6 +16,9 @@ export default function SelectAddress({ navigation }) {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		async () => {
+			await loadConstacts();
+		};
 		const unsubscribe = navigation.addListener('focus', () => {
 			updateAddress();
 		});
@@ -37,7 +40,9 @@ export default function SelectAddress({ navigation }) {
 	const updateAddress = async () => {
 		fetchAddress().then((res) => {
 			res.json().then((data) => {
-				setAddress(data.address);
+				console.log(data.address);
+				(data.address !== undefined && data.address.length) > 0 &&
+					setAddress(data.address);
 				//console.log(data.address);
 				setRefreshing(false);
 			});
@@ -72,6 +77,7 @@ export default function SelectAddress({ navigation }) {
 					</Text>
 				)}
 				{!refreshing &&
+					address.length > 0 &&
 					address.map((item, index) => {
 						//console.log(item, index);
 						return (

@@ -24,6 +24,8 @@ import {
 	IAppearanceOptions, // optional
 } from 'react-native-animated-nav-tab-bar';
 import SearchScreen from './SearchScreen';
+import LoginScreen from './LoginScreen';
+import SignUpScreen from './SignUpScreen';
 
 /* This provides native OS specific navigation. */
 const Stack = createNativeStackNavigator();
@@ -83,16 +85,30 @@ const TabNavigator = ({ navigation }) => (
 		})}
 	>
 		<Tab.Screen name="Home" component={HomeScreen} />
-		<Tab.Screen name="Search" component={SearchScreen} />
+		{/* <Tab.Screen name="Search" component={SearchScreen} /> */}
 		<Tab.Screen name="Orders" component={OrdersScreen} />
-		<Tab.Screen name="Subscription" component={SubscriptionScreen} />
+		{/* <Tab.Screen name="Subscription" component={SubscriptionScreen} /> */}
 	</Tab.Navigator>
 );
 
 export default function AppNavigator() {
 	return (
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName="HomeScreen">
+			<Stack.Navigator initialRouteName="LoginScreen">
+				<Stack.Screen
+					name="LoginScreen"
+					component={LoginScreen}
+					options={{
+						headerShown: false,
+					}}
+				/>
+				<Stack.Screen
+					name="SignUpScreen"
+					component={SignUpScreen}
+					options={{
+						headerShown: false,
+					}}
+				/>
 				<Stack.Screen
 					name="HomeScreen"
 					component={TabNavigator}

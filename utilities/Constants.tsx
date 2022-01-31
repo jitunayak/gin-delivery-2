@@ -1,19 +1,32 @@
 import Constants from 'expo-constants';
+import { getAsyncStorageData } from './LocalStorage';
+
+export let API = {
+	BASE_URL: 'https://stripe-gin.herokuapp.com/api',
+	API_KEY: 'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+	//BASE_URL: 'https://stripe-gamma.vercel.app/api',
+	// JWT_TOKEN:
+	// 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDM1MTA4NzE1YTdiYWVhNTg4NTljYSIsImlhdCI6MTY0MjI0Njg2N30.0RYaqcoXK9Z0UpvgJKKAZr49nj58pZompLI70aOPALs',
+	// USER_ID: '61d35108715a7baea58859ca',
+
+	USER_ID: '',
+	JWT_TOKEN: '',
+};
+
+export async function loadConstacts() {
+	console.log('loadConstacts');
+	const result = await getAsyncStorageData('USER');
+	const { id, token } = JSON.parse(result);
+	API.USER_ID = id;
+	API.JWT_TOKEN = token;
+	console.log('API', { API });
+}
 
 export const SYMBOLS = {
 	INR: '₹',
 	APP_NAME: 'Ginmart',
 	POWERED_BY_GIN: 'POWERED BY GIN',
 	STATUSBAR_HERIGHT: Constants.statusBarHeight,
-};
-
-export const API = {
-	BASE_URL: 'https://stripe-gin.herokuapp.com/api',
-	//BASE_URL: 'https://stripe-gamma.vercel.app/api',
-	JWT_TOKEN:
-		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDM1MTA4NzE1YTdiYWVhNTg4NTljYSIsImlhdCI6MTY0MjI0Njg2N30.0RYaqcoXK9Z0UpvgJKKAZr49nj58pZompLI70aOPALs',
-	API_KEY: 'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
-	USER_ID: '61d35108715a7baea58859ca',
 };
 
 export const COLORS = {
