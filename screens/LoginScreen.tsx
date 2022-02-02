@@ -44,11 +44,13 @@ export default function LoginScreen() {
 				const result = await getAsyncStorageData('USER');
 				const { id, token } = JSON.parse(result);
 
-				if (id !== null && token !== null) {
+				if (!!id && !!token) {
 					console.log('user already logged in');
-					navigation.reset({
-						index: 0,
-						routes: [{ name: 'HomeScreen' }],
+					loadConstacts().then(() => {
+						navigation.reset({
+							index: 0,
+							routes: [{ name: 'HomeScreen' }],
+						});
 					});
 				}
 			} catch (e) {
